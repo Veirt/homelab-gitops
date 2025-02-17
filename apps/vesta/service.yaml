@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: vesta-service
+spec:
+  selector:
+    app: vesta
+  ports:
+    - protocol: TCP
+      port: 8450
+      targetPort: 3000
+  type: LoadBalancer
