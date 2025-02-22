@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: anidown
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: anidown
+  template:
+    metadata:
+      labels:
+        app: anidown
+    spec:
+      containers:
+        - name: anidown
+          image: ghcr.io/veirt/anidown:latest
+          ports:
+            - containerPort: 8452
