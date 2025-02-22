@@ -1,0 +1,46 @@
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: cloudflare-secrets
+  namespace: cert-manager
+spec:
+  refreshInterval: 1h
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: vault-backend
+  target:
+    name: cloudflare-api-secret
+    creationPolicy: Owner
+  data:
+  - secretKey: email
+    remoteRef:
+      key: secret/cloudflare
+      property: email
+  - secretKey: api-key
+    remoteRef:
+      key: secret/cloudflare
+      property: api-key
+
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: cloudflare-issuer
+spec:
+  acme:
+    email: "{{ .Values.email }}" 
+    server: https://acme-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: cloudflare-issuer-key
+    solvers:
+    - dns01:
+        cloudflare:
+          email: 
+            valueFrom:
+              secretKeyRef:
+                name: cloudflare-api-secret
+                key: email
+          apiTokenSecretRef:
+            name: cloudflare-api-secret
+            key: api-key
