@@ -29,18 +29,13 @@ metadata:
   name: cloudflare-issuer
 spec:
   acme:
-    email: "{{ .Values.email }}" 
+    email: "veirt@duck.com"
     server: https://acme-v02.api.letsencrypt.org/directory
     privateKeySecretRef:
       name: cloudflare-issuer-key
     solvers:
     - dns01:
         cloudflare:
-          email: 
-            valueFrom:
-              secretKeyRef:
-                name: cloudflare-api-secret
-                key: email
           apiTokenSecretRef:
             name: cloudflare-api-secret
             key: api-key
