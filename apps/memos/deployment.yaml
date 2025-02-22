@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: memos
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: memos
+  template:
+    metadata:
+      labels:
+        app: memos
+    spec:
+      containers:
+        - name: memos
+          image: neosmemo/memos:0.24.0
+          ports:
+            - containerPort: 5230
+          volumeMounts:
+            - name: data-volume
+              mountPath: /var/opt/memos
+              subPath: memos
+      volumes:
+        - name: data-volume
+          persistentVolumeClaim:
+            claimName: nfs-pvc

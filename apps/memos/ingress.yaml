@@ -1,0 +1,24 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: memos-ingress
+  annotations:
+    traefik.ingress.k8s.io/router.entrypoints: websecure
+    cert-manager.io/cluster-issuer: cloudflare-issuer
+spec:
+  rules:
+    - host: memo.veirt.web.id
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: memos-service
+                port:
+                  number: 8450
+  tls:
+    - hosts:
+        - memo.veirt.web.id
+      secretName: memos-tls
