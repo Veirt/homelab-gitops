@@ -17,7 +17,7 @@ spec:
               service:
                 name: memos-service
                 port:
-                  number: 8450
+                  number: 5230
   tls:
     - hosts:
         - memo.veirt.web.id
