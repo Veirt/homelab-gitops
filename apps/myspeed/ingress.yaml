@@ -17,7 +17,7 @@ spec:
               service:
                 name: myspeed-service
                 port:
-                  number: 5230
+                  number: 5216
   tls:
     - hosts:
         - myspeed.veirt.web.id
