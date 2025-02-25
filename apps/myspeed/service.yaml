@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: myspeed-service
+spec:
+  selector:
+    app: myspeed
+  ports:
+    - protocol: TCP
+      port: 5216
+      targetPort: 5216
+  type: LoadBalancer

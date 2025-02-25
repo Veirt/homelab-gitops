@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myspeed
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myspeed
+  template:
+    metadata:
+      labels:
+        app: myspeed
+    spec:
+      containers:
+        - name: myspeed
+          image: germannewsmaker/myspeed:1.0.9
+          ports:
+            - containerPort: 5216
+          volumeMounts:
+            - name: data-volume
+              mountPath: /myspeed/data
+              subPath: myspeed
+      volumes:
+        - name: data-volume
+          persistentVolumeClaim:
+            claimName: nfs-pvc
