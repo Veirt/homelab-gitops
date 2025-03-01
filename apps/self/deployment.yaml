@@ -19,7 +19,7 @@ spec:
           image: ghcr.io/veirt/selfbot:latest
           volumeMounts:
             - name: config-volume
-              mountPath: /config
+              mountPath: /app/config
               subPath: selfbot
             - name: timezone
               mountPath: /etc/localtime
