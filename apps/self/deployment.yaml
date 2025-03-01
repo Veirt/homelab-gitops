@@ -12,6 +12,8 @@ spec:
       labels:
         app: self
     spec:
+      imagePullSecrets:
+        - name: registry-credentials
       containers:
         - name: self
           image: ghcr.io/veirt/selfbot:latest
