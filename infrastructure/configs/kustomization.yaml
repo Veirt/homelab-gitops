@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - external-secrets
   - cluster-issuers.yaml
+  - registry-secrets.yaml
