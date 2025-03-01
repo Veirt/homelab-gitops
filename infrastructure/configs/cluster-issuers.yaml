@@ -13,15 +13,14 @@ spec:
     name: cloudflare-api-secret
     creationPolicy: Owner
   data:
-  - secretKey: email
-    remoteRef:
-      key: secret/cloudflare
-      property: email
-  - secretKey: api-key
-    remoteRef:
-      key: secret/cloudflare
-      property: api-key
-
+    - secretKey: email
+      remoteRef:
+        key: secret/cloudflare
+        property: email
+    - secretKey: api-key
+      remoteRef:
+        key: secret/cloudflare
+        property: api-key
 ---
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
@@ -34,8 +33,8 @@ spec:
     privateKeySecretRef:
       name: cloudflare-issuer-key
     solvers:
-    - dns01:
-        cloudflare:
-          apiTokenSecretRef:
-            name: cloudflare-api-secret
-            key: api-key
+      - dns01:
+          cloudflare:
+            apiTokenSecretRef:
+              name: cloudflare-api-secret
+              key: api-key
