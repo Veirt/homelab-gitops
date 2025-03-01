@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: self
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: self
+  template:
+    metadata:
+      labels:
+        app: self
+    spec:
+      containers:
+        - name: self
+          image: ghcr.io/veirt/selfbot:latest
+          volumeMounts:
+            - name: config-volume
+              mountPath: /config
+              subPath: selfbot
+            - name: timezone
+              mountPath: /etc/localtime
+              readOnly: true
+      volumes:
+        - name: config-volume
+          persistentVolumeClaim:
+            claimName: nfs-pvc
+        - name: timezone
+          hostPath:
+            path: /etc/localtime
+            type: File
