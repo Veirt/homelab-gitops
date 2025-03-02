@@ -1,0 +1,24 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: gotify-ingress
+  annotations:
+    traefik.ingress.k8s.io/router.entrypoints: websecure
+    cert-manager.io/cluster-issuer: cloudflare-issuer
+spec:
+  rules:
+    - host: gotify.veirt.web.id
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: gotify-service
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - gotify.veirt.web.id
+      secretName: gotify-tls
