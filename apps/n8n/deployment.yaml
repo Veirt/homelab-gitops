@@ -1,0 +1,33 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: n8n
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: n8n
+  template:
+    metadata:
+      labels:
+        app: n8n
+    spec:
+      containers:
+        - name: n8n
+          image: n8nio/n8n:1.81.2
+          env:
+            - name: GENERIC_TIMEZONE
+              value: "Asia/Makassar"
+            - name: TZ
+              value: "Asia/Makassar"
+          ports:
+            - containerPort: 5678
+          volumeMounts:
+            - name: data-volume
+              mountPath: /home/node/.n8n
+              subPath: n8n
+      volumes:
+        - name: data-volume
+          persistentVolumeClaim:
+            claimName: nfs-pvc

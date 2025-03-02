@@ -1,0 +1,24 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: n8n-ingress
+  annotations:
+    traefik.ingress.k8s.io/router.entrypoints: websecure
+    cert-manager.io/cluster-issuer: cloudflare-issuer
+spec:
+  rules:
+    - host: n8n.veirt.web.id
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: n8n-service
+                port:
+                  number: 5678
+  tls:
+    - hosts:
+        - n8n.veirt.web.id
+      secretName: n8n-tls
