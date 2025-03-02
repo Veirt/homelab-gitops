@@ -10,3 +10,4 @@ resources:
   - searxng
   - gotify
   - n8n
+  - wakapi
