@@ -11,3 +11,4 @@ resources:
   - gotify
   - n8n
   - wakapi
+  - sia-helpers

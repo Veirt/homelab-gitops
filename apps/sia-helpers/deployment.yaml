@@ -1,0 +1,65 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sia-helpers
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sia-helpers
+  template:
+    metadata:
+      labels:
+        app: sia-helpers
+    spec:
+      containers:
+        - name: sia-helpers
+          image: ghcr.io/veirt/sia-helpers:latest
+          env:
+            - name: TZ
+              value: "Asia/Makassar"
+            - name: CURRENT_SEMESTER
+              value: "2024/2025 Ganjil"
+            - name: KRS_CHECK_INTERVAL
+              value: "@every 96h00m00s"
+            - name: KHS_CHECK_INTERVAL
+              value: "@every 96h00m00s"
+              # Secrets
+            - name: NIM
+              valueFrom:
+                secretKeyRef:
+                  name: sia-helpers-secrets
+                  key: nim
+            - name: PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: sia-helpers-secrets
+                  key: password
+            - name: DISCORD_WEBHOOK_URL
+              valueFrom:
+                secretKeyRef:
+                  name: sia-helpers-secrets
+                  key: discord_webhook_url
+            - name: WHATSAPP_WEBHOOK_URL
+              valueFrom:
+                secretKeyRef:
+                  name: sia-helpers-secrets
+                  key: whatsapp_webhook_url
+          ports:
+            - containerPort: 33125
+          volumeMounts:
+            - name: data-volume
+              mountPath: /app/data
+              subPath: sia-helpers
+            - name: timezone
+              mountPath: /etc/localtime
+              readOnly: true
+      volumes:
+        - name: data-volume
+          persistentVolumeClaim:
+            claimName: nfs-pvc
+        - name: timezone
+          hostPath:
+            path: /etc/localtime
+            type: File
