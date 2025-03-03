@@ -12,3 +12,4 @@ resources:
   - n8n
   - wakapi
   - sia-helpers
+  - vaultwarden
