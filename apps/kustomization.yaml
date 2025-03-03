@@ -15,3 +15,4 @@ resources:
   - vaultwarden
   - prowlarr
   - sonarr
+  - qbittorrent
