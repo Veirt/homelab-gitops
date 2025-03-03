@@ -16,3 +16,4 @@ resources:
   - prowlarr
   - sonarr
   - qbittorrent
+  - shokoserver

@@ -1,0 +1,13 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: shokoserver-service
+spec:
+  selector:
+    app: shokoserver
+  ports:
+    - protocol: TCP
+      port: 8111
+      targetPort: 8111
+  type: ClusterIP
