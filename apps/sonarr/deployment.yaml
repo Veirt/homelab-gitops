@@ -1,0 +1,44 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sonarr
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sonarr
+  template:
+    metadata:
+      labels:
+        app: sonarr
+    spec:
+      containers:
+        - name: sonarr
+          image: linuxserver/sonarr@sha256:4dfedb2598dc6bd51c40f4ecea2631dbe367840678ab109cd968f821d81a5327
+          env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: TZ
+              value: "Asia/Makassar"
+          ports:
+            - containerPort: 8989
+          volumeMounts:
+            - name: config-volume
+              mountPath: /config
+              subPath: sonarr
+            - name: media-volume
+              mountPath: /media/sonarr
+              subPath: media/sonarr
+            - name: media-volume
+              mountPath: /downloads/sonarr
+              subPath: public/downloads/sonarr
+      volumes:
+        - name: config-volume
+          persistentVolumeClaim:
+            claimName: nfs-pvc
+        - name: media-volume
+          persistentVolumeClaim:
+            claimName: media-pvc
