@@ -13,3 +13,4 @@ resources:
   - wakapi
   - sia-helpers
   - vaultwarden
+  - prowlarr
