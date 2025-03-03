@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: vaultwarden
-          image: vaultwarden/server@sha256:63cce7624f655f83ad5bab66ef62bc3e3327116b068704bfbbda5d0c1b3003be
+          image: vaultwarden/server@sha256:87edb99945da91bd7504ac1435495595af2e89ad2c7adc151ae5bf091ec8baf2
           ports:
             - containerPort: 80
           volumeMounts:
