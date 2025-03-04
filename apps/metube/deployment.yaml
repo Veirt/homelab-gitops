@@ -1,0 +1,28 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: metube
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: metube
+  template:
+    metadata:
+      labels:
+        app: metube
+    spec:
+      containers:
+        - name: metube
+          image: ghcr.io/alexta69/metube:2025-02-20
+          ports:
+            - containerPort: 8081
+          volumeMounts:
+            - name: download-volume
+              mountPath: /downloads
+              subPath: public/downloads/metube
+      volumes:
+        - name: download-volume
+          persistentVolumeClaim:
+            claimName: media-pvc
