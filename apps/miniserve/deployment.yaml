@@ -1,0 +1,29 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: miniserve
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: miniserve
+  template:
+    metadata:
+      labels:
+        app: miniserve
+    spec:
+      containers:
+        - name: miniserve
+          image: docker.io/svenstaro/miniserve:0.29.0-alpine
+          args: ["/public"]
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: public-volume
+              mountPath: /public
+              subPath: public
+      volumes:
+        - name: public-volume
+          persistentVolumeClaim:
+            claimName: media-pvc

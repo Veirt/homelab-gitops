@@ -20,3 +20,4 @@ resources:
   - jellyfin
   - metube
   - syncthing
+  - miniserve
