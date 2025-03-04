@@ -7,3 +7,5 @@ resources:
   - nfs-pvc.yaml
   - media-pv.yaml
   - media-pvc.yaml
+  - backup-pv.yaml
+  - backup-pvc.yaml
