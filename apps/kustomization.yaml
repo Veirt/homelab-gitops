@@ -19,3 +19,4 @@ resources:
   - shokoserver
   - jellyfin
   - metube
+  - syncthing

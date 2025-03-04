@@ -1,0 +1,58 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: syncthing
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: syncthing
+  template:
+    metadata:
+      labels:
+        app: syncthing
+    spec:
+      hostNetwork: true
+      containers:
+        - name: syncthing
+          image: lscr.io/linuxserver/syncthing:1.29.2
+          env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: TZ
+              value: "Asia/Makassar"
+          ports:
+            - containerPort: 8384
+              hostPort: 8384
+            - containerPort: 22000
+              hostPort: 22000
+              protocol: TCP
+            - containerPort: 22000
+              hostPort: 22000
+              protocol: UDP
+            - containerPort: 21027
+              hostPort: 21027
+              protocol: UDP
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - name: config-volume
+              mountPath: /config
+              subPath: syncthing
+            - name: storage-volume
+              mountPath: /mnt/storage
+            - name: backup-volume
+              mountPath: /mnt/sata-ssd
+      volumes:
+        - name: config-volume
+          persistentVolumeClaim:
+            claimName: nfs-pvc
+        - name: storage-volume
+          persistentVolumeClaim:
+            claimName: media-pvc
+        - name: backup-volume
+          persistentVolumeClaim:
+            claimName: backup-pvc

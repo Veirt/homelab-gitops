@@ -1,0 +1,24 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: syncthing-ingress
+  annotations:
+    traefik.ingress.k8s.io/router.entrypoints: websecure
+    cert-manager.io/cluster-issuer: cloudflare-issuer
+spec:
+  rules:
+    - host: syncthing.veirt.web.id
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: syncthing-service
+                port:
+                  number: 8384
+  tls:
+    - hosts:
+        - syncthing.veirt.web.id
+      secretName: syncthing-tls
