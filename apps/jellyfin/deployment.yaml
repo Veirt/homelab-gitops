@@ -1,0 +1,47 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jellyfin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jellyfin
+  template:
+    metadata:
+      labels:
+        app: jellyfin
+    spec:
+      containers:
+        - name: jellyfin
+          image: lscr.io/linuxserver/jellyfin:10.10.6
+          env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: TZ
+              value: "Asia/Makassar"
+          ports:
+            - containerPort: 8096
+          volumeMounts:
+            - name: jellyfin-volume
+              mountPath: /config
+              subPath: jellyfin/config
+            - name: jellyfin-volume
+              mountPath: /cache
+              subPath: jellyfin/cache
+            - name: media-volume
+              mountPath: /media/anime
+              subPath: media/anime
+            - name: media-volume
+              mountPath: /media/sonarr
+              subPath: media/sonarr
+      volumes:
+        - name: jellyfin-volume
+          persistentVolumeClaim:
+            claimName: nfs-pvc
+        - name: media-volume
+          persistentVolumeClaim:
+            claimName: media-pvc
