@@ -2,7 +2,7 @@
 apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
-  name: discord-webhook
+  name: discord-webhook-secrets
   namespace: default
 spec:
   refreshInterval: 1h
@@ -10,7 +10,7 @@ spec:
     name: vault-backend
     kind: ClusterSecretStore
   target:
-    name: discord-webhook
+    name: discord-webhook-secrets
     creationPolicy: Owner
   data:
     - secretKey: address
@@ -26,4 +26,19 @@ metadata:
 spec:
   type: discord
   secretRef:
-    name: discord-webhook
+    name: discord-webhook-secrets
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta3
+kind: Alert
+metadata:
+  name: notification-alert
+  namespace: default
+spec:
+  providerRef:
+    name: discord
+  eventSeverity: error
+  eventSources:
+    - kind: GitRepository
+      name: '*'
+    - kind: Kustomization
+      name: '*'
