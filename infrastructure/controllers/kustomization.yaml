@@ -5,3 +5,4 @@ resources:
   - cert-manager.yaml
   - sealed-secrets.yaml
   - external-secrets.yaml
+  - notification.yaml

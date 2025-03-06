@@ -1,0 +1,29 @@
+---
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: discord-webhook
+  namespace: default
+spec:
+  refreshInterval: 1h
+  secretStoreRef:
+    name: vault-backend
+    kind: ClusterSecretStore
+  target:
+    name: discord-webhook
+    creationPolicy: Owner
+  data:
+    - secretKey: address
+      remoteRef:
+        key: secret/notification_controller
+        property: discord_webhook
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta3
+kind: Provider
+metadata:
+  name: discord
+  namespace: default
+spec:
+  type: discord
+  secretRef:
+    name: discord-webhook
