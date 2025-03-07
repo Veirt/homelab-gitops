@@ -26,8 +26,10 @@ spec:
             - name: PAPERLESS_TIME_ZONE
               value: "Asia/Makassar"
             - name: PAPERLESS_REDIS
-              value: "redis://broker:6379"
+              value: "redis://localhost:6379"
             - name: PAPERLESS_OCR_LANGUAGE
+              value: "ind"
+            - name: PAPERLESS_OCR_LANGUAGES
               value: "ind"
           ports:
             - containerPort: 8000
