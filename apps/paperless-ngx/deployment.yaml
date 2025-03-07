@@ -1,0 +1,50 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: paperless-ngx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: paperless-ngx
+  template:
+    metadata:
+      labels:
+        app: paperless-ngx
+    spec:
+      containers:
+        - name: broker
+          image: docker.io/library/redis:7
+          volumeMounts:
+            - name: data-volume
+              mountPath: /data
+              subPath: paperless-ngx/redis
+        - name: paperless-ngx
+          image: ghcr.io/paperless-ngx/paperless-ngx:2.14.7
+          env:
+            - name: PAPERLESS_TIME_ZONE
+              value: "Asia/Makassar"
+            - name: PAPERLESS_REDIS
+              value: "redis://broker:6379"
+            - name: PAPERLESS_OCR_LANGUAGE
+              value: "ind"
+          ports:
+            - containerPort: 8000
+          volumeMounts:
+            - name: data-volume
+              mountPath: /usr/src/paperless/data
+              subPath: paperless-ngx/data
+            - name: data-volume
+              mountPath: /usr/src/paperless/media
+              subPath: paperless-ngx/media
+            - name: data-volume
+              mountPath: /usr/src/paperless/export
+              subPath: paperless-ngx/export
+            - name: data-volume
+              mountPath: /usr/src/paperless/consume
+              subPath: paperless-ngx/consume
+      volumes:
+        - name: data-volume
+          persistentVolumeClaim:
+            claimName: nfs-pvc
