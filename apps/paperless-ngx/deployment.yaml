@@ -31,6 +31,8 @@ spec:
               value: "ind"
             - name: PAPERLESS_OCR_LANGUAGES
               value: "ind"
+            - name: PAPERLESS_URL
+              value: "https://paperless.veirt.web.id"
           ports:
             - containerPort: 8000
           volumeMounts:
