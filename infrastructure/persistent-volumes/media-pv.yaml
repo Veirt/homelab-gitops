@@ -11,7 +11,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   nfs:
     path: /mnt/storage
-    server: hera
+    server: rhea
   mountOptions:
     - vers=4.2
     - noatime
