@@ -22,3 +22,4 @@ resources:
   - syncthing
   - miniserve
   - paperless-ngx
+  - schedula
