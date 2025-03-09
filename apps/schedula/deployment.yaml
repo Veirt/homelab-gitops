@@ -1,0 +1,61 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: schedula
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: schedula
+  template:
+    metadata:
+      labels:
+        app: schedula
+    spec:
+      containers:
+        - name: schedula
+          image: ghcr.io/veirt/schedula@sha256:2462548b4ad15ad87183886d798fdebb6b817ee8417266056e4e814747add7d4
+          env:
+            - name: TZ
+              value: "Asia/Makassar"
+            - name: DISCORD_OAUTH_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: schedula-secrets
+                  key: discord_oauth_client_id
+            - name: DISCORD_OAUTH_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: schedula-secrets
+                  key: discord_oauth_client_secret
+            - name: DISCORD_SERVER_ID
+              valueFrom:
+                secretKeyRef:
+                  name: schedula-secrets
+                  key: discord_server_id
+            - name: DISCORD_OAUTH_REDIRECT_URI
+              valueFrom:
+                secretKeyRef:
+                  name: schedula-secrets
+                  key: discord_oauth_redirect_uri
+            - name: DISCORD_WEBHOOK_URL
+              valueFrom:
+                secretKeyRef:
+                  name: schedula-secrets
+                  key: discord_webhook_url
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: schedula-secrets
+                  key: jwt_secret
+          ports:
+            - containerPort: 3000
+          volumeMounts:
+            - name: data-volume
+              mountPath: /app/db
+              subPath: schedula
+      volumes:
+        - name: data-volume
+          persistentVolumeClaim:
+            claimName: nfs-pvc
