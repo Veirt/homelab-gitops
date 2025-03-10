@@ -1,9 +1,10 @@
 ---
 apiVersion: apps/v1
-kind: DaemonSet
+kind: Deployment
 metadata:
   name: adguard-home
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: adguard-home
