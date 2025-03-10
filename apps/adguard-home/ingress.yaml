@@ -17,7 +17,7 @@ spec:
               service:
                 name: adguard-home-service
                 port:
-                  number: 3000
+                  number: 80
   tls:
     - hosts:
         - adguard.veirt.web.id

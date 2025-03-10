@@ -8,8 +8,8 @@ spec:
     app: adguard-home
   ports:
     - protocol: TCP
-      port: 3000
-      targetPort: 3000
+      port: 80
+      targetPort: 80
       name: webui
     - protocol: TCP
       port: 53
