@@ -10,4 +10,4 @@ spec:
     - protocol: TCP
       port: 8452
       targetPort: 8452
-  type: LoadBalancer
+  type: ClusterIP
