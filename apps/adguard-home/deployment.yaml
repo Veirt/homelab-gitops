@@ -27,11 +27,9 @@ spec:
             - containerPort: 53
               protocol: TCP
               name: dns-tcp
-              hostPort: 53
             - containerPort: 53
               protocol: UDP
               name: dns-udp
-              hostPort: 53
           volumeMounts:
             - name: data-volume
               mountPath: /opt/adguardhome/work
