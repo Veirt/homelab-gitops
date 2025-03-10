@@ -1,0 +1,43 @@
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: adguard-home
+spec:
+  selector:
+    matchLabels:
+      app: adguard-home
+  template:
+    metadata:
+      labels:
+        app: adguard-home
+    spec:
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
+      containers:
+        - name: adguard-home
+          image: adguard/adguardhome:v0.107.57
+          securityContext:
+            capabilities:
+              add:
+                - NET_BIND_SERVICE
+          ports:
+            - containerPort: 3000
+              name: webui
+            - containerPort: 53
+              protocol: TCP
+              name: dns-tcp
+            - containerPort: 53
+              protocol: UDP
+              name: dns-udp
+          volumeMounts:
+            - name: data-volume
+              mountPath: /opt/adguardhome/work
+              subPath: adguard-home/work
+            - name: data-volume
+              mountPath: /opt/adguardhome/conf
+              subPath: adguard-home/conf
+      volumes:
+        - name: data-volume
+          persistentVolumeClaim:
+            claimName: nfs-pvc

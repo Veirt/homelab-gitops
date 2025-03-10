@@ -1,0 +1,24 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: adguard-home-ingress
+  annotations:
+    traefik.ingress.k8s.io/router.entrypoints: websecure
+    cert-manager.io/cluster-issuer: cloudflare-issuer
+spec:
+  rules:
+    - host: adguard.veirt.web.id
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: adguard-home-service
+                port:
+                  number: 3000
+  tls:
+    - hosts:
+        - adguard.veirt.web.id
+      secretName: adguard-home-tls
