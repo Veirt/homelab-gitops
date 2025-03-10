@@ -12,8 +12,7 @@ spec:
       labels:
         app: adguard-home
     spec:
-      hostNetwork: true
-      dnsPolicy: ClusterFirstWithHostNet
+      dnsPolicy: ClusterFirst
       containers:
         - name: adguard-home
           image: adguard/adguardhome:v0.107.57
@@ -27,9 +26,11 @@ spec:
             - containerPort: 53
               protocol: TCP
               name: dns-tcp
+              hostPort: 53
             - containerPort: 53
               protocol: UDP
               name: dns-udp
+              hostPort: 53
           volumeMounts:
             - name: data-volume
               mountPath: /opt/adguardhome/work
