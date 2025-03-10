@@ -23,4 +23,4 @@ resources:
   - miniserve
   - paperless-ngx
   - schedula
-  - adguard-home
+  # - adguard-home
