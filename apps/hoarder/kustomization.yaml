@@ -12,4 +12,4 @@ resources:
   - meilisearch-service.yaml
   - secret.yaml
   - storage.yaml
-  # - ingress.yaml
+  - ingress.yaml
