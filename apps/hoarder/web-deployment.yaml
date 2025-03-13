@@ -24,6 +24,11 @@ spec:
               value: release
             - name: MEILI_ADDR
               value: http://meilisearch:7700
+            - name: MEILI_MASTER_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: hoarder-secrets
+                  key: meili_master_key
             - name: BROWSER_WEB_URL
               value: http://chrome:9222
             - name: DATA_DIR
