@@ -82,6 +82,11 @@
         <td>Time-tracking tool for monitoring coding activity.</td>
     </tr>
     <tr>
+        <td><img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/svg/hoarder.svg" width="32" /></td>
+        <td>Hoarder</td>
+        <td>AI-powered bookmarking app for those who love collecting data.</td>
+    </tr>
+    <tr>
         <td><img src="" width="32" /></td>
         <td>Sia-Helpers</td>
         <td>Collection of tools for interacting with my university's student portal.</td>
