@@ -8,6 +8,6 @@ spec:
     - ReadWriteMany
   resources:
     requests:
-      storage: 4Gi
+      storage: 8Gi
   volumeName: nfs-pv
   storageClassName: ""
