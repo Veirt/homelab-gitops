@@ -11,6 +11,10 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   nfs:
     path: /root/nfs
-    server: 192.168.1.3
+    server: rhea
   mountOptions:
-    - vers=4.1
+    - vers=4.2
+    - noatime
+    - nodiratime
+    - hard
+    - tcp
