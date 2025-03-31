@@ -17,6 +17,8 @@ spec:
         - name: jellyfin
           image: lscr.io/linuxserver/jellyfin:10.10.6
           env:
+            - name: MALLOC_TRIM_THRESHOLD_
+              value: 131072
             - name: PUID
               value: "1000"
             - name: PGID
