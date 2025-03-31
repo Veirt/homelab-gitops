@@ -7,3 +7,4 @@ resources:
   - external-secrets.yaml
   - notification.yaml
   - longhorn.yaml
+  - portainer.yaml
