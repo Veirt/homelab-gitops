@@ -1,0 +1,36 @@
+---
+# MODIFIED INGRESS
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: kaneo-ingress
+  annotations:
+    traefik.ingress.k8s.io/router.entrypoints: websecure
+    cert-manager.io/cluster-issuer: cloudflare-issuer
+spec:
+  rules:
+    - host: kaneo.veirt.web.id
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: kaneo-service
+                port:
+                  name: http-frontend
+    - host: api.kaneo.veirt.web.id
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: kaneo-service
+                port:
+                  name: http-api
+  tls:
+    - hosts:
+        - kaneo.veirt.web.id
+        - api.kaneo.veirt.web.id
+      secretName: kaneo-tls

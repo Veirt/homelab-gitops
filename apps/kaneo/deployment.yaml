@@ -1,0 +1,43 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kaneo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kaneo
+  template:
+    metadata:
+      labels:
+        app: kaneo
+    spec:
+      containers:
+        - name: kaneo-api
+          image: ghcr.io/usekaneo/api:latest
+          env:
+            - name: JWT_ACCESS
+              valueFrom:
+                secretKeyRef:
+                  name: kaneo-secrets
+                  key: jwt_access
+            - name: DB_PATH
+              value: "/app/apps/api/data/kaneo.db"
+          ports:
+            - containerPort: 1337
+          volumeMounts:
+            - name: data-volume
+              mountPath: /app/apps/api/data
+              subPath: kaneo
+        - name: kaneo-frontend
+          image: ghcr.io/usekaneo/web:latest
+          env:
+            - name: KANEO_API_URL
+              value: "https://api.kaneo.veirt.web.id"
+          ports:
+            - containerPort: 80
+      volumes:
+        - name: data-volume
+          persistentVolumeClaim:
+            claimName: nfs-pvc
