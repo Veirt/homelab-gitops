@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: wakapi
-          image: ghcr.io/muety/wakapi:2.13.1
+          image: ghcr.io/muety/wakapi:2.13.2
           env:
             - name: WAKAPI_PASSWORD_SALT
               valueFrom:
