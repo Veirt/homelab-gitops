@@ -12,7 +12,11 @@ spec:
     metadata:
       labels:
         app: metube
+      annotations:
+        io.containerd.runc.v2.group: "zeropod"
+        zeropod.ctrox.dev/scaledown-duration: 10s
     spec:
+      runtimeClassName: zeropod
       containers:
         - name: metube
           image: ghcr.io/alexta69/metube:2025-02-20
