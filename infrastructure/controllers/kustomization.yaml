@@ -8,3 +8,4 @@ resources:
   - notification.yaml
   - longhorn.yaml
   - portainer.yaml
+  - zeropod.yaml

@@ -1,0 +1,26 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: zeropod
+  namespace: flux-system
+spec:
+  interval: 1m0s
+  url: https://github.com/ctrox/zeropod
+  ref:
+    branch: main
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: zeropod
+  namespace: flux-system
+spec:
+  interval: 5m0s
+  path: ./config/k3s
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: zeropod
+  targetNamespace: zeropod-system
+  wait: true
