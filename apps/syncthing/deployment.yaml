@@ -16,7 +16,7 @@ spec:
       hostNetwork: true
       containers:
         - name: syncthing
-          image: lscr.io/linuxserver/syncthing:1.29.4
+          image: lscr.io/linuxserver/syncthing:1.29.5
           env:
             - name: PUID
               value: "1000"
