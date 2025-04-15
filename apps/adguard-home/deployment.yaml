@@ -16,7 +16,7 @@ spec:
       dnsPolicy: ClusterFirst
       containers:
         - name: adguard-home
-          image: adguard/adguardhome:v0.107.59
+          image: adguard/adguardhome:v0.107.60
           securityContext:
             capabilities:
               add:
