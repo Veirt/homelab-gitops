@@ -5,6 +5,6 @@ resources:
   - cert-manager.yaml
   - sealed-secrets.yaml
   - external-secrets.yaml
-  - notification.yaml
+  # - notification.yaml
   - longhorn.yaml
   # - zeropod.yaml

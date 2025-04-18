@@ -21,6 +21,8 @@ spec:
   interval: 1m
   path: ./apps
   prune: true
+  dependsOn:
+    - name: infra-configs
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -35,6 +37,8 @@ spec:
   interval: 1m
   path: ./apps
   prune: true
+  dependsOn:
+    - name: infra-configs
   sourceRef:
     kind: GitRepository
     name: private
