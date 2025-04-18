@@ -12,7 +12,13 @@ spec:
     metadata:
       labels:
         app: memos
+      annotations:
+        io.containerd.runc.v2.group: "zeropod"
+        zeropod.ctrox.dev/container-names: "memos"
+        zeropod.ctrox.dev/ports-map: "memos=5230"
+        zeropod.ctrox.dev/scaledown-duration: 10s
     spec:
+      runtimeClassName: zeropod
       containers:
         - name: memos
           image: neosmemo/memos:0.24.2
