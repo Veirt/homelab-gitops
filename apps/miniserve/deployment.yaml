@@ -12,7 +12,13 @@ spec:
     metadata:
       labels:
         app: miniserve
+      annotations:
+        io.containerd.runc.v2.group: "zeropod"
+        zeropod.ctrox.dev/container-names: "miniserve"
+        zeropod.ctrox.dev/ports-map: "miniserve=8080"
+        zeropod.ctrox.dev/scaledown-duration: 10s
     spec:
+      runtimeClassName: zeropod
       containers:
         - name: miniserve
           image: docker.io/svenstaro/miniserve:0.29.0-alpine
