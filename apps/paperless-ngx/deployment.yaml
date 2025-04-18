@@ -12,9 +12,9 @@ spec:
     metadata:
       labels:
         app: paperless-ngx
-        annotations:
-          io.containerd.runc.v2.group: "zeropod"
-          zeropod.ctrox.dev/scaledown-duration: 10s
+      annotations:
+        io.containerd.runc.v2.group: "zeropod"
+        zeropod.ctrox.dev/scaledown-duration: 10s
     spec:
       runtimeClassName: zeropod
       containers:
