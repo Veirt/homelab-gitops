@@ -12,7 +12,13 @@ spec:
     metadata:
       labels:
         app: wakapi
+      annotations:
+        io.containerd.runc.v2.group: "zeropod"
+        zeropod.ctrox.dev/container-names: "wakapi"
+        zeropod.ctrox.dev/ports-map: "wakapi=3000"
+        zeropod.ctrox.dev/scaledown-duration: 10s
     spec:
+      runtimeClassName: zeropod
       containers:
         - name: wakapi
           image: ghcr.io/muety/wakapi:2.13.3
