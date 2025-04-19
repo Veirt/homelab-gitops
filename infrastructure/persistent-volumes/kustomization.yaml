@@ -3,8 +3,8 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: default
 resources:
-  - nfs-pv.yaml
-  - nfs-pvc.yaml
+  - data-pv.yaml
+  - data-pvc.yaml
   - media-pv.yaml
   - media-pvc.yaml
   - backup-pv.yaml

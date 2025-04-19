@@ -43,7 +43,7 @@ spec:
       volumes:
         - name: jellyfin-volume
           persistentVolumeClaim:
-            claimName: nfs-pvc
+            claimName: data-pvc
         - name: media-volume
           persistentVolumeClaim:
             claimName: media-pvc

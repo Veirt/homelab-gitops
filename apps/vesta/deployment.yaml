@@ -28,7 +28,7 @@ spec:
       volumes:
         - name: config-volume
           persistentVolumeClaim:
-            claimName: nfs-pvc
+            claimName: data-pvc
         - name: timezone
           hostPath:
             path: /etc/localtime
