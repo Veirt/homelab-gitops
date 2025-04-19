@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: hoarder-pv
+  name: karakeep-pv
 spec:
   capacity:
     storage: 1Gi
@@ -18,12 +18,12 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: hoarder-pvc
+  name: karakeep-pvc
 spec:
   accessModes:
     - ReadWriteMany
   resources:
     requests:
       storage: 1Gi
-  volumeName: hoarder-pv
+  volumeName: karakeep-pv
   storageClassName: ""

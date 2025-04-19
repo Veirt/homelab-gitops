@@ -83,7 +83,7 @@
     </tr>
     <tr>
         <td><img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/svg/hoarder.svg" width="32" /></td>
-        <td>Hoarder</td>
+        <td>Karakeep</td>
         <td>AI-powered bookmarking app for those who love collecting data.</td>
     </tr>
     <tr>

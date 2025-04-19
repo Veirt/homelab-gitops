@@ -7,27 +7,33 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: hoarder-web
+      app: karakeep-web
   template:
     metadata:
       labels:
-        app: hoarder-web
+        app: karakeep-web
+      annotations:
+        io.containerd.runc.v2.group: "zeropod"
+        zeropod.ctrox.dev/container-names: "web"
+        zeropod.ctrox.dev/ports-map: "web=3000"
+        zeropod.ctrox.dev/scaledown-duration: 10s
     spec:
+      runtimeClassName: zeropod
       containers:
         - name: web
-          image: ghcr.io/hoarder-app/hoarder:0.23.2
+          image: ghcr.io/karakeep-app/karakeep:0.23.2
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
           env:
-            - name: HOARDER_VERSION
+            - name: KARAKEEP_VERSION
               value: release
             - name: MEILI_ADDR
               value: http://meilisearch:7700
             - name: MEILI_MASTER_KEY
               valueFrom:
                 secretKeyRef:
-                  name: hoarder-secrets
+                  name: karakeep-secrets
                   key: meili_master_key
             - name: BROWSER_WEB_URL
               value: http://chrome:9222
@@ -38,18 +44,18 @@ spec:
             - name: NEXTAUTH_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: hoarder-secrets
+                  name: karakeep-secrets
                   key: nextauth_secret
             - name: NEXT_PUBLIC_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: hoarder-secrets
+                  name: karakeep-secrets
                   key: next_public_secret
           volumeMounts:
             - name: data
               mountPath: /data
-              subPath: hoarder/data
+              subPath: karakeep/data
       volumes:
         - name: data
           persistentVolumeClaim:
-            claimName: hoarder-pvc
+            claimName: karakeep-pvc

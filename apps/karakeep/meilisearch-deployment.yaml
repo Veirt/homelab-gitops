@@ -22,13 +22,13 @@ spec:
             - name: MEILI_MASTER_KEY
               valueFrom:
                 secretKeyRef:
-                  name: hoarder-secrets
+                  name: karakeep-secrets
                   key: meili_master_key
           volumeMounts:
             - name: meilisearch
               mountPath: /meili_data
-              subPath: hoarder/meilisearch
+              subPath: karakeep/meilisearch
       volumes:
         - name: meilisearch
           persistentVolumeClaim:
-            claimName: hoarder-pvc
+            claimName: karakeep-pvc
