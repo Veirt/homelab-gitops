@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: schedula
-          image: ghcr.io/veirt/schedula@sha256:2462548b4ad15ad87183886d798fdebb6b817ee8417266056e4e814747add7d4
+          image: ghcr.io/veirt/schedula@sha256:b6f5b8049e60f0e6068604316d3705ebcf4be52d1e7462ba2daee1c94244fb66
           env:
             - name: TZ
               value: "Asia/Makassar"
