@@ -9,3 +9,7 @@ resources:
   - media-pvc.yaml
   - backup-pv.yaml
   - backup-pvc.yaml
+  - storage2-pv.yaml
+  - storage2-pvc.yaml
+  - storage3-pv.yaml
+  - storage3-pvc.yaml
