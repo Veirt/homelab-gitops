@@ -6,5 +6,5 @@ resources:
   - sealed-secrets.yaml
   - external-secrets.yaml
   # - notification.yaml
-  - longhorn.yaml
+  # - longhorn.yaml
   - zeropod.yaml
