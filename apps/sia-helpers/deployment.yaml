@@ -20,11 +20,11 @@ spec:
             - name: TZ
               value: "Asia/Makassar"
             - name: CURRENT_SEMESTER
-              value: "2024/2025 Ganjil"
+              value: "2024/2025 Genap"
             - name: KRS_CHECK_INTERVAL
               value: "@every 96h00m00s"
             - name: KHS_CHECK_INTERVAL
-              value: "@every 96h00m00s"
+              value: "@every 12h00m00s"
               # Secrets
             - name: NIM
               valueFrom:
