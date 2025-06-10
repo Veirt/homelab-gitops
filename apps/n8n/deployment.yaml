@@ -21,6 +21,8 @@ spec:
               value: "Asia/Makassar"
             - name: TZ
               value: "Asia/Makassar"
+            - name: N8N_FEATURE_FLAG_MCP
+              value: "true"
           ports:
             - containerPort: 5678
           volumeMounts:
