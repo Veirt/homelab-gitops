@@ -20,5 +20,5 @@ spec:
                   number: 11235
   tls:
     - hosts:
-        - crawl4ai.veirt.web.id
+        - c4a.veirt.web.id
       secretName: crawl4ai-tls
