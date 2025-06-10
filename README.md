@@ -87,8 +87,13 @@
         <td>AI-powered bookmarking app for those who love collecting data.</td>
     </tr>
     <tr>
-        <td><img src="" width="32" /></td>
+        <td>-</td>
         <td>Sia-Helpers</td>
         <td>Collection of tools for interacting with my university's student portal.</td>
+    </tr>
+    <tr>
+        <td>-</td>
+        <td>Crawl4AI</td>
+        <td>Web crawler for collecting data from websites.</td>
     </tr>
 </table>
