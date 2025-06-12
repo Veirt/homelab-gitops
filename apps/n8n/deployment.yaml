@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: n8n
-          image: n8nio/n8n:1.97.1
+          image: n8nio/n8n:1.98.1
           env:
             - name: GENERIC_TIMEZONE
               value: "Asia/Makassar"
