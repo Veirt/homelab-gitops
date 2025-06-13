@@ -21,7 +21,7 @@ spec:
       runtimeClassName: zeropod
       containers:
         - name: broker
-          image: docker.io/library/redis:7
+          image: docker.io/library/redis:8
           volumeMounts:
             - name: data-volume
               mountPath: /data
