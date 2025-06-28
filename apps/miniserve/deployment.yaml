@@ -21,7 +21,7 @@ spec:
       runtimeClassName: zeropod
       containers:
         - name: miniserve
-          image: docker.io/svenstaro/miniserve:0.29.0-alpine
+          image: docker.io/svenstaro/miniserve:0.31.0-alpine
           args: ["/public"]
           ports:
             - containerPort: 8080
