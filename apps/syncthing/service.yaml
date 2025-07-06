@@ -10,4 +10,17 @@ spec:
     - protocol: TCP
       port: 8384
       targetPort: 8384
-  type: ClusterIP
+      name: web-ui
+    - protocol: TCP
+      port: 22000
+      targetPort: 22000
+      name: sync
+    - protocol: UDP
+      port: 22000
+      targetPort: 22000
+      name: quic-sync
+    - protocol: UDP
+      port: 21027
+      targetPort: 21027
+      name: discovery
+  type: LoadBalancer
