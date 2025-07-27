@@ -91,4 +91,9 @@
         <td>Crawl4AI</td>
         <td>Web crawler for collecting data from websites.</td>
     </tr>
+    <tr>
+        <td><img src="https://media.sys.truenas.net/apps/convertx/icons/icon.png"</td>
+        <td>ConvertX</td>
+        <td>Self-hosted file converter</td>
+    </tr>
 </table>
