@@ -21,7 +21,7 @@ spec:
       runtimeClassName: zeropod
       containers:
         - name: convertx
-          image: ghcr.io/muety/convertx:0.14.1
+          image: ghcr.io/c4illin/convertx:main
           env:
             - name: JWT_SECRET
               valueFrom:
