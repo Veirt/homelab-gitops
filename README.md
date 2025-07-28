@@ -92,7 +92,7 @@
         <td>Web crawler for collecting data from websites.</td>
     </tr>
     <tr>
-        <td><img src="https://media.sys.truenas.net/apps/convertx/icons/icon.png"</td>
+        <td><img src="https://media.sys.truenas.net/apps/convertx/icons/icon.png" width="32" /></td>
         <td>ConvertX</td>
         <td>Self-hosted file converter</td>
     </tr>
