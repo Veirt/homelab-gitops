@@ -5,10 +5,10 @@ metadata:
   name: zeropod
   namespace: flux-system
 spec:
-  interval: 1m0s
+  interval: 24h0m0s
   url: https://github.com/ctrox/zeropod
   ref:
-    branch: main
+    tag: v0.6.4
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -16,7 +16,7 @@ metadata:
   name: zeropod
   namespace: flux-system
 spec:
-  interval: 5m0s
+  interval: 24h0m0s
   path: ./config/k3s
   prune: true
   sourceRef:
