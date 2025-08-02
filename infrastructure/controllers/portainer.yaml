@@ -19,7 +19,7 @@ metadata:
   name: portainer
   namespace: portainer
 spec:
-  interval: 30m
+  interval: 6h
   releaseName: portainer
   chart:
     spec:
@@ -28,7 +28,7 @@ spec:
         kind: HelmRepository
         name: portainer
         namespace: portainer
-      interval: 12h
+      interval: 24h
   values:
     service:
       type: LoadBalancer
