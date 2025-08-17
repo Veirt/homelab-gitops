@@ -27,7 +27,7 @@ spec:
               mountPath: /data
               subPath: paperless-ngx/redis
         - name: paperless-ngx
-          image: ghcr.io/paperless-ngx/paperless-ngx:2.18.0
+          image: ghcr.io/paperless-ngx/paperless-ngx:2.18.1
           env:
             - name: PAPERLESS_TIME_ZONE
               value: "Asia/Makassar"
