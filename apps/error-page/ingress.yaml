@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: catchall-404
+  annotations:
+    ingress.kubernetes.io/priority: "1"
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: errorpages
+                port:
+                  number: 80

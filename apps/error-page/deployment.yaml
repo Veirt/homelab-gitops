@@ -1,0 +1,25 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: errorpages
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {app: errorpages}
+  template:
+    metadata:
+      labels: {app: errorpages}
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:alpine
+          ports: [{containerPort: 80}]
+          volumeMounts:
+            - {name: html, mountPath: /usr/share/nginx/html, readOnly: true}
+            - {name: nginx, mountPath: /etc/nginx/nginx.conf, subPath: nginx.conf, readOnly: true}
+      volumes:
+        - name: html
+          configMap: {name: errorpages-html}
+        - name: nginx
+          configMap: {name: errorpages-nginx}
