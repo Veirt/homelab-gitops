@@ -1,0 +1,130 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: errorpages-nginx
+data:
+  nginx.conf: |
+    worker_processes  1;
+    events { worker_connections 1024; }
+    http {
+      server {
+        listen 80;
+        root /usr/share/nginx/html;
+
+        location / { return 404; }
+
+        error_page 404 /404.html;
+        location = /404.html { internal; }
+      }
+    }
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: errorpages-html
+data:
+  404.html: |
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Service Not Found</title>
+        <style>
+            :root {
+                --text: #e8e3e3;
+                --background: #060709;
+                --primary: #a4afcb;
+                --secondary: #5b73ae;
+                --accent: #7c7981;
+                --surface: #0f1419;
+                --border: #262930;
+                --radius: 8px;
+                --shadow:
+                    0 4px 6px -1px rgba(0, 0, 0, 0.3),
+                    0 2px 4px -1px rgba(0, 0, 0, 0.2);
+            }
+
+            body {
+                background: var(--background);
+            }
+
+            .void__container {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                max-width: 50ch;
+                margin: 0 auto;
+                padding: 3rem 1rem;
+                text-align: center;
+                min-height: 60vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .void__content {
+                width: 100%;
+            }
+
+            .void__ascii {
+                margin-bottom: 2rem;
+                opacity: 0.7;
+            }
+
+            .void__art {
+                font-family: "Courier New", monospace;
+                font-size: 0.9rem;
+                color: var(--secondary);
+                margin: 0;
+                line-height: 1.2;
+                white-space: pre;
+                display: inline-block;
+                animation: float 6s ease-in-out infinite;
+            }
+
+            @keyframes float {
+                0%, 100% { transform: translateY(0px); }
+                50% { transform: translateY(-8px); }
+            }
+
+            .void__title {
+                font-size: clamp(1.8rem, 5vw, 2.5rem);
+                font-weight: 500;
+                margin: 0 0 1.5rem;
+                color: var(--primary);
+                letter-spacing: -0.02em;
+            }
+
+            .void__message {
+                font-size: 1.1rem;
+                line-height: 1.6;
+                color: var(--secondary);
+                margin: 0 0 3rem;
+                opacity: 0.9;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="void__container">
+            <div class="void__content">
+                <div class="void__ascii">
+                    <pre class="void__art">
+    ┌─┐
+    │ │
+    └─┘
+
+    ┌─┐ ┌─┐ ┌─┐
+    │4│ │0│ │4│
+    └─┘ └─┘ └─┘
+                    </pre>
+                </div>
+
+                <h1 class="void__title">Lost in the void</h1>
+                <p class="void__message">
+                    This isn't the page you're looking for. Maybe it's building something
+                    cool, or just taking a break.
+                </p>
+            </div>
+        </div>
+    </body>
+    </html>
