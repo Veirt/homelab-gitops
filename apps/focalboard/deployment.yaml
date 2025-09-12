@@ -1,0 +1,33 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: focalboard
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: focalboard
+  template:
+    metadata:
+      labels:
+        app: focalboard
+    spec:
+      containers:
+        - name: focalboard
+          image: mattermost/focalboard:7.10.6
+          env:
+            - name: VIRTUAL_HOST
+              value: focalboard.local
+            - name: VIRTUAL_PORT
+              value: "8000"
+          ports:
+            - containerPort: 8000
+          volumeMounts:
+            - name: data-volume
+              mountPath: /opt/focalboard/data
+              subPath: focalboard
+      volumes:
+        - name: data-volume
+          persistentVolumeClaim:
+            claimName: data-pvc
