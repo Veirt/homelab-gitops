@@ -37,6 +37,9 @@ spec:
             - name: media-volume
               mountPath: /media/anime
               subPath: media/anime
+            - name: media-volume
+              mountPath: /media/courses
+              subPath: media/courses
             - name: sonarr-volume
               mountPath: /media/sonarr
               subPath: media/sonarr
