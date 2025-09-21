@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: gotify
-          image: gotify/server:2.7.2
+          image: gotify/server:2.7.3
           env:
             - name: TZ
               value: "Asia/Makassar"
