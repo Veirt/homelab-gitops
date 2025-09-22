@@ -21,7 +21,7 @@ spec:
       runtimeClassName: zeropod
       containers:
         - name: web
-          image: ghcr.io/karakeep-app/karakeep:0.26.0
+          image: ghcr.io/karakeep-app/karakeep:0.27.1
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
