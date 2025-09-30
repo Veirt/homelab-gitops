@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: jenkins
-          image: jenkins/jenkins:2.526
+          image: jenkins/jenkins:2.530
           ports:
             - containerPort: 8080
               name: webui
