@@ -21,6 +21,5 @@ resources:
   - crawl4ai
   - convertx
   - error-page
-  - jenkins
   - focalboard
   - librechat

@@ -25,6 +25,33 @@ spec:
         namespace: default
       interval: 24h
   values:
+    librechat:
+      imageVolume:
+        enabled: false
+    volumes:
+      - name: images-volume
+        persistentVolumeClaim:
+          claimName: storage2-pvc
+    volumeMounts:
+      - name: images-volume
+        mountPath: /app/client/public/images
+        subPath: librechat/images
+    mongodb:
+      enabled: true
+      auth:
+        enabled: false
+      persistence:
+        enabled: true
+        existingClaim: storage2-pvc
+        subPath: librechat/mongodb
+    meilisearch:
+      enabled: true
+      persistence:
+        enabled: true
+        existingClaim: storage2-pvc
+        subPath: librechat/meilisearch
+      auth:
+        existingMasterKeySecret: "librechat-credentials-env"
     controllers:
       main:
         containers:
