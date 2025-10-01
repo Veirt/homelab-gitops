@@ -38,6 +38,9 @@ spec:
         subPath: librechat/images
     mongodb:
       enabled: true
+      image:
+        repository: bitnamisecure/mongodb
+        tag: "latest"
       auth:
         enabled: false
       persistence:
