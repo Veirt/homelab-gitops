@@ -5,3 +5,4 @@ namespace: default
 resources:
   - secret.yaml
   - helmrelease.yaml
+  - config.yaml
