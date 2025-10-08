@@ -26,6 +26,7 @@ spec:
       interval: 24h
   values:
     librechat:
+      existingConfigYaml: librechat-config
       imageVolume:
         enabled: false
     volumes:
@@ -36,6 +37,13 @@ spec:
       - name: images-volume
         mountPath: /app/client/public/images
         subPath: librechat/images
+    podSecurityContext:
+      fsGroup: 2000
+      fsGroupChangePolicy: OnRootMismatch
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+      runAsGroup: 1000
     mongodb:
       enabled: true
       image:
@@ -58,7 +66,10 @@ spec:
       persistence:
         enabled: true
         existingClaim: data-pvc
-        subPath: librechat/meilisearch
+      extraVolumeMounts:
+        - name: data
+          mountPath: /meili_data
+          subPath: librechat/meilisearch
       auth:
         existingMasterKeySecret: "librechat-credentials-env"
     controllers:
