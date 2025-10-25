@@ -77,6 +77,11 @@ will be happy to do so.
         <td>Push notification service for sending messages to devices.</td>
     </tr>
     <tr>
+        <td><img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/svg/commafeed.svg" width="32" /></td>
+        <td>CommaFeed</td>
+        <td>Self-hosted RSS reader inspired by Google Reader.</td>
+    </tr>
+    <tr>
         <td><img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/searxng.png" width="32" /></td>
         <td>Searxng</td>
         <td>Privacy-focused metasearch engine.</td>
