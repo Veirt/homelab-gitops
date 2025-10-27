@@ -123,6 +123,20 @@ will be happy to do so.
     </tr>
 </table>
 
+<h2>🗄️ Databases</h2>
+<table>
+    <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td><img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/svg/couchdb.svg" width="32" /></td>
+        <td>CouchDB</td>
+        <td>Distributed JSON document store powering internal apps.</td>
+    </tr>
+</table>
+
 <h2>⚙️ Infrastructure</h2>
 <table>
     <tr>

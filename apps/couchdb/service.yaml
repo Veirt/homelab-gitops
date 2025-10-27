@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: couchdb-service
+spec:
+  selector:
+    app: couchdb
+  ports:
+    - protocol: TCP
+      port: 5984
+      targetPort: 5984
+      nodePort: 32001
+  type: LoadBalancer

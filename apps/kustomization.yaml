@@ -20,6 +20,7 @@ resources:
   - karakeep
   - crawl4ai
   - convertx
+  - couchdb
   - commafeed
   - error-page
   - focalboard
