@@ -72,8 +72,8 @@ will be happy to do so.
         <td>Workflow automation tool for connecting apps and services.</td>
     </tr>
     <tr>
-        <td><img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/svg/gotify.svg" width="32" /></td>
-        <td>Gotify</td>
+        <td><img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/svg/ntfy.svg" width="32" /></td>
+        <td>ntfy</td>
         <td>Push notification service for sending messages to devices.</td>
     </tr>
     <tr>

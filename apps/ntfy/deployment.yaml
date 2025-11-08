@@ -2,20 +2,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: gotify
+  name: ntfy
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: gotify
+      app: ntfy
   template:
     metadata:
       labels:
-        app: gotify
+        app: ntfy
     spec:
       containers:
-        - name: gotify
-          image: gotify/server:2.7.3
+        - name: ntfy
+          image: binwiederhier/ntfy:v2.11.0
           env:
             - name: TZ
               value: "Asia/Makassar"
@@ -23,8 +23,11 @@ spec:
             - containerPort: 80
           volumeMounts:
             - name: data-volume
-              mountPath: /app/data
-              subPath: gotify
+              mountPath: /var/cache/ntfy
+              subPath: ntfy/cache
+            - name: data-volume
+              mountPath: /etc/ntfy
+              subPath: ntfy/config
       volumes:
         - name: data-volume
           persistentVolumeClaim:

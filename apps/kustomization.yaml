@@ -6,7 +6,7 @@ resources:
   - memos
   - myspeed
   - searxng
-  - gotify
+  - ntfy
   - n8n
   - wakapi
   - vaultwarden
