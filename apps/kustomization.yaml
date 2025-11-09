@@ -18,9 +18,6 @@ resources:
   - schedula
   # - adguard-home
   - karakeep
-  - crawl4ai
-  - convertx
-  - couchdb
   - commafeed
   - error-page
   - focalboard

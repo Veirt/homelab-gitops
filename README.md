@@ -111,16 +111,6 @@ will be happy to do so.
         <td>Karakeep</td>
         <td>AI-powered bookmarking app for those who love collecting data.</td>
     </tr>
-    <tr>
-        <td></td>
-        <td>Crawl4AI</td>
-        <td>Web crawler for collecting data from websites.</td>
-    </tr>
-    <tr>
-        <td><img src="https://media.sys.truenas.net/apps/convertx/icons/icon.png" width="32" /></td>
-        <td>ConvertX</td>
-        <td>Self-hosted file converter</td>
-    </tr>
 </table>
 
 <h2>⚙️ Infrastructure</h2>
