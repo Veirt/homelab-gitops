@@ -40,9 +40,12 @@ spec:
             - name: media-volume
               mountPath: /media/courses
               subPath: media/courses
-            - name: sonarr-volume
+            - name: media2-volume
               mountPath: /media/sonarr
               subPath: media/sonarr
+            - name: media2-volume
+              mountPath: /media/western
+              subPath: media/western
       volumes:
         - name: jellyfin-volume
           persistentVolumeClaim:
@@ -50,6 +53,6 @@ spec:
         - name: media-volume
           persistentVolumeClaim:
             claimName: media-pvc
-        - name: sonarr-volume
+        - name: media2-volume
           persistentVolumeClaim:
             claimName: storage3-pvc
