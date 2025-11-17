@@ -24,7 +24,7 @@ spec:
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /ready
+              path: /metrics
               port: http-metrics
             initialDelaySeconds: 10
             periodSeconds: 10
@@ -32,7 +32,7 @@ spec:
             failureThreshold: 3
           readinessProbe:
             httpGet:
-              path: /ready
+              path: /metrics
               port: http-metrics
             initialDelaySeconds: 5
             periodSeconds: 5
