@@ -22,3 +22,4 @@ resources:
   - error-page
   - focalboard
   - grafana
+  - prometheus
