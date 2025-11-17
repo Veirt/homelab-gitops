@@ -1,0 +1,47 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: alloy-config
+data:
+  config.river: |
+    // Discover Kubernetes pods
+    discovery.kubernetes "pods" {
+      role = "pod"
+    }
+
+    // Filter targets: only default namespace, exclude alloy, only pods with 'app' label
+    discovery.relabel "filter_pods" {
+      targets = discovery.kubernetes.pods.targets
+      rule {
+        source_labels = ["__meta_kubernetes_namespace"]
+        action = "keep"
+        regex = "default"
+      }
+      rule {
+        source_labels = ["__meta_kubernetes_pod_label_app"]
+        action = "drop"
+        regex = "alloy"
+      }
+      rule {
+        source_labels = ["__meta_kubernetes_pod_label_app"]
+        action = "keep"
+        regex = ".+"
+      }
+    }
+
+    // Process filtered pods and collect logs
+    loki.source.kubernetes "pods" {
+      targets = discovery.relabel.filter_pods.output
+      forward_to = [loki.write.loki.receiver]
+    }
+
+    // Write logs to Loki
+    loki.write "loki" {
+      endpoint {
+        url = "http://loki-service:3100/loki/api/v1/push"
+      }
+      external_labels = {
+        cluster = "home"
+      }
+    }

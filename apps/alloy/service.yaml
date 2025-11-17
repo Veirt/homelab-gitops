@@ -2,13 +2,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: promtail
+  name: alloy
 spec:
   selector:
-    app: promtail
+    app: alloy
   ports:
     - protocol: TCP
-      port: 3101
+      port: 12345
       targetPort: http-metrics
       name: http-metrics
   type: ClusterIP
