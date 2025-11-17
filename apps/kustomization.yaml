@@ -21,3 +21,4 @@ resources:
   - commafeed
   - error-page
   - focalboard
+  - grafana
