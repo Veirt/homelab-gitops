@@ -25,3 +25,4 @@ resources:
   - prometheus
   - victoria-metrics
   - loki
+  - promtail
