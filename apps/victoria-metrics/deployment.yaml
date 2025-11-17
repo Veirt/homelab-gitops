@@ -1,0 +1,29 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: victoria-metrics
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: victoria-metrics
+  template:
+    metadata:
+      labels:
+        app: victoria-metrics
+    spec:
+      containers:
+        - name: victoria-metrics
+          image: victoriametrics/victoria-metrics:v1.130.0-rc0-scratch
+          args: ["--retentionPeriod=100y"]
+          ports:
+            - containerPort: 8428
+          volumeMounts:
+            - name: config-volume
+              mountPath: /victoria-metrics-data
+              subPath: victoria-metrics
+      volumes:
+        - name: config-volume
+          persistentVolumeClaim:
+            claimName: data-pvc
