@@ -8,7 +8,7 @@ data:
     server:
       http_listen_port: 3101
       grpc_listen_port: 9096
-      log_level: info
+      log_level: debug
 
     positions:
       filename: /tmp/positions.yaml
@@ -33,40 +33,51 @@ data:
         kubernetes_sd_configs:
           - role: pod
         pipeline_stages:
-          - docker: {}
+          - cri: {}
         relabel_configs:
-          # Only scrape pods in default namespace
+          # Set hostname from node name (official pattern)
+          - source_labels: [__meta_kubernetes_pod_node_name]
+            target_label: __host__
+          # Copy all pod labels (official pattern)
+          - action: labelmap
+            regex: __meta_kubernetes_pod_label_(.+)
+          # Set job from namespace/pod_name (official pattern)
+          - action: replace
+            replacement: $1
+            separator: /
+            source_labels:
+              - __meta_kubernetes_namespace
+              - __meta_kubernetes_pod_name
+            target_label: job
+          # Set namespace label
+          - action: replace
+            source_labels: [__meta_kubernetes_namespace]
+            target_label: namespace
+          # Set pod name label
+          - action: replace
+            source_labels: [__meta_kubernetes_pod_name]
+            target_label: pod
+          # Set container name label
+          - action: replace
+            source_labels: [__meta_kubernetes_pod_container_name]
+            target_label: container
+          # Set the log path - OFFICIAL FORMAT (critical difference!)
+          - action: replace
+            replacement: /var/log/pods/*$1/*.log
+            separator: /
+            source_labels:
+              - __meta_kubernetes_pod_uid
+              - __meta_kubernetes_pod_container_name
+            target_label: __path__
+          # Filter: Only scrape pods in default namespace
           - source_labels: [__meta_kubernetes_namespace]
             action: keep
             regex: default
-          # Exclude promtail
+          # Filter: Exclude promtail itself
           - source_labels: [__meta_kubernetes_pod_label_app]
             action: drop
             regex: promtail
-          # Only scrape pods that have an 'app' label (excludes system pods)
+          # Filter: Only scrape pods that have an 'app' label
           - source_labels: [__meta_kubernetes_pod_label_app]
             action: keep
             regex: .+
-          # Dynamically set job label from pod's app label
-          - source_labels: [__meta_kubernetes_pod_label_app]
-            target_label: job
-            replacement: $1
-          # Set pod name
-          - source_labels: [__meta_kubernetes_pod_name]
-            target_label: pod
-          # Set namespace
-          - source_labels: [__meta_kubernetes_namespace]
-            target_label: namespace
-          # Set container name
-          - source_labels: [__meta_kubernetes_pod_container_name]
-            target_label: container
-          # Set pod IP
-          - source_labels: [__meta_kubernetes_pod_ip]
-            target_label: pod_ip
-          # Set hostname
-          - source_labels: [__meta_kubernetes_pod_node_name]
-            target_label: hostname
-          # Set the log path
-          - source_labels: [__meta_kubernetes_namespace, __meta_kubernetes_pod_name, __meta_kubernetes_pod_uid, __meta_kubernetes_pod_container_name]
-            target_label: __path__
-            replacement: /var/log/pods/$1_$2_$3/$4/*.log
