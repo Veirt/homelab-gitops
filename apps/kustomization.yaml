@@ -24,3 +24,4 @@ resources:
   - grafana
   - prometheus
   - victoria-metrics
+  - loki
