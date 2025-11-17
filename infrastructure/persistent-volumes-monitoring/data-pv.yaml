@@ -1,0 +1,20 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: data-pv-monitoring
+spec:
+  capacity:
+    storage: 8Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  nfs:
+    path: /root/nfs
+    server: rhea
+  mountOptions:
+    - vers=4.2
+    - noatime
+    - nodiratime
+    - hard
+    - tcp
