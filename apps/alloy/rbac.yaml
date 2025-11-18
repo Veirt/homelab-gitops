@@ -16,6 +16,7 @@ rules:
       - services
       - endpoints
       - pods
+      - pods/log
     verbs: ["get", "watch", "list"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
