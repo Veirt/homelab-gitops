@@ -32,7 +32,27 @@ data:
 
     // Process filtered pods and collect logs
     loki.source.kubernetes "pods" {
-      targets = discovery.relabel.filter_pods.output
+      targets    = discovery.relabel.filter_pods.output
+      forward_to = [loki.process.pod_logs.receiver]
+    }
+
+    // Add labels to logs
+    loki.process "pod_logs" {
+      stage.static_labels {
+        values = {
+          cluster = "home",
+        }
+      }
+
+      stage.labels {
+        values = {
+          namespace = "__meta_kubernetes_namespace",
+          pod       = "__meta_kubernetes_pod_name",
+          container = "__meta_kubernetes_pod_container_name",
+          app       = "__meta_kubernetes_pod_label_app",
+        }
+      }
+
       forward_to = [loki.write.loki.receiver]
     }
 
