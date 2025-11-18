@@ -42,6 +42,6 @@ data:
         url = "http://loki-service:3100/loki/api/v1/push"
       }
       external_labels = {
-        cluster = "home"
+        cluster = "home",
       }
     }
