@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: jellyfin
-          image: lscr.io/linuxserver/jellyfin:10.11.3
+          image: lscr.io/linuxserver/jellyfin:10.11.4
           env:
             - name: MALLOC_TRIM_THRESHOLD_
               value: "131072"
