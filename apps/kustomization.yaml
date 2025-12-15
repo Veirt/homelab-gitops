@@ -17,7 +17,6 @@ resources:
   - paperless-ngx
   - schedula
   # - adguard-home
-  - karakeep
   - commafeed
   - error-page
   - focalboard
