@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: focalboard
-          image: mattermost/focalboard:7.10.6
+          image: mattermost/focalboard:7.11.4
           env:
             - name: VIRTUAL_HOST
               value: focalboard.local
