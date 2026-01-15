@@ -8,7 +8,7 @@ metadata:
     cert-manager.io/cluster-issuer: cloudflare-issuer
 spec:
   rules:
-    - host: grafana.veirt.web.id
+    - host: grafana.solveir.icu
       http:
         paths:
           - path: /
@@ -20,5 +20,5 @@ spec:
                   number: 3000
   tls:
     - hosts:
-        - grafana.veirt.web.id
+        - grafana.solveir.icu
       secretName: grafana-tls

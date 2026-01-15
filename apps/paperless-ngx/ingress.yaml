@@ -8,7 +8,7 @@ metadata:
     cert-manager.io/cluster-issuer: cloudflare-issuer
 spec:
   rules:
-    - host: paperless.veirt.web.id
+    - host: paperless.solveir.icu
       http:
         paths:
           - path: /
@@ -20,5 +20,5 @@ spec:
                   number: 8000
   tls:
     - hosts:
-        - paperless.veirt.web.id
+        - paperless.solveir.icu
       secretName: paperless-ngx-tls

@@ -8,7 +8,7 @@ metadata:
     cert-manager.io/cluster-issuer: cloudflare-issuer
 spec:
   rules:
-    - host: wakapi.veirt.web.id
+    - host: wakapi.solveir.icu
       http:
         paths:
           - path: /
@@ -20,5 +20,5 @@ spec:
                   number: 3000
   tls:
     - hosts:
-        - wakapi.veirt.web.id
+        - wakapi.solveir.icu
       secretName: wakapi-tls

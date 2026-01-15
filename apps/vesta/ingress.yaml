@@ -8,7 +8,7 @@ metadata:
     cert-manager.io/cluster-issuer: cloudflare-issuer
 spec:
   rules:
-    - host: vesta.veirt.web.id
+    - host: vesta.solveir.icu
       http:
         paths:
           - path: /
@@ -20,5 +20,5 @@ spec:
                   number: 8450
   tls:
     - hosts:
-        - vesta.veirt.web.id
+        - vesta.solveir.icu
       secretName: vesta-tls

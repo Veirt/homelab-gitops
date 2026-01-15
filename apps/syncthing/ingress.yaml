@@ -8,7 +8,7 @@ metadata:
     cert-manager.io/cluster-issuer: cloudflare-issuer
 spec:
   rules:
-    - host: syncthing.veirt.web.id
+    - host: syncthing.solveir.icu
       http:
         paths:
           - path: /
@@ -20,5 +20,5 @@ spec:
                   number: 8384
   tls:
     - hosts:
-        - syncthing.veirt.web.id
+        - syncthing.solveir.icu
       secretName: syncthing-tls

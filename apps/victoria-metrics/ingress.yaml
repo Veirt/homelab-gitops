@@ -8,7 +8,7 @@ metadata:
     cert-manager.io/cluster-issuer: cloudflare-issuer
 spec:
   rules:
-    - host: victoria.veirt.web.id
+    - host: victoria.solveir.icu
       http:
         paths:
           - path: /
@@ -20,5 +20,5 @@ spec:
                   number: 8428
   tls:
     - hosts:
-        - victoria.veirt.web.id
+        - victoria.solveir.icu
       secretName: victoria-tls

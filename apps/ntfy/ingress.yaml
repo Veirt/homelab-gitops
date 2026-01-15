@@ -8,7 +8,7 @@ metadata:
     cert-manager.io/cluster-issuer: cloudflare-issuer
 spec:
   rules:
-    - host: ntfy.veirt.web.id
+    - host: ntfy.solveir.icu
       http:
         paths:
           - path: /
@@ -20,5 +20,5 @@ spec:
                   number: 80
   tls:
     - hosts:
-        - ntfy.veirt.web.id
+        - ntfy.solveir.icu
       secretName: ntfy-tls

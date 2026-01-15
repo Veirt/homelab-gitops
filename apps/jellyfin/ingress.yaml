@@ -8,7 +8,7 @@ metadata:
     cert-manager.io/cluster-issuer: cloudflare-issuer
 spec:
   rules:
-    - host: jellyfin.veirt.web.id
+    - host: jellyfin.solveir.icu
       http:
         paths:
           - path: /
@@ -20,5 +20,5 @@ spec:
                   number: 8096
   tls:
     - hosts:
-        - jellyfin.veirt.web.id
+        - jellyfin.solveir.icu
       secretName: jellyfin-tls
