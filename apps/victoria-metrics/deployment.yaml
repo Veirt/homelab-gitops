@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: victoria-metrics
-          image: victoriametrics/victoria-metrics:v1.130.0-rc0-scratch
+          image: victoriametrics/victoria-metrics:v1.135.0-rc0-scratch
           args: ["--retentionPeriod=100y"]
           ports:
             - containerPort: 8428
