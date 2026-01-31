@@ -21,7 +21,7 @@ spec:
       runtimeClassName: zeropod
       containers:
         - name: metube
-          image: ghcr.io/alexta69/metube:2026.01.11
+          image: ghcr.io/alexta69/metube:2026.01.30
           ports:
             - containerPort: 8081
           volumeMounts:
