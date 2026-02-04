@@ -8,7 +8,7 @@ metadata:
     cert-manager.io/cluster-issuer: cloudflare-issuer
 spec:
   rules:
-    - host: vw.solveir.icu
+    - host: vw.${DOMAIN}
       http:
         paths:
           - path: /
@@ -20,5 +20,5 @@ spec:
                   number: 80
   tls:
     - hosts:
-        - vw.solveir.icu
+        - vw.${DOMAIN}
       secretName: vaultwarden-tls

@@ -8,7 +8,7 @@ metadata:
     cert-manager.io/cluster-issuer: cloudflare-issuer
 spec:
   rules:
-    - host: searxng.solveir.icu
+    - host: searxng.${DOMAIN}
       http:
         paths:
           - path: /
@@ -20,5 +20,5 @@ spec:
                   number: 8080
   tls:
     - hosts:
-        - searxng.solveir.icu
+        - searxng.${DOMAIN}
       secretName: searxng-tls

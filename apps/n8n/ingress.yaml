@@ -8,7 +8,7 @@ metadata:
     cert-manager.io/cluster-issuer: cloudflare-issuer
 spec:
   rules:
-    - host: n8n.solveir.icu
+    - host: n8n.${DOMAIN}
       http:
         paths:
           - path: /
@@ -20,5 +20,5 @@ spec:
                   number: 5678
   tls:
     - hosts:
-        - n8n.solveir.icu
+        - n8n.${DOMAIN}
       secretName: n8n-tls

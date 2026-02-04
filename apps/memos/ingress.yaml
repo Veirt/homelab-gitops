@@ -8,7 +8,7 @@ metadata:
     cert-manager.io/cluster-issuer: cloudflare-issuer
 spec:
   rules:
-    - host: memo.solveir.icu
+    - host: memo.${DOMAIN}
       http:
         paths:
           - path: /
@@ -20,5 +20,5 @@ spec:
                   number: 5230
   tls:
     - hosts:
-        - memo.solveir.icu
+        - memo.${DOMAIN}
       secretName: memos-tls

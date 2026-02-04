@@ -8,7 +8,7 @@ metadata:
     cert-manager.io/cluster-issuer: cloudflare-issuer
 spec:
   rules:
-    - host: public.solveir.icu
+    - host: public.${DOMAIN}
       http:
         paths:
           - path: /
@@ -20,5 +20,5 @@ spec:
                   number: 8080
   tls:
     - hosts:
-        - public.solveir.icu
+        - public.${DOMAIN}
       secretName: miniserve-tls

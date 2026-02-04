@@ -8,7 +8,7 @@ metadata:
     cert-manager.io/cluster-issuer: cloudflare-issuer
 spec:
   rules:
-    - host: schedula.solveir.icu
+    - host: schedula.${DOMAIN}
       http:
         paths:
           - path: /
@@ -20,5 +20,5 @@ spec:
                   number: 3000
   tls:
     - hosts:
-        - schedula.solveir.icu
+        - schedula.${DOMAIN}
       secretName: schedula-tls

@@ -16,7 +16,7 @@ spec:
         io.containerd.runc.v2.group: "zeropod"
         zeropod.ctrox.dev/container-names: "metube"
         zeropod.ctrox.dev/ports-map: "metube=8081"
-        zeropod.ctrox.dev/scaledown-duration: 10s
+        zeropod.ctrox.dev/scaledown-duration: 30s
     spec:
       runtimeClassName: zeropod
       containers:
