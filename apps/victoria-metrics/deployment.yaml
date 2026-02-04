@@ -1,9 +1,10 @@
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: victoria-metrics
 spec:
+  serviceName: victoria-service
   replicas: 1
   selector:
     matchLabels:
@@ -13,6 +14,15 @@ spec:
       labels:
         app: victoria-metrics
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - althea
       containers:
         - name: victoria-metrics
           image: victoriametrics/victoria-metrics:v1.135.0-rc0-scratch
@@ -20,10 +30,15 @@ spec:
           ports:
             - containerPort: 8428
           volumeMounts:
-            - name: config-volume
+            - name: victoria-metrics-data
               mountPath: /victoria-metrics-data
-              subPath: victoria-metrics
-      volumes:
-        - name: config-volume
-          persistentVolumeClaim:
-            claimName: data-pvc
+  volumeClaimTemplates:
+    - metadata:
+        name: victoria-metrics-data
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        storageClassName: local-storage
+        resources:
+          requests:
+            storage: 4Gi

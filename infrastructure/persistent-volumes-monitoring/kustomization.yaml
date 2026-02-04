@@ -5,3 +5,5 @@ namespace: monitoring
 resources:
   - data-pv.yaml
   - data-pvc.yaml
+  - victoria-metrics-storage-class.yaml
+  - victoria-metrics-local-pv.yaml
