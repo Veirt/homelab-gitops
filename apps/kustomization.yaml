@@ -7,7 +7,6 @@ resources:
   - myspeed
   - searxng
   - ntfy
-  - n8n
   - wakapi
   - vaultwarden
   - jellyfin
