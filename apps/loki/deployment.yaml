@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: loki
-          image: grafana/loki:3.6.5
+          image: grafana/loki:3.6.6
           ports:
             - containerPort: 3100
           volumeMounts:
