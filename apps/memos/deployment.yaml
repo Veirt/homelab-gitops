@@ -21,7 +21,7 @@ spec:
       runtimeClassName: zeropod
       containers:
         - name: memos
-          image: neosmemo/memos:0.26.1
+          image: neosmemo/memos:0.26.2
           ports:
             - containerPort: 5230
           volumeMounts:
