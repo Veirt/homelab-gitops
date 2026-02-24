@@ -13,6 +13,13 @@ spec:
       labels:
         app: schedula
     spec:
+      nodeSelector:
+        kubernetes.io/hostname: vps
+      tolerations:
+        - key: "dedicated"
+          operator: "Equal"
+          value: "vps"
+          effect: "NoSchedule"
       containers:
         - name: schedula
           image: ghcr.io/veirt/schedula@sha256:2462548b4ad15ad87183886d798fdebb6b817ee8417266056e4e814747add7d4

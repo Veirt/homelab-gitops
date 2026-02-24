@@ -19,6 +19,13 @@ spec:
         zeropod.ctrox.dev/scaledown-duration: 10s
     spec:
       runtimeClassName: zeropod
+      nodeSelector:
+        kubernetes.io/hostname: vps
+      tolerations:
+        - key: "dedicated"
+          operator: "Equal"
+          value: "vps"
+          effect: "NoSchedule"
       containers:
         - name: memos
           image: neosmemo/memos:0.26.2
