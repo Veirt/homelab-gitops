@@ -15,7 +15,7 @@ spec:
       serviceAccountName: alloy
       containers:
         - name: alloy
-          image: grafana/alloy:v1.13.1
+          image: grafana/alloy:v1.13.2
           args:
             - run
             - --server.http.listen-addr=0.0.0.0:12345
