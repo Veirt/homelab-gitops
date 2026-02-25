@@ -13,6 +13,13 @@ spec:
       labels:
         app: ntfy
     spec:
+      nodeSelector:
+        kubernetes.io/hostname: vps
+      tolerations:
+        - key: "dedicated"
+          operator: "Equal"
+          value: "vps"
+          effect: "NoSchedule"
       containers:
         - name: ntfy
           image: binwiederhier/ntfy:v2.17.0

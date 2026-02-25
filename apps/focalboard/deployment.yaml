@@ -13,6 +13,13 @@ spec:
       labels:
         app: focalboard
     spec:
+      nodeSelector:
+        kubernetes.io/hostname: vps
+      tolerations:
+        - key: "dedicated"
+          operator: "Equal"
+          value: "vps"
+          effect: "NoSchedule"
       containers:
         - name: focalboard
           image: mattermost/focalboard:7.11.4

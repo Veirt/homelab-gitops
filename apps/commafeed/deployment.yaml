@@ -13,6 +13,13 @@ spec:
       labels:
         app: commafeed
     spec:
+      nodeSelector:
+        kubernetes.io/hostname: vps
+      tolerations:
+        - key: "dedicated"
+          operator: "Equal"
+          value: "vps"
+          effect: "NoSchedule"
       containers:
         - name: commafeed
           image: athou/commafeed:latest-h2
