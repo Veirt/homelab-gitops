@@ -1,0 +1,96 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: openclaw
+  namespace: openclaw
+spec:
+  interval: 6h
+  chart:
+    spec:
+      chart: openclaw
+      version: "1.3.23"
+      sourceRef:
+        kind: HelmRepository
+        name: openclaw-repo
+        namespace: openclaw
+      reconcileStrategy: ChartVersion
+  values:
+    app-template:
+      controllers:
+        main:
+          replicas: 1
+          strategy: Recreate
+          pod:
+            nodeSelector:
+              kubernetes.io/hostname: vps
+            tolerations:
+              - key: "dedicated"
+                operator: "Equal"
+                value: "vps"
+                effect: "NoSchedule"
+          containers:
+            main:
+              envFrom:
+                - secretRef:
+                    name: openclaw-env-secret
+            chromium:
+              enabled: true
+
+      persistence:
+        data:
+          type: persistentVolumeClaim
+          existingClaim: data-pvc
+
+      ingress:
+        main:
+          enabled: true
+          className: traefik
+          annotations:
+            traefik.ingress.k8s.io/router.entrypoints: websecure
+            cert-manager.io/cluster-issuer: cloudflare-issuer
+          hosts:
+            - host: openclaw.${DOMAIN}
+              paths:
+                - path: /
+                  pathType: Prefix
+                  service:
+                    identifier: main
+                    port: 18789
+          tls:
+            - hosts:
+                - openclaw.${DOMAIN}
+              secretName: openclaw-tls
+
+      configMaps:
+        config:
+          enabled: true
+          data:
+            openclaw.json: |
+              {
+                "gateway": {
+                  "port": 18789,
+                  "mode": "local",
+                  "trustedProxies": []
+                },
+                "browser": {
+                  "enabled": true,
+                  "defaultProfile": "default"
+                },
+                "agents": {
+                  "defaults": {
+                    "model": {
+                      "primary": "anthropic/claude-sonnet-4-5"
+                    }
+                  }
+                },
+                "session": {
+                  "scope": "per-sender"
+                },
+                "channels": {
+                  "discord": {
+                    "botToken": "${DISCORD_BOT_TOKEN}",
+                    "enabled": true
+                  }
+                }
+              }
