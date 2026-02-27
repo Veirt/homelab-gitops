@@ -40,7 +40,6 @@ spec:
       persistence:
         data:
           type: persistentVolumeClaim
-          existingClaim: data-pvc
 
       ingress:
         main:
