@@ -91,7 +91,7 @@ spec:
                 },
                 "channels": {
                   "discord": {
-                    "botToken": "${DISCORD_BOT_TOKEN}",
+                    "token": "${DISCORD_BOT_TOKEN}",
                     "enabled": true
                   }
                 }
