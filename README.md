@@ -67,11 +67,6 @@ will be happy to do so.
         <td>Lightweight note-taking app.</td>
     </tr>
     <tr>
-        <td><img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/svg/n8n.svg" width="32" /></td>
-        <td>n8n</td>
-        <td>Workflow automation tool for connecting apps and services.</td>
-    </tr>
-    <tr>
         <td><img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/svg/ntfy.svg" width="32" /></td>
         <td>ntfy</td>
         <td>Push notification service for sending messages to devices.</td>
@@ -111,6 +106,11 @@ will be happy to do so.
         <td>Karakeep</td>
         <td>AI-powered bookmarking app for those who love collecting data.</td>
     </tr>
+    <tr>
+        <td><img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/svg/focalboard.svg" width="32" /></td>
+        <td>Focalboard</td>
+        <td>Open-source project management and collaboration platform.</td>
+    </tr>
 </table>
 
  <h2>⚙️ Infrastructure</h2>
@@ -121,29 +121,9 @@ will be happy to do so.
          <th>Description</th>
      </tr>
      <tr>
-         <td><img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/svg/cert-manager.svg" width="32" /></td>
-         <td>Cert-Manager</td>
-         <td>Automated management and issuance of TLS certificates.</td>
-     </tr>
-     <tr>
-         <td><img src="https://external-secrets.io/latest/pictures/eso-round-logo.svg" width="32" /></td>
-         <td>External Secrets</td>
-         <td>Securely manage secrets from external stores.</td>
-     </tr>
-     <tr>
-         <td><img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/svg/portainer.svg" width="32" /></td>
-         <td>Portainer</td>
-         <td>A lightweight management UI for Kubernetes.</td>
-     </tr>
-     <tr>
-         <td><img src="https://artifacthub.io/image/720a1019-8159-43e4-9cfd-b4be88b32da3@3x" width="32" /></td>
-         <td>Sealed Secrets</td>
-         <td>For encrypting secrets that are safe to store in a public Git repository.</td>
-     </tr>
-     <tr>
-         <td></td>
-         <td>Zeropod</td>
-         <td>Scales down idle Kubernetes workloads to zero.</td>
+         <td><img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/svg/adguard-home.svg" width="32" /></td>
+         <td>AdGuard Home</td>
+         <td>DNS-level ad and tracker blocker for your entire network.</td>
      </tr>
  </table>
  
