@@ -62,9 +62,14 @@ will be happy to do so.
         <td>Document management system for organizing and searching PDFs.</td>
     </tr>
     <tr>
-        <td><img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/memos.png" width="32" /></td>
+        <td><img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/svg/memos.svg" width="32" /></td>
         <td>Memos</td>
         <td>Lightweight note-taking app.</td>
+    </tr>
+    <tr>
+        <td><img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/svg/appflowy.svg" width="32" /></td>
+        <td>AppFlowy</td>
+        <td>Open-source alternative to Notion.</td>
     </tr>
     <tr>
         <td><img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/svg/ntfy.svg" width="32" /></td>
@@ -102,11 +107,6 @@ will be happy to do so.
         <td>Time-tracking tool for monitoring coding activity.</td>
     </tr>
     <tr>
-        <td><img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/svg/hoarder.svg" width="32" /></td>
-        <td>Karakeep</td>
-        <td>AI-powered bookmarking app for those who love collecting data.</td>
-    </tr>
-    <tr>
         <td><img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/svg/focalboard.svg" width="32" /></td>
         <td>Focalboard</td>
         <td>Open-source project management and collaboration platform.</td>
@@ -125,6 +125,12 @@ will be happy to do so.
          <td>AdGuard Home</td>
          <td>DNS-level ad and tracker blocker for your entire network.</td>
      </tr>
+     <tr>
+         <td><img src="https://cloudnative-pg.io/img/logo.svg" width="32" /></td>
+        <td>CloudNativePG</td>
+        <td>Cloud-native [PostgreSQL operator](https://github.com/cloudnative-pg/cloudnative-pg) for Kubernetes.</td>
+    </tr>
+
  </table>
  
  <h2>📊 Monitoring</h2>

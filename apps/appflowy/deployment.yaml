@@ -1,0 +1,52 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: appflowy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: appflowy
+  template:
+    metadata:
+      labels:
+        app: appflowy
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: vps
+      tolerations:
+        - key: "dedicated"
+          operator: "Equal"
+          value: "vps"
+          effect: "NoSchedule"
+      containers:
+        - name: appflowy
+          image: appflowyinc/appflowy_cloud:latest
+          ports:
+            - containerPort: 8000
+          env:
+            - name: APPFLOWY_ENVIRONMENT
+              value: "production"
+            - name: APPFLOWY_DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: appflowy-db-appflowy
+                  key: uri
+            - name: APPFLOWY_REDIS_URI
+              value: "redis://redis:6379"
+            - name: APPFLOWY_GOTRUE_JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: appflowy-secret
+                  key: jwt-secret
+            - name: APPFLOWY_GOTRUE_BASE_URL
+              value: "http://gotrue-service:9999"
+          volumeMounts:
+            - name: data-volume
+              mountPath: /app/data
+              subPath: appflowy
+      volumes:
+        - name: data-volume
+          persistentVolumeClaim:
+            claimName: data-pvc

@@ -24,3 +24,5 @@ resources:
   - victoria-metrics
   - loki
   - alloy
+  - appflowy
+  - cnpg
