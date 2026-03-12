@@ -5,6 +5,7 @@ resources:
   - cert-manager.yaml
   - sealed-secrets.yaml
   - external-secrets.yaml
+  - cloudnative-pg.yaml
   # - notification.yaml
   # - longhorn.yaml
   - zeropod.yaml
