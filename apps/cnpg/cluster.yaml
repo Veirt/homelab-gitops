@@ -12,9 +12,10 @@ spec:
     initdb:
       database: appflowy
       owner: appflowy
+      postInitApplicationSQL:
+        - CREATE EXTENSION IF NOT EXISTS vector;
   postgresql:
-    parameters:
-      shared_preload_libraries: "vector"
     extensions:
       - name: vector
-        image: ghcr.io/cloudnative-pg/postgresql-extension-pgvector:18
+        image:
+          reference: ghcr.io/cloudnative-pg/postgresql-extension-pgvector:18
