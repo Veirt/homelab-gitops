@@ -24,7 +24,7 @@ spec:
           effect: "NoSchedule"
       containers:
         - name: trilium
-          image: triliumnext/trilium:v0.91.6
+          image: triliumnext/trilium:v0.102.1
           ports:
             - containerPort: 8080
           env:
