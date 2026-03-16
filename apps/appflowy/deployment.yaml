@@ -53,6 +53,8 @@ spec:
                 secretKeyRef:
                   name: appflowy-db-app
                   key: uri
+            - name: APPFLOWY_WEB_URL
+              value: "https://appflowy.${DOMAIN}"
             - name: APPFLOWY_REDIS_URI
               value: "redis://redis:6379"
             - name: APPFLOWY_GOTRUE_JWT_SECRET
