@@ -67,9 +67,9 @@ will be happy to do so.
         <td>Lightweight note-taking app.</td>
     </tr>
     <tr>
-        <td><img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/svg/appflowy.svg" width="32" /></td>
-        <td>AppFlowy</td>
-        <td>Open-source alternative to Notion.</td>
+        <td><img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/svg/triliumnext.svg" width="32" /></td>
+        <td>Trilium Notes</td>
+        <td>Personal knowledge base and note-taking app backed by SQLite on the shared `data-pvc` volume.</td>
     </tr>
     <tr>
         <td><img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/svg/ntfy.svg" width="32" /></td>

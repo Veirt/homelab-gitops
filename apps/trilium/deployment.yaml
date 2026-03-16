@@ -1,0 +1,56 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trilium
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: trilium
+  template:
+    metadata:
+      labels:
+        app: trilium
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: vps
+      tolerations:
+        - key: "dedicated"
+          operator: "Equal"
+          value: "vps"
+          effect: "NoSchedule"
+      containers:
+        - name: trilium
+          image: triliumnext/trilium:v0.91.6
+          ports:
+            - containerPort: 8080
+          env:
+            - name: TRILIUM_DATA_DIR
+              value: /home/node/trilium-data
+            - name: USER_UID
+              value: "1000"
+            - name: USER_GID
+              value: "1000"
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 20
+          volumeMounts:
+            - name: data-volume
+              mountPath: /home/node/trilium-data
+              subPath: trilium
+      volumes:
+        - name: data-volume
+          persistentVolumeClaim:
+            claimName: data-pvc
