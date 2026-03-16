@@ -25,5 +25,4 @@ resources:
   - loki
   - alloy
   - appflowy
-  - appflowy-db
   - linkding
