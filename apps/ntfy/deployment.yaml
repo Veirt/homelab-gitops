@@ -22,7 +22,7 @@ spec:
           effect: "NoSchedule"
       containers:
         - name: ntfy
-          image: binwiederhier/ntfy:v2.19.0
+          image: binwiederhier/ntfy:v2.19.2
           args: ["serve"]
           env:
             - name: TZ
