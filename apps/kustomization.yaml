@@ -24,7 +24,6 @@ resources:
   - victoria-metrics
   - loki
   - alloy
-  - trilium
   - linkding
   - gitlab
   - gitlab-runner
