@@ -13,3 +13,5 @@ resources:
   - storage2-pvc.yaml
   - storage3-pv.yaml
   - storage3-pvc.yaml
+  - gitlab-pv.yaml
+  - gitlab-pvc.yaml

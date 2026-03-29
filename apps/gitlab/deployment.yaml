@@ -1,0 +1,56 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitlab
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gitlab
+  template:
+    metadata:
+      labels:
+        app: gitlab
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: vps
+      tolerations:
+        - key: "dedicated"
+          operator: "Equal"
+          value: "vps"
+          effect: "NoSchedule"
+      containers:
+        - name: gitlab
+          image: gitlab/gitlab-ce:latest
+          env:
+            - name: GITLAB_OMNIBUS_CONFIG
+              value: |
+                external_url 'https://gitlab.${DOMAIN}'
+                nginx['listen_port'] = 80
+                nginx['listen_https'] = false
+                letsencrypt['enable'] = false
+                gitlab_rails['gitlab_shell_ssh_port'] = 2222
+                gitlab_rails['initial_root_password'] = File.read('/etc/gitlab-secrets/initial_root_password').strip
+          ports:
+            - containerPort: 80
+            - containerPort: 22
+          volumeMounts:
+            - name: gitlab-root-password
+              mountPath: /etc/gitlab-secrets
+              readOnly: true
+            - name: gitlab-storage
+              mountPath: /var/opt/gitlab
+            - name: gitlab-shm
+              mountPath: /dev/shm
+      volumes:
+        - name: gitlab-root-password
+          secret:
+            secretName: gitlab-secrets
+        - name: gitlab-storage
+          persistentVolumeClaim:
+            claimName: gitlab-pvc
+        - name: gitlab-shm
+          emptyDir:
+            medium: Memory
+            sizeLimit: 256Mi

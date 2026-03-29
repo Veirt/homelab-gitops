@@ -1,0 +1,43 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: gitlab-runner
+  namespace: gitlab-runner
+spec:
+  interval: 6h
+  releaseName: gitlab-runner
+  chart:
+    spec:
+      chart: gitlab-runner
+      sourceRef:
+        kind: HelmRepository
+        name: gitlab
+        namespace: gitlab-runner
+      interval: 24h
+  values:
+    gitlabUrl: https://gitlab.${DOMAIN}
+    rbac:
+      create: true
+    concurrent: 2
+    checkInterval: 30
+    nodeSelector:
+      kubernetes.io/hostname: vps
+    tolerations:
+      - key: dedicated
+        operator: Equal
+        value: vps
+        effect: NoSchedule
+    runners:
+      secret: gitlab-runner-secret
+      config: |
+        [[runners]]
+          executor = "kubernetes"
+          [runners.kubernetes]
+            namespace = "{{ default .Release.Namespace .Values.runners.jobNamespace }}"
+            image = "alpine:3.21"
+            poll_timeout = 600
+            [runners.kubernetes.node_selector]
+              "kubernetes.io/hostname" = "vps"
+            [runners.kubernetes.node_tolerations]
+              "dedicated=vps" = "NoSchedule"

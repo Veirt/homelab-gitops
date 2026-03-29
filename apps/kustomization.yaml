@@ -26,3 +26,5 @@ resources:
   - alloy
   - trilium
   - linkding
+  - gitlab
+  - gitlab-runner
