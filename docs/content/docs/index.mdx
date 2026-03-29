@@ -1,0 +1,42 @@
+---
+title: My Homelab
+description: Why I built this homelab, what I run in it, and why I moved from Docker Compose to Kubernetes and GitOps.
+---
+
+I built this homelab mostly because it is fun.
+
+It gives me a place to learn, try random ideas, automate things, and run apps that I actually use. Some of them are practical, some are there because I wanted to see if I could make them work, and some are there so I can sit around and wait for my anime to release like a very normal person.
+
+I have been in the home server and self-hosted rabbit hole for a while now. Over time, this setup became one of my favorite ways to learn by doing.
+
+## What I run
+
+The homelab is a mix of personal services, media apps, and supporting infrastructure.
+
+A few examples:
+
+- media tools like [Jellyfin](https://github.com/jellyfin/jellyfin) and [MeTube](https://github.com/alexta69/metube)
+- personal tools like [Paperless-ngx](https://github.com/paperless-ngx/paperless-ngx), [Vaultwarden](https://github.com/dani-garcia/vaultwarden), [Memos](https://github.com/usememos/memos), and [Linkding](https://github.com/sissbruecker/linkding)
+- monitoring tools like [Grafana](https://github.com/grafana/grafana), [Loki](https://github.com/grafana/loki), [Prometheus](https://github.com/prometheus/prometheus), and [VictoriaMetrics](https://github.com/VictoriaMetrics/VictoriaMetrics)
+- utility services like [ntfy](https://github.com/binwiederhier/ntfy), [SearXNG](https://github.com/searxng/searxng), and [Syncthing](https://github.com/syncthing/syncthing)
+- a few of my own projects, like [Vesta](https://github.com/Veirt/vesta) and [Schedula](https://github.com/Veirt/schedula)
+
+There is more than what is shown in this public repo too. Some parts of the setup live in a private homelab repository, mostly for things that do not belong here, including a few things related to sailing the sea.
+
+## Why I moved to Kubernetes
+
+I used to run things mostly with Docker Compose.
+
+Honestly, `docker-compose.yml` was already good enough for what I needed. It is simple, easy to reason about, and very convenient when you want to keep an app and its config together in one place.
+
+So why move to Kubernetes, GitOps, and Flux if the old setup already worked?
+
+Mostly because I wanted to learn.
+
+I like learning tools by actually using them, and this homelab gives me a good place to do that without pretending I am running some serious production platform. I wanted to get more comfortable with Kubernetes, understand GitOps better, and have a project that grows along with what I learn.
+
+Flux is a big part of that. I like the idea of keeping the desired state in Git and letting the cluster reconcile itself toward that state. It is not magically simpler than Docker Compose, but it is a very good way to learn how these tools work in practice.
+
+## Still changing
+
+This setup is still changing as I learn. Some parts are stable, some are still experimental, and some things are only there because I wanted to try them out. That is part of the fun.
