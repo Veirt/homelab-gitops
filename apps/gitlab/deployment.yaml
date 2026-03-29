@@ -40,7 +40,14 @@ spec:
               mountPath: /etc/gitlab-secrets
               readOnly: true
             - name: gitlab-storage
+              mountPath: /etc/gitlab
+              subPath: config
+            - name: gitlab-storage
+              mountPath: /var/log/gitlab
+              subPath: logs
+            - name: gitlab-storage
               mountPath: /var/opt/gitlab
+              subPath: data
             - name: gitlab-shm
               mountPath: /dev/shm
       volumes:
