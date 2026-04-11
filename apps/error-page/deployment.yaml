@@ -12,7 +12,7 @@ spec:
       labels: {app: errorpages}
     spec:
       nodeSelector:
-        kubernetes.io/hostname: vps
+        veirt.dev/node-pool: vps
       tolerations:
         - key: "dedicated"
           operator: "Equal"

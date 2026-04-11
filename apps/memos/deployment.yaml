@@ -20,7 +20,7 @@ spec:
     spec:
       runtimeClassName: zeropod
       nodeSelector:
-        kubernetes.io/hostname: vps
+        veirt.dev/node-pool: vps
       tolerations:
         - key: "dedicated"
           operator: "Equal"

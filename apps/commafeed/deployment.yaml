@@ -14,7 +14,7 @@ spec:
         app: commafeed
     spec:
       nodeSelector:
-        kubernetes.io/hostname: vps
+        veirt.dev/node-pool: vps
       tolerations:
         - key: "dedicated"
           operator: "Equal"

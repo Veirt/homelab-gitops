@@ -22,7 +22,7 @@ spec:
     concurrent: 2
     checkInterval: 30
     nodeSelector:
-      kubernetes.io/hostname: vps
+      veirt.dev/node-pool: vps
     tolerations:
       - key: dedicated
         operator: Equal
@@ -38,6 +38,6 @@ spec:
             image = "alpine:3.21"
             poll_timeout = 600
             [runners.kubernetes.node_selector]
-              "kubernetes.io/hostname" = "vps"
+              "veirt.dev/node-pool" = "vps"
             [runners.kubernetes.node_tolerations]
               "dedicated=vps" = "NoSchedule"
