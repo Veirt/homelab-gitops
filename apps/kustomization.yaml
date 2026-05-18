@@ -12,6 +12,7 @@ resources:
   - jellyfin
   - metube
   - syncthing
+  - dufs
   - miniserve
   - paperless-ngx
   - schedula

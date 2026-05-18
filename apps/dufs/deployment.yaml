@@ -1,0 +1,29 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dufs
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dufs
+  template:
+    metadata:
+      labels:
+        app: dufs
+    spec:
+      containers:
+        - name: dufs
+          image: docker.io/sigoden/dufs:v0.46.0
+          args: ["/public"]
+          ports:
+            - containerPort: 5000
+          volumeMounts:
+            - name: public-volume
+              mountPath: /public
+              subPath: public
+      volumes:
+        - name: public-volume
+          persistentVolumeClaim:
+            claimName: media-pvc

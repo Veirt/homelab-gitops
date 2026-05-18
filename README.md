@@ -43,6 +43,11 @@ will be happy to do so.
         <td>Simple self-hosted file server.</td>
     </tr>
     <tr>
+        <td></td>
+        <td>Dufs</td>
+        <td>Lightweight file server with WebDAV support.</td>
+    </tr>
+    <tr>
         <td><img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/svg/syncthing.svg" width="32" /></td>
         <td>Syncthing</td>
         <td>Continuous file synchronization between devices.</td>
