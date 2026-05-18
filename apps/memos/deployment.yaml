@@ -28,7 +28,7 @@ spec:
           effect: "NoSchedule"
       containers:
         - name: memos
-          image: neosmemo/memos:0.26.2
+          image: neosmemo/memos:0.28.0
           ports:
             - containerPort: 5230
           volumeMounts:
