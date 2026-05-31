@@ -4,7 +4,6 @@ kind: Kustomization
 resources:
   - vesta
   - memos
-  - myspeed
   - searxng
   - ntfy
   - wakapi
