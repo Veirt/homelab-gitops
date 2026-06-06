@@ -19,8 +19,16 @@ spec:
         zeropod.ctrox.dev/scaledown-duration: 10s
     spec:
       runtimeClassName: zeropod
-      nodeSelector:
-        veirt.dev/node-pool: vps
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              preference:
+                matchExpressions:
+                  - key: veirt.dev/node-pool
+                    operator: In
+                    values:
+                      - vps
       tolerations:
         - key: "dedicated"
           operator: "Equal"
