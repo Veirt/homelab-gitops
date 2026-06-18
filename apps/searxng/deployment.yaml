@@ -18,6 +18,11 @@ spec:
           image: ghcr.io/searxng/searxng:2026.5.17-f26e45077
           ports:
             - containerPort: 8080
+          resources:
+            requests:
+              memory: 128Mi
+            limits:
+              memory: 256Mi
           volumeMounts:
             - name: config-volume
               mountPath: /etc/searxng

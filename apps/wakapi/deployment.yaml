@@ -30,6 +30,11 @@ spec:
                   key: password_salt
           ports:
             - containerPort: 3000
+          resources:
+            requests:
+              memory: 96Mi
+            limits:
+              memory: 192Mi
           volumeMounts:
             - name: data-volume
               mountPath: /data

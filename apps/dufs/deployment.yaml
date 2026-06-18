@@ -19,6 +19,11 @@ spec:
           args: ["/public"]
           ports:
             - containerPort: 5000
+          resources:
+            requests:
+              memory: 16Mi
+            limits:
+              memory: 64Mi
           volumeMounts:
             - name: public-volume
               mountPath: /public

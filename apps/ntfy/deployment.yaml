@@ -37,6 +37,11 @@ spec:
               value: "Asia/Makassar"
           ports:
             - containerPort: 80
+          resources:
+            requests:
+              memory: 32Mi
+            limits:
+              memory: 96Mi
           volumeMounts:
             - name: data-volume
               mountPath: /var/cache/ntfy

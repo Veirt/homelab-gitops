@@ -44,6 +44,11 @@ spec:
                 secretKeyRef:
                   name: linkding-secrets
                   key: superuser_password
+          resources:
+            requests:
+              memory: 96Mi
+            limits:
+              memory: 192Mi
           volumeMounts:
             - name: linkding-data
               mountPath: /etc/linkding/data

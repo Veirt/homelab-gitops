@@ -27,6 +27,11 @@ spec:
               value: "Asia/Makassar"
           ports:
             - containerPort: 8096
+          resources:
+            requests:
+              memory: 384Mi
+            limits:
+              memory: 1Gi
           volumeMounts:
             - name: jellyfin-volume
               mountPath: /config

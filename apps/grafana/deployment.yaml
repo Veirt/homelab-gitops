@@ -18,6 +18,11 @@ spec:
           image: grafana/grafana:13.0.1-security-01
           ports:
             - containerPort: 3000
+          resources:
+            requests:
+              memory: 384Mi
+            limits:
+              memory: 768Mi
           volumeMounts:
             - name: config-volume
               mountPath: /var/lib/grafana

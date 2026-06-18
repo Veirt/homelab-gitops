@@ -24,6 +24,11 @@ spec:
           image: ghcr.io/alexta69/metube:2026.04.28
           ports:
             - containerPort: 8081
+          resources:
+            requests:
+              memory: 64Mi
+            limits:
+              memory: 160Mi
           volumeMounts:
             - name: download-volume
               mountPath: /downloads
