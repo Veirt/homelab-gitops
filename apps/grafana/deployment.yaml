@@ -22,7 +22,7 @@ spec:
             requests:
               memory: 384Mi
             limits:
-              memory: 768Mi
+              memory: 1Gi
           volumeMounts:
             - name: config-volume
               mountPath: /var/lib/grafana
