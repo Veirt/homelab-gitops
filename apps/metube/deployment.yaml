@@ -12,13 +12,7 @@ spec:
     metadata:
       labels:
         app: metube
-      annotations:
-        io.containerd.runc.v2.group: "zeropod"
-        zeropod.ctrox.dev/container-names: "metube"
-        zeropod.ctrox.dev/ports-map: "metube=8081"
-        zeropod.ctrox.dev/scaledown-duration: 30s
     spec:
-      runtimeClassName: zeropod
       containers:
         - name: metube
           image: ghcr.io/alexta69/metube:2026.04.28

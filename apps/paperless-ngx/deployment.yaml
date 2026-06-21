@@ -12,13 +12,7 @@ spec:
     metadata:
       labels:
         app: paperless-ngx
-      annotations:
-        io.containerd.runc.v2.group: "zeropod"
-        zeropod.ctrox.dev/container-names: "paperless-ngx"
-        zeropod.ctrox.dev/ports-map: "paperless-ngx=8000"
-        zeropod.ctrox.dev/scaledown-duration: 10s
     spec:
-      runtimeClassName: zeropod
       containers:
         - name: broker
           image: docker.io/library/redis:8

@@ -7,4 +7,4 @@ resources:
   - external-secrets.yaml
   # - cloudnative-pg.yaml
   # - notification.yaml
-  - zeropod.yaml
+  - keda.yaml
