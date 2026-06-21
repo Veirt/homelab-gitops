@@ -13,6 +13,21 @@ spec:
       labels:
         app: wakapi
     spec:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              preference:
+                matchExpressions:
+                  - key: veirt.dev/node-pool
+                    operator: In
+                    values:
+                      - vps
+      tolerations:
+        - key: "veirt.dev/node-pool"
+          operator: "Equal"
+          value: "vps"
+          effect: "NoSchedule"
       containers:
         - name: wakapi
           image: ghcr.io/muety/wakapi:2.17.3
