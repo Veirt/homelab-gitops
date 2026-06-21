@@ -2,10 +2,10 @@
 apiVersion: keda.sh/v1alpha1
 kind: ScaledObject
 metadata:
-  name: wakapi
+  name: paperless-ngx
 spec:
   scaleTargetRef:
-    name: wakapi
+    name: paperless-ngx
   minReplicaCount: 0
   maxReplicaCount: 1
   cooldownPeriod: 300

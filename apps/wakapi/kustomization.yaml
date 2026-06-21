@@ -7,4 +7,3 @@ resources:
   - service.yaml
   - ingress.yaml
   - secret.yaml
-  - scaledobject.yaml
