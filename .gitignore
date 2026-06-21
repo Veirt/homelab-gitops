@@ -1,0 +1,10 @@
+# Terraform local state, secrets, and provider cache
+**/.terraform/
+**/terraform.tfstate
+**/terraform.tfstate.*
+**/*.tfvars
+!**/terraform.tfvars.example
+**/*.tfvars.json
+**/*.tfplan
+**/crash.log
+**/crash.*.log

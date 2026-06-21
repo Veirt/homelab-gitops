@@ -46,4 +46,4 @@ spec:
       limits:
         memory: 256Mi
     monitoring:
-      podMonitorEnabled: true
+      podMonitorEnabled: false

@@ -1,0 +1,11 @@
+tailscale_auth_key = "tskey-auth-REPLACE_ME"
+k3s_token          = "K10_REPLACE_ME"
+
+# Defaults to https://192.168.1.53:6443 when omitted.
+# k3s_server_url = "https://192.168.1.53:6443"
+
+# Optional extras if the agent needs explicit cross-network k3s flags.
+# extra_k3s_agent_args = ["--flannel-iface=tailscale0"]
+
+# Optional extras for tailscale up.
+# extra_tailscale_args = ["--advertise-tags=tag:server"]

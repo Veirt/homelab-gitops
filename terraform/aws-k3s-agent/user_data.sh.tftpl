@@ -1,0 +1,74 @@
+#!/bin/bash
+set -euo pipefail
+
+log() {
+  printf '[aws-k3s-agent] %s\n' "$1"
+}
+
+log "hardening ssh"
+mkdir -p /etc/ssh/sshd_config.d
+cat >/etc/ssh/sshd_config.d/99-homelab-hardening.conf <<'EOF'
+PasswordAuthentication no
+KbdInteractiveAuthentication no
+ChallengeResponseAuthentication no
+PermitRootLogin no
+PubkeyAuthentication yes
+EOF
+systemctl restart sshd
+
+log "installing base updates"
+dnf update -y
+dnf install -y ca-certificates
+if ! command -v curl >/dev/null 2>&1; then
+  dnf install -y curl-minimal
+fi
+
+log "installing tailscale"
+curl -fsSL https://tailscale.com/install.sh | sh
+systemctl enable --now tailscaled
+
+log "starting tailscale"
+tailscale up \
+  --auth-key '${tailscale_auth_key}' \
+  --hostname '${tailscale_hostname}' \
+  --accept-routes \
+  --ssh \
+%{ for arg in extra_tailscale_args ~}
+  '${arg}' \
+%{ endfor ~}
+  --reset
+
+log "waiting for tailscale connectivity"
+for attempt in $(seq 1 30); do
+  if tailscale status >/dev/null 2>&1; then
+    break
+  fi
+  sleep 2
+done
+
+%{ if enable_k3s_agent ~}
+server_url='${k3s_server_url}'
+server_host="$${server_url#*://}"
+server_host="$${server_host%%/*}"
+server_port="$${server_host##*:}"
+server_host="$${server_host%%:*}"
+
+log "waiting for k3s server $server_url"
+for attempt in $(seq 1 60); do
+  if timeout 3 bash -c "</dev/tcp/$server_host/$server_port" >/dev/null 2>&1; then
+    break
+  fi
+  if [ "$attempt" -eq 60 ]; then
+    log "k3s server was not reachable after waiting"
+    exit 1
+  fi
+  sleep 5
+done
+
+log "installing k3s agent"
+curl -sfL https://get.k3s.io | K3S_TOKEN='${k3s_token}' INSTALL_K3S_EXEC="agent --server $server_url%{ for arg in extra_k3s_agent_args } ${arg}%{ endfor }" sh -s -
+%{ else ~}
+log "k3s agent install disabled"
+%{ endif ~}
+
+log "bootstrap complete"
