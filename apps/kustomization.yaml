@@ -13,7 +13,7 @@ resources:
   - syncthing
   - dufs
   - miniserve
-  - paperless-ngx
+  # - paperless-ngx
   - schedula
   # - adguard-home
   - error-page
