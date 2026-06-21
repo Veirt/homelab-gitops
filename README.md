@@ -102,11 +102,6 @@ will be happy to do so.
         <td>Time-tracking tool for monitoring coding activity.</td>
     </tr>
     <tr>
-        <td><img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/svg/focalboard.svg" width="32" /></td>
-        <td>Focalboard</td>
-        <td>Open-source project management and collaboration platform.</td>
-    </tr>
-    <tr>
         <td><img src="https://raw.githubusercontent.com/sissbruecker/linkding/master/screenshot.png" width="32" /></td>
         <td>Linkding</td>
         <td>Self-hosted bookmark manager that is designed to be minimal, fast, and easy to set up.</td>

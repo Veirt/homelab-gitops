@@ -33,6 +33,11 @@ spec:
           image: neosmemo/memos:0.28.0
           ports:
             - containerPort: 5230
+          resources:
+            requests:
+              memory: 32Mi
+            limits:
+              memory: 64Mi
           volumeMounts:
             - name: data-volume
               mountPath: /var/opt/memos

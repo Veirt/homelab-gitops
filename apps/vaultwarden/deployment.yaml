@@ -22,7 +22,7 @@ spec:
             requests:
               memory: 32Mi
             limits:
-              memory: 128Mi
+              memory: 64Mi
           volumeMounts:
             - name: data-volume
               mountPath: /data

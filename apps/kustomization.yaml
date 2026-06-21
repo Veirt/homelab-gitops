@@ -17,7 +17,6 @@ resources:
   - schedula
   # - adguard-home
   - error-page
-  - focalboard
   - grafana
   - prometheus
   - victoria-metrics

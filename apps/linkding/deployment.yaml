@@ -46,7 +46,7 @@ spec:
                   key: superuser_password
           resources:
             requests:
-              memory: 96Mi
+              memory: 128Mi
             limits:
               memory: 192Mi
           volumeMounts:

@@ -41,24 +41,24 @@ spec:
     operator:
       resources:
         requests:
-          cpu: 100m
-          memory: 64Mi
+          cpu: 50m
+          memory: 32Mi
         limits:
-          memory: 128Mi
+          memory: 64Mi
     metricsServer:
-      resources:
-        requests:
-          cpu: 100m
-          memory: 64Mi
-        limits:
-          memory: 128Mi
-    webhooks:
       resources:
         requests:
           cpu: 50m
           memory: 32Mi
         limits:
           memory: 64Mi
+    webhooks:
+      resources:
+        requests:
+          cpu: 25m
+          memory: 16Mi
+        limits:
+          memory: 32Mi
     grpcServer:
       enabled: false
     prometheus:

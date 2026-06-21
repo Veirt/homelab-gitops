@@ -33,9 +33,9 @@ spec:
           image: docker.io/library/redis:8
           resources:
             requests:
-              memory: 32Mi
+              memory: 16Mi
             limits:
-              memory: 128Mi
+              memory: 64Mi
           volumeMounts:
             - name: data-volume
               mountPath: /data
@@ -57,9 +57,9 @@ spec:
             - containerPort: 8000
           resources:
             requests:
-              memory: 512Mi
+              memory: 600Mi
             limits:
-              memory: 1536Mi
+              memory: 800Mi
           volumeMounts:
             - name: data-volume
               mountPath: /usr/src/paperless/data

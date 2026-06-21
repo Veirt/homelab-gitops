@@ -66,6 +66,11 @@ spec:
                   key: jwt_secret
           ports:
             - containerPort: 3000
+          resources:
+            requests:
+              memory: 64Mi
+            limits:
+              memory: 128Mi
           volumeMounts:
             - name: data-volume
               mountPath: /app/db

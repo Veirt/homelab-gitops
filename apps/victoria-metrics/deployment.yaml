@@ -29,6 +29,11 @@ spec:
           args: ["--retentionPeriod=100y"]
           ports:
             - containerPort: 8428
+          resources:
+            requests:
+              memory: 96Mi
+            limits:
+              memory: 192Mi
           volumeMounts:
             - name: victoria-metrics-data
               mountPath: /victoria-metrics-data

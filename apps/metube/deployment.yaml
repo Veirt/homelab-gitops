@@ -22,7 +22,7 @@ spec:
             requests:
               memory: 64Mi
             limits:
-              memory: 160Mi
+              memory: 128Mi
           volumeMounts:
             - name: download-volume
               mountPath: /downloads
