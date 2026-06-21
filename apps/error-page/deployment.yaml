@@ -22,7 +22,7 @@ spec:
                     values:
                       - vps
       tolerations:
-        - key: "dedicated"
+        - key: "veirt.dev/node-pool"
           operator: "Equal"
           value: "vps"
           effect: "NoSchedule"

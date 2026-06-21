@@ -13,6 +13,21 @@ spec:
       labels:
         app: paperless-ngx
     spec:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              preference:
+                matchExpressions:
+                  - key: veirt.dev/node-pool
+                    operator: In
+                    values:
+                      - vps
+      tolerations:
+        - key: "veirt.dev/node-pool"
+          operator: "Equal"
+          value: "vps"
+          effect: "NoSchedule"
       containers:
         - name: broker
           image: docker.io/library/redis:8
