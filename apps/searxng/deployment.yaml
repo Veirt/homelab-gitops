@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: searxng
-          image: ghcr.io/searxng/searxng:2026.5.17-f26e45077
+          image: ghcr.io/searxng/searxng:2026.6.24-e3126b89e
           ports:
             - containerPort: 8080
           resources:
