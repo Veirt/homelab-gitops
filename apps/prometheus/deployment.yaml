@@ -20,9 +20,14 @@ spec:
             - containerPort: 9090
           resources:
             requests:
-              memory: 64Mi
+              memory: 512Mi
             limits:
-              memory: 128Mi
+              memory: 1Gi
+          args:
+            - --config.file=/etc/prometheus/prometheus.yml
+            - --storage.tsdb.path=/prometheus
+            - --storage.tsdb.retention.time=7d
+            - --auto-gomemlimit
           volumeMounts:
             - name: config-volume
               mountPath: /etc/prometheus
