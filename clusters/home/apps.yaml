@@ -19,10 +19,14 @@ metadata:
   namespace: flux-system
 spec:
   interval: 30m
+  retryInterval: 2m
+  timeout: 5m
   path: ./apps
   prune: true
   dependsOn:
     - name: infra-configs
+    - name: infra-volumes
+    - name: infra-volumes-monitoring
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -39,10 +43,13 @@ metadata:
   namespace: flux-system
 spec:
   interval: 30m
+  retryInterval: 2m
+  timeout: 5m
   path: ./apps
   prune: true
   dependsOn:
     - name: infra-configs
+    - name: infra-volumes
   sourceRef:
     kind: GitRepository
     name: private
