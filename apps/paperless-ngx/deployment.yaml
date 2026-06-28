@@ -57,9 +57,9 @@ spec:
             - containerPort: 8000
           resources:
             requests:
-              memory: 600Mi
+              memory: 1Gi
             limits:
-              memory: 800Mi
+              memory: 2Gi
           volumeMounts:
             - name: data-volume
               mountPath: /usr/src/paperless/data

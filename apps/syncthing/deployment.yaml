@@ -24,6 +24,8 @@ spec:
               value: "1000"
             - name: TZ
               value: "Asia/Makassar"
+            - name: GOMEMLIMIT
+              value: 320MiB
           ports:
             - containerPort: 8384
               hostPort: 8384
@@ -40,9 +42,9 @@ spec:
             privileged: true
           resources:
             requests:
-              memory: 128Mi
+              memory: 256Mi
             limits:
-              memory: 192Mi
+              memory: 384Mi
           volumeMounts:
             - name: config-volume
               mountPath: /config

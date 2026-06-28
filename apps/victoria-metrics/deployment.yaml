@@ -27,13 +27,16 @@ spec:
         - name: victoria-metrics
           image: victoriametrics/victoria-metrics:v1.143.0-scratch
           args: ["--retentionPeriod=100y"]
+          env:
+            - name: GOMEMLIMIT
+              value: 320MiB
           ports:
             - containerPort: 8428
           resources:
             requests:
-              memory: 96Mi
+              memory: 256Mi
             limits:
-              memory: 192Mi
+              memory: 384Mi
           volumeMounts:
             - name: victoria-metrics-data
               mountPath: /victoria-metrics-data

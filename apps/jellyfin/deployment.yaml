@@ -29,9 +29,9 @@ spec:
             - containerPort: 8096
           resources:
             requests:
-              memory: 600Mi
+              memory: 768Mi
             limits:
-              memory: 800Mi
+              memory: 1Gi
           volumeMounts:
             - name: jellyfin-volume
               mountPath: /config

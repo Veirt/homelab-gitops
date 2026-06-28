@@ -20,9 +20,12 @@ spec:
             - containerPort: 3100
           resources:
             requests:
-              memory: 128Mi
+              memory: 256Mi
             limits:
-              memory: 192Mi
+              memory: 384Mi
+          env:
+            - name: GOMEMLIMIT
+              value: 320MiB
           volumeMounts:
             - name: config-volume
               mountPath: /loki
