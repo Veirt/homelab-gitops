@@ -20,9 +20,9 @@ spec:
             - containerPort: 8080
           resources:
             requests:
-              memory: 128Mi
+              memory: 256Mi
             limits:
-              memory: 192Mi
+              memory: 512Mi
           volumeMounts:
             - name: config-volume
               mountPath: /etc/searxng
