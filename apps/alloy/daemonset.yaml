@@ -13,6 +13,8 @@ spec:
         app: alloy
     spec:
       serviceAccountName: alloy
+      hostPID: true
+      hostNetwork: true
       containers:
         - name: alloy
           image: grafana/alloy:v1.17.0
@@ -29,34 +31,65 @@ spec:
             httpGet:
               path: /-/healthy
               port: http-metrics
-            initialDelaySeconds: 10
-            periodSeconds: 10
+            initialDelaySeconds: 30
+            periodSeconds: 15
             timeoutSeconds: 5
-            failureThreshold: 3
+            failureThreshold: 5
           readinessProbe:
             httpGet:
               path: /-/ready
               port: http-metrics
-            initialDelaySeconds: 5
-            periodSeconds: 5
-            timeoutSeconds: 3
-            failureThreshold: 3
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 5
           resources:
             requests:
               cpu: 100m
-              memory: 64Mi
+              memory: 256Mi
             limits:
               cpu: 500m
-              memory: 128Mi
+              memory: 500Mi
           volumeMounts:
             - name: config
               mountPath: /etc/alloy
               readOnly: true
             - name: storage
               mountPath: /var/lib/alloy/data
+            - name: proc
+              mountPath: /host/proc
+              readOnly: true
+            - name: sys
+              mountPath: /host/sys
+              readOnly: true
+            - name: run
+              mountPath: /host/run
+              readOnly: true
+            - name: etc-hostname
+              mountPath: /etc/hostname
+              readOnly: true
+            - name: root
+              mountPath: /host/root
+              readOnly: true
+              mountPropagation: HostToContainer
       volumes:
         - name: config
           configMap:
             name: alloy-config
         - name: storage
           emptyDir: {}
+        - name: proc
+          hostPath:
+            path: /proc
+        - name: sys
+          hostPath:
+            path: /sys
+        - name: run
+          hostPath:
+            path: /run
+        - name: etc-hostname
+          hostPath:
+            path: /etc/hostname
+        - name: root
+          hostPath:
+            path: /

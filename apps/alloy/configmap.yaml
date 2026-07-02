@@ -5,12 +5,40 @@ metadata:
   name: alloy-config
 data:
   config.river: |
-    // Discover Kubernetes pods
+    // --- Host metrics ---
+    prometheus.exporter.unix "localhost" {
+      procfs_path   = "/host/proc"
+      sysfs_path    = "/host/sys"
+      rootfs_path   = "/host/root"
+      include_exporter_metrics = true
+      set_collectors = ["cpu", "diskstats", "filesystem", "hwmon", "loadavg", "meminfo", "netdev", "netstat", "os", "sockstat", "stat", "time", "uname", "vmstat"]
+    }
+
+    discovery.relabel "host_metrics" {
+      targets = prometheus.exporter.unix.localhost.targets
+      rule {
+        source_labels = ["instance"]
+        target_label  = "host"
+      }
+    }
+
+    prometheus.scrape "host_metrics" {
+      targets    = discovery.relabel.host_metrics.output
+      forward_to = [prometheus.remote_write.default.receiver]
+      scrape_interval = "30s"
+    }
+
+    prometheus.remote_write "default" {
+      endpoint {
+        url = "http://victoria-service:8428/api/v1/write"
+      }
+    }
+
+    // --- Kubernetes pod logs ---
     discovery.kubernetes "pods" {
       role = "pod"
     }
 
-    // Filter targets: only default namespace, exclude alloy, only pods with 'app' label
     discovery.relabel "filter_pods" {
       targets = discovery.kubernetes.pods.targets
       rule {
@@ -30,13 +58,11 @@ data:
       }
     }
 
-    // Process filtered pods and collect logs
     loki.source.kubernetes "pods" {
       targets    = discovery.relabel.filter_pods.output
       forward_to = [loki.process.pod_logs.receiver]
     }
 
-    // Add labels to logs
     loki.process "pod_logs" {
       stage.static_labels {
         values = {
@@ -56,7 +82,6 @@ data:
       forward_to = [loki.write.loki.receiver]
     }
 
-    // Write logs to Loki
     loki.write "loki" {
       endpoint {
         url = "http://loki-service:3100/loki/api/v1/push"
