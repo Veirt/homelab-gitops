@@ -15,6 +15,7 @@ spec:
       serviceAccountName: alloy
       hostPID: true
       hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
       containers:
         - name: alloy
           image: grafana/alloy:v1.17.0
