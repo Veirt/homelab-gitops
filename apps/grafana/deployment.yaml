@@ -18,6 +18,27 @@ spec:
           image: grafana/grafana:13.0.1-security-01
           ports:
             - containerPort: 3000
+          env:
+            - name: GF_DATABASE_TYPE
+              value: postgres
+            - name: GF_DATABASE_HOST
+              value: grafana-db-rw.database.svc.cluster.local
+            - name: GF_DATABASE_PORT
+              value: "5432"
+            - name: GF_DATABASE_NAME
+              value: grafana
+            - name: GF_DATABASE_USER
+              valueFrom:
+                secretKeyRef:
+                  name: grafana-db-app
+                  key: username
+            - name: GF_DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: grafana-db-app
+                  key: password
+            - name: GF_DATABASE_SSL_MODE
+              value: disable
           resources:
             requests:
               memory: 512Mi
