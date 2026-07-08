@@ -18,7 +18,7 @@ spec:
       dnsPolicy: ClusterFirstWithHostNet
       containers:
         - name: alloy
-          image: grafana/alloy:v1.17.0
+          image: grafana/alloy:v1.17.1
           args:
             - run
             - --server.http.listen-addr=0.0.0.0:12345
