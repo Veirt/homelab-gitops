@@ -41,9 +41,9 @@ spec:
             - containerPort: 3000
           resources:
             requests:
-              memory: 64Mi
-            limits:
               memory: 128Mi
+            limits:
+              memory: 256Mi
           volumeMounts:
             - name: data-volume
               mountPath: /data
