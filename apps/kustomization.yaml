@@ -23,6 +23,6 @@ resources:
   - loki
   - alloy
   - linkding
-  - snappymail
+  - cypht
   # - gitlab
   # - gitlab-runner

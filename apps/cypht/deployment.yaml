@@ -1,0 +1,73 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cypht
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cypht
+  template:
+    metadata:
+      labels:
+        app: cypht
+    spec:
+      containers:
+        - name: cypht
+          image: cypht/cypht:2.11.1
+          ports:
+            - containerPort: 80
+          env:
+            - name: DB_DRIVER
+              value: "sqlite"
+            - name: DB_NAME
+              value: "/var/lib/hm3/cypht.db"
+            - name: SESSION_TYPE
+              value: "PHP"
+            - name: AUTH_TYPE
+              value: "DB"
+            - name: USER_CONFIG_TYPE
+              value: "DB"
+            - name: AUTH_USERNAME
+              value: "admin"
+            - name: GMAIL_CLIENT_URI
+              value: "https://mail.${DOMAIN}/?page=home"
+            - name: GMAIL_AUTH_URI
+              value: "https://accounts.google.com/o/oauth2/auth"
+            - name: GMAIL_TOKEN_URI
+              value: "https://www.googleapis.com/oauth2/v3/token"
+            - name: GMAIL_REFRESH_URI
+              value: "https://www.googleapis.com/oauth2/v3/token"
+            - name: AUTH_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: cypht-secret
+                  key: admin-password
+            - name: GMAIL_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: cypht-secret
+                  key: gmail-client-id
+            - name: GMAIL_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: cypht-secret
+                  key: gmail-client-secret
+          resources:
+            requests:
+              memory: 128Mi
+            limits:
+              memory: 512Mi
+          volumeMounts:
+            - name: cypht-data
+              mountPath: /var/lib/hm3
+              subPath: cypht
+            - name: cypht-tmp
+              mountPath: /tmp
+      volumes:
+        - name: cypht-data
+          persistentVolumeClaim:
+            claimName: data-pvc
+        - name: cypht-tmp
+          emptyDir: {}

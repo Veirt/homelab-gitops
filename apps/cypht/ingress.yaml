@@ -2,7 +2,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: snappymail-ingress
+  name: cypht-ingress
   annotations:
     traefik.ingress.k8s.io/router.entrypoints: websecure
     cert-manager.io/cluster-issuer: cloudflare-issuer
@@ -15,10 +15,10 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: snappymail-service
+                name: cypht-service
                 port:
-                  number: 8888
+                  number: 80
   tls:
     - hosts:
         - mail.${DOMAIN}
-      secretName: snappymail-tls
+      secretName: cypht-tls
