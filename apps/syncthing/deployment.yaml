@@ -13,6 +13,8 @@ spec:
       labels:
         app: syncthing
     spec:
+      nodeSelector:
+        kubernetes.io/hostname: althea
       hostNetwork: true
       containers:
         - name: syncthing
