@@ -71,6 +71,9 @@ spec:
             - name: php-fpm-config
               mountPath: /usr/local/etc/php/conf.d/zz-opcache.ini
               subPath: zz-opcache.ini
+            - name: xdebug-off
+              mountPath: /usr/local/etc/php/conf.d/xdebug.ini
+              subPath: xdebug.ini
       volumes:
         - name: cypht-data
           persistentVolumeClaim:
@@ -80,3 +83,6 @@ spec:
         - name: php-fpm-config
           configMap:
             name: cypht-php-config
+        - name: xdebug-off
+          configMap:
+            name: cypht-xdebug

@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cypht-xdebug
+data:
+  xdebug.ini: |
+    xdebug.mode=off
