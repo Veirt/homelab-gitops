@@ -65,9 +65,18 @@ spec:
               subPath: cypht
             - name: cypht-tmp
               mountPath: /tmp
+            - name: php-fpm-config
+              mountPath: /usr/local/etc/php-fpm.d/zz-pool.conf
+              subPath: zz-pool.conf
+            - name: php-fpm-config
+              mountPath: /usr/local/etc/php/conf.d/zz-opcache.ini
+              subPath: zz-opcache.ini
       volumes:
         - name: cypht-data
           persistentVolumeClaim:
             claimName: data-pvc
         - name: cypht-tmp
           emptyDir: {}
+        - name: php-fpm-config
+          configMap:
+            name: cypht-php-config
