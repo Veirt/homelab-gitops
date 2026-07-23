@@ -23,6 +23,5 @@ resources:
   - loki
   - alloy
   - linkding
-  - cypht
   # - gitlab
   # - gitlab-runner
