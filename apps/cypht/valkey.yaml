@@ -1,0 +1,53 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cypht-redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cypht-redis
+  template:
+    metadata:
+      labels:
+        app: cypht-redis
+    spec:
+      containers:
+        - name: valkey
+          image: valkey/valkey:8-alpine
+          ports:
+            - containerPort: 6379
+          command:
+            - valkey-server
+            - --maxmemory
+            - "64mb"
+            - --maxmemory-policy
+            - allkeys-lru
+            - --save
+            - ""
+            - --appendonly
+            - "no"
+          resources:
+            requests:
+              memory: 32Mi
+              cpu: 50m
+            limits:
+              memory: 64Mi
+          volumeMounts:
+            - name: valkey-data
+              mountPath: /data
+      volumes:
+        - name: valkey-data
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cypht-valkey
+spec:
+  selector:
+    app: cypht-redis
+  ports:
+    - port: 6379
+      targetPort: 6379

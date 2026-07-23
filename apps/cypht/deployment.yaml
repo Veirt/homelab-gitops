@@ -54,6 +54,14 @@ spec:
                 secretKeyRef:
                   name: cypht-secret
                   key: gmail-client-secret
+            - name: ENABLE_REDIS
+              value: "true"
+            - name: REDIS_SERVER
+              value: "cypht-valkey"
+            - name: REDIS_PORT
+              value: "6379"
+            - name: REDIS_INDEX
+              value: "1"
           resources:
             requests:
               memory: 128Mi

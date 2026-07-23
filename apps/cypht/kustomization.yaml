@@ -9,3 +9,4 @@ resources:
   - secret.yaml
   - php-config.yaml
   - xdebug-config.yaml
+  - valkey.yaml
