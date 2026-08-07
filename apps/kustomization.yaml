@@ -14,7 +14,6 @@ resources:
   - dufs
   - miniserve
   # - paperless-ngx
-  - schedula
   # - adguard-home
   - error-page
   - grafana
