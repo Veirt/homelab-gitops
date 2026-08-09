@@ -30,7 +30,7 @@ spec:
           effect: "NoSchedule"
       containers:
         - name: broker
-          image: docker.io/library/redis:8
+          image: docker.io/library/redis:8-alpine
           resources:
             requests:
               memory: 16Mi

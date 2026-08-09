@@ -30,7 +30,7 @@ spec:
           effect: "NoSchedule"
       containers:
         - name: memos
-          image: neosmemo/memos:0.28.0
+          image: neosmemo/memos:0.28.0-alpine
           ports:
             - containerPort: 5230
           resources:
