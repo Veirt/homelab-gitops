@@ -13,21 +13,6 @@ spec:
       labels:
         app: linkding
     spec:
-      affinity:
-        nodeAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-            - weight: 100
-              preference:
-                matchExpressions:
-                  - key: veirt.dev/node-pool
-                    operator: In
-                    values:
-                      - vps
-      tolerations:
-        - key: "veirt.dev/node-pool"
-          operator: "Equal"
-          value: "vps"
-          effect: "NoSchedule"
       containers:
         - name: linkding
           image: sissbruecker/linkding:latest
