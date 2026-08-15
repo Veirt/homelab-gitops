@@ -47,6 +47,9 @@ spec:
             - name: media-volume
               mountPath: /media/courses
               subPath: media/courses
+            - name: media-volume
+              mountPath: /media/movies
+              subPath: media/movies
             - name: media2-volume
               mountPath: /media/sonarr
               subPath: media/sonarr
