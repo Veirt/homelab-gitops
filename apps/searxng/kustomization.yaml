@@ -4,5 +4,6 @@ kind: Kustomization
 namespace: default
 resources:
   - deployment.yaml
+  - secret.yaml
   - service.yaml
   - ingress.yaml
