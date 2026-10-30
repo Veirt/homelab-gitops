@@ -5,6 +5,10 @@ metadata:
   name: vaultwarden
 spec:
   replicas: 1
+  # Single-replica SQLite on an RWX NFS volume: a surge pod would open the same
+  # db.sqlite3 concurrently, so replace the pod instead of rolling both.
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app: vaultwarden
@@ -20,9 +24,9 @@ spec:
             - containerPort: 80
           resources:
             requests:
-              memory: 32Mi
-            limits:
               memory: 64Mi
+            limits:
+              memory: 192Mi
           volumeMounts:
             - name: data-volume
               mountPath: /data
