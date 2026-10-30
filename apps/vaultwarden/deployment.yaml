@@ -5,10 +5,13 @@ metadata:
   name: vaultwarden
 spec:
   replicas: 1
-  # Single-replica SQLite on an RWX NFS volume: a surge pod would open the same
-  # db.sqlite3 concurrently, so replace the pod instead of rolling both.
+  # Single-replica SQLite on an RWX NFS volume: never run a surge pod against
+  # the same db.sqlite3, so stop the old pod before starting the new one.
   strategy:
-    type: Recreate
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
   selector:
     matchLabels:
       app: vaultwarden
