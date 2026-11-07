@@ -5,6 +5,14 @@ metadata:
   name: syncthing
 spec:
   replicas: 1
+  # hostNetwork + fixed hostPorts mean two syncthing pods cannot run on the
+  # same node. Stop the old pod before starting the new one; otherwise the
+  # rollout deadlocks on the port conflict (maxUnavailable was 0).
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
   selector:
     matchLabels:
       app: syncthing
