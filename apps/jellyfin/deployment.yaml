@@ -5,6 +5,11 @@ metadata:
   name: jellyfin
 spec:
   replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
   selector:
     matchLabels:
       app: jellyfin
@@ -13,6 +18,13 @@ spec:
       labels:
         app: jellyfin
     spec:
+      securityContext:
+        # Containerd's stacked cri-containerd AppArmor profile denies
+        # intra-container signals, which breaks .NET GC thread suspension
+        # (rtmin+2/rtmin+3) and aborts the process. See:
+        # https://github.com/dotnet/runtime/issues/136603
+        appArmorProfile:
+          type: Unconfined
       nodeSelector:
         kubernetes.io/hostname: althea
       containers:
@@ -29,6 +41,17 @@ spec:
               value: "Asia/Makassar"
           ports:
             - containerPort: 8096
+          # Jellyfin reports /health as HTTP 200 even while the startup check
+          # is Degraded, so gate readiness on the response body instead.
+          readinessProbe:
+            exec:
+              command:
+                - /bin/sh
+                - -c
+                - curl -fsS http://127.0.0.1:8096/health | grep -qx Healthy
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
           resources:
             requests:
               memory: 768Mi
