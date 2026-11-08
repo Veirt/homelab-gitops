@@ -9,6 +9,7 @@
   boot.supportedFilesystems = [ "btrfs" ];
 
   hardware.enableRedistributableFirmware = true;
+  environment.systemPackages = [ pkgs.git ];
 
   # Keep btrfs compression consistent across subvolumes.
   fileSystems = {
