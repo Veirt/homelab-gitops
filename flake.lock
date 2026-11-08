@@ -1,0 +1,45 @@
+{
+  "nodes": {
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1793865203,
+        "narHash": "sha256-/cpdPHaySDIyCgZI6EWngiM6jK3YLUNzv1b7lTzy6Bk=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "c56a87d8e41ce69bd2af57eb35dcc117a9dfca33",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "c56a87d8e41ce69bd2af57eb35dcc117a9dfca33",
+        "type": "github"
+      }
+    },
+    "private": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1794157968,
+        "narHash": "sha256-LEGgTSG64KmzMP5HrHYPRK+vmdCHA2idwm1ZADav30k=",
+        "ref": "master",
+        "rev": "0bb5d1163def409f2ec5e922a70c48ea2bbd1aab",
+        "revCount": 211,
+        "type": "git",
+        "url": "ssh://git@github.com/veirt/homelab-gitops-private"
+      },
+      "original": {
+        "ref": "master",
+        "type": "git",
+        "url": "ssh://git@github.com/veirt/homelab-gitops-private"
+      }
+    },
+    "root": {
+      "inputs": {
+        "nixpkgs": "nixpkgs",
+        "private": "private"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
