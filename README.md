@@ -72,11 +72,6 @@ will be happy to do so.
         <td>Lightweight note-taking app.</td>
     </tr>
     <tr>
-        <td><img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/svg/ntfy.svg" width="32" /></td>
-        <td>ntfy</td>
-        <td>Push notification service for sending messages to devices.</td>
-    </tr>
-    <tr>
         <td><img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/searxng.png" width="32" /></td>
         <td>Searxng</td>
         <td>Privacy-focused metasearch engine.</td>
