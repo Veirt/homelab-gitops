@@ -7,6 +7,10 @@
     passwordFile = "/var/lib/restic/password";
     paths = [ "/etc/nixos" ];
     initialize = true;
-    timerConfig = { OnCalendar = "daily"; Persistent = true; RandomizedDelaySec = "30m"; };
+    timerConfig = {
+      OnCalendar = "daily";
+      Persistent = true;
+      RandomizedDelaySec = "30m";
+    };
   };
 }

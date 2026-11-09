@@ -10,6 +10,10 @@
   };
   systemd.timers.iris-restic-retention = {
     wantedBy = [ "timers.target" ];
-    timerConfig = { OnCalendar = "monthly"; Persistent = true; RandomizedDelaySec = "1h"; };
+    timerConfig = {
+      OnCalendar = "monthly";
+      Persistent = true;
+      RandomizedDelaySec = "1h";
+    };
   };
 }

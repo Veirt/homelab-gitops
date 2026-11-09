@@ -19,11 +19,11 @@
     "private": {
       "flake": false,
       "locked": {
-        "lastModified": 1794232453,
-        "narHash": "sha256-kTlXD5TbXNLnOTUaF8szPbPAy30onXyE4+fVwESbvOI=",
+        "lastModified": 1794235220,
+        "narHash": "sha256-c9K8RbB0vM71v7eq2EpEResIiICgRQ/gns4hxHmYMcU=",
         "ref": "master",
-        "rev": "d12ee60c8a05e4d6a6cb00a83fa19e889a50c51e",
-        "revCount": 224,
+        "rev": "ccbaa6e5a04ab9f4231d72d73b29fb1d5b71759d",
+        "revCount": 226,
         "type": "git",
         "url": "ssh://git@github.com/veirt/homelab-gitops-private"
       },

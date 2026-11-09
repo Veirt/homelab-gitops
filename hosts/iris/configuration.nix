@@ -1,7 +1,16 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
-  imports = [ ./iris-restic.nix ./iris-restic-maintenance.nix ./iris-restic-heartbeat.nix ];
+  imports = [
+    ./iris-restic.nix
+    ./iris-restic-maintenance.nix
+    ./iris-restic-heartbeat.nix
+  ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.systemd-boot.configurationLimit = 10;
@@ -13,12 +22,36 @@
 
   # Keep btrfs compression consistent across subvolumes.
   fileSystems = {
-    "/".options          = [ "compress=zstd:1" "noatime" "discard=async" ];
-    "/home".options      = [ "compress=zstd:1" "noatime" "discard=async" ];
-    "/nix".options       = [ "compress=zstd:1" "noatime" "discard=async" ];
-    "/var/log".options   = [ "compress=zstd:1" "noatime" "discard=async" ];
-    "/var/lib".options   = [ "compress=zstd:1" "noatime" "discard=async" ];
-    "/.snapshots".options = [ "compress=zstd:1" "noatime" "discard=async" ];
+    "/".options = [
+      "compress=zstd:1"
+      "noatime"
+      "discard=async"
+    ];
+    "/home".options = [
+      "compress=zstd:1"
+      "noatime"
+      "discard=async"
+    ];
+    "/nix".options = [
+      "compress=zstd:1"
+      "noatime"
+      "discard=async"
+    ];
+    "/var/log".options = [
+      "compress=zstd:1"
+      "noatime"
+      "discard=async"
+    ];
+    "/var/lib".options = [
+      "compress=zstd:1"
+      "noatime"
+      "discard=async"
+    ];
+    "/.snapshots".options = [
+      "compress=zstd:1"
+      "noatime"
+      "discard=async"
+    ];
   };
   fileSystems."/var/log".neededForBoot = true;
 
@@ -29,7 +62,10 @@
   networking.nftables.enable = true;
 
   nix.settings = {
-    experimental-features = [ "nix-command" "flakes" ];
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
     auto-optimise-store = true;
     # Limit local builds for 3.6 GiB usable RAM.
     max-jobs = 2;
@@ -87,7 +123,6 @@
     port = 9100;
     openFirewall = true;
   };
-
 
   services.smartd.enable = true;
   hardware.rasdaemon.enable = true;
