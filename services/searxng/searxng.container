@@ -1,0 +1,26 @@
+[Unit]
+Description=SearXNG metasearch engine
+Wants=network-online.target
+After=network-online.target
+RequiresMountsFor=/var/lib/searxng
+
+[Container]
+Image=ghcr.io/searxng/searxng@sha256:77b6ec55d5176fc47cfe91df5e182393133305358741d0c80ebbeec75ac39f99
+ContainerName=searxng
+EnvironmentFile=/var/lib/searxng/searxng.env
+Environment=PYTHONPATH=/etc/searxng
+Environment=FORCE_OWNERSHIP=false
+Volume=/etc/searxng/settings.yml:/etc/searxng/settings.yml:ro
+Volume=/etc/searxng/uwsgi.ini:/etc/searxng/uwsgi.ini:ro
+Volume=/etc/searxng/searxng_serpapi:/etc/searxng/searxng_serpapi:ro
+PublishPort=@LISTEN_ADDRESS@:18888:8080
+Pull=newer
+LogDriver=journald
+
+[Service]
+Restart=on-failure
+RestartSec=5
+TimeoutStartSec=120
+
+[Install]
+WantedBy=multi-user.target
