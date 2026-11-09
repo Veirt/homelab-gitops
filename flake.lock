@@ -16,27 +16,9 @@
         "type": "github"
       }
     },
-    "private": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1794235220,
-        "narHash": "sha256-c9K8RbB0vM71v7eq2EpEResIiICgRQ/gns4hxHmYMcU=",
-        "ref": "master",
-        "rev": "ccbaa6e5a04ab9f4231d72d73b29fb1d5b71759d",
-        "revCount": 226,
-        "type": "git",
-        "url": "ssh://git@github.com/veirt/homelab-gitops-private"
-      },
-      "original": {
-        "ref": "master",
-        "type": "git",
-        "url": "ssh://git@github.com/veirt/homelab-gitops-private"
-      }
-    },
     "root": {
       "inputs": {
-        "nixpkgs": "nixpkgs",
-        "private": "private"
+        "nixpkgs": "nixpkgs"
       }
     }
   },
