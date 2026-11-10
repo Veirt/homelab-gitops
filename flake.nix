@@ -1,5 +1,5 @@
 {
-  description = "Homelab NixOS configurations";
+  description = "Reusable homelab NixOS modules";
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/c56a87d8e41ce69bd2af57eb35dcc117a9dfca33";
 
@@ -37,8 +37,7 @@
     {
       formatter.${system} = pkgs.nixfmt-tree;
 
-      nixosModules.iris-base = ./hosts/iris/configuration.nix;
-      nixosModules.searxng = ./services/searxng;
+      nixosModules.searxng = ./modules/nixos/services/searxng;
 
       checks.${system}.searxng-quadlet = pkgs.runCommand "searxng-quadlet-check" { } ''
         grep --fixed-strings -- "Image=ghcr.io/searxng/searxng@sha256:77b6ec55d5176fc47cfe91df5e182393133305358741d0c80ebbeec75ac39f99" ${searxngTestUnit}
