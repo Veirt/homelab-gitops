@@ -76,6 +76,8 @@
               homelab.services.blackboxExporter = {
                 enable = true;
                 network = "monitoring.network";
+                ipAddress = "10.89.0.10";
+                dnsServer = "192.168.1.100";
               };
               system.stateVersion = "26.05";
             }
@@ -157,6 +159,8 @@
         blackbox-exporter-quadlet = pkgs.runCommand "blackbox-exporter-quadlet-check" { } ''
           grep --fixed-strings -- "Image=ghcr.io/prometheus/blackbox-exporter@sha256:66eae352a79e6f677aeddd8c25a9bdb017586dc5fbd230f22329213d891f94bd" ${blackboxExporterTestUnit}
           grep --fixed-strings -- "Network=monitoring.network" ${blackboxExporterTestUnit}
+          grep --fixed-strings -- "IP=10.89.0.10" ${blackboxExporterTestUnit}
+          grep --fixed-strings -- "DNS=192.168.1.100" ${blackboxExporterTestUnit}
           grep --fixed-strings -- "Exec=--config.file=/etc/blackbox_exporter/blackbox.yml --web.listen-address=:9115" ${blackboxExporterTestUnit}
           grep --extended-regexp -- "^Volume=/nix/store/.*/modules/nixos/services/blackbox-exporter/blackbox.yml:/etc/blackbox_exporter/blackbox.yml:ro$" ${blackboxExporterTestUnit}
           if grep --quiet -- "PublishPort=" ${blackboxExporterTestUnit}; then exit 1; fi
