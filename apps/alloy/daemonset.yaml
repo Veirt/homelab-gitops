@@ -11,6 +11,8 @@ spec:
     metadata:
       labels:
         app: alloy
+      annotations:
+        checksum/config: 9a355dae5dca20b8d7c931e41f80eee07f1916166d96d919fdf1363e6a4c74d3
     spec:
       serviceAccountName: alloy
       hostPID: true

@@ -30,7 +30,7 @@ data:
 
     prometheus.remote_write "default" {
       endpoint {
-        url = "http://victoria-service:8428/api/v1/write"
+        url = "http://192.168.1.6:8428/api/v1/write"
       }
     }
 
@@ -84,7 +84,7 @@ data:
 
     loki.write "loki" {
       endpoint {
-        url = "http://loki-service:3100/loki/api/v1/push"
+        url = "http://192.168.1.6:3100/loki/api/v1/push"
       }
       external_labels = {
         cluster = "home",
