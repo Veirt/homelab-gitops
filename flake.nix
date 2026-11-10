@@ -96,6 +96,7 @@
           grafanaTestSystem.config.environment.etc."grafana/provisioning/dashboards/homelab.yaml".source
       );
       grafanaTestDashboardRoot = grafanaTestSystem.config.environment.etc."grafana/dashboards".source;
+      grafanaTestRestartUnit = grafanaTestSystem.config.systemd.units."grafana.service".unit;
       lokiTestUnit = pkgs.writeText "loki.container" (
         lokiTestSystem.config.environment.etc."containers/systemd/loki.container".text
       );
@@ -141,6 +142,9 @@
           grep --fixed-strings -- "uid: bec75ss62w2rkc" ${./modules/nixos/services/grafana/datasources.yaml}
           grep --fixed-strings -- "path: /etc/grafana/dashboards" ${grafanaTestProvider}
           grep --fixed-strings -- "foldersFromFilesStructure: true" ${grafanaTestProvider}
+          trigger_file=$(sed --quiet --expression='s/^X-Restart-Triggers=//p' ${grafanaTestRestartUnit}/grafana.service)
+          test -n "$trigger_file"
+          grep --fixed-strings -- "${grafanaTestDashboardRoot}" "$trigger_file"
           test -d ${grafanaTestDashboardRoot}
           test ! -L ${grafanaTestDashboardRoot}/Infrastructure/iris-host-health.json
           grep --fixed-strings -- "{}" ${grafanaTestDashboardRoot}/Infrastructure/iris-host-health.json

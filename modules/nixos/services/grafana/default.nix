@@ -74,6 +74,13 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    systemd.services.grafana = lib.mkIf (dashboardDirectory != null) {
+      # Quadlet units need a drop-in so NixOS restarts the container when its
+      # immutable dashboard bundle changes.
+      overrideStrategy = "asDropin";
+      restartTriggers = [ dashboardDirectory ];
+    };
+
     environment.etc = {
       "containers/systemd/grafana.container".text =
         builtins.replaceStrings
