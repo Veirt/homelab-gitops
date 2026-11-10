@@ -11,10 +11,7 @@ resources:
   # - paperless-ngx
   # - adguard-home
   - error-page
-  - grafana
   - prometheus
-  - victoria-metrics
-  - loki
   - alloy
   # - gitlab
   # - gitlab-runner
