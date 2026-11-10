@@ -7,8 +7,7 @@ After=network-online.target
 Image=ghcr.io/prometheus/blackbox-exporter@sha256:66eae352a79e6f677aeddd8c25a9bdb017586dc5fbd230f22329213d891f94bd
 ContainerName=blackbox-exporter
 @NETWORK@
-Exec=--config.file=/etc/blackbox_exporter/blackbox.yml
-Exec=--web.listen-address=@LISTEN_ADDRESS@
+Exec=--config.file=/etc/blackbox_exporter/blackbox.yml --web.listen-address=@LISTEN_ADDRESS@
 Volume=@CONFIG_FILE@:/etc/blackbox_exporter/blackbox.yml:ro
 LogDriver=journald
 
