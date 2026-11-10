@@ -54,7 +54,10 @@
           ];
         };
 
-      grafanaTestSystem = mkServiceTestSystem self.nixosModules.grafana "grafana" { };
+      grafanaTestDashboard = pkgs.writeText "grafana-test-dashboard.json" "{}";
+      grafanaTestSystem = mkServiceTestSystem self.nixosModules.grafana "grafana" {
+        dashboards."Infrastructure/iris-host-health.json" = grafanaTestDashboard;
+      };
       lokiTestSystem = mkServiceTestSystem self.nixosModules.loki "loki" { };
       victoriaMetricsTestSystem =
         mkServiceTestSystem self.nixosModules.victoriaMetrics "victoriaMetrics"
@@ -87,6 +90,10 @@
 
       grafanaTestUnit = pkgs.writeText "grafana.container" (
         grafanaTestSystem.config.environment.etc."containers/systemd/grafana.container".text
+      );
+      grafanaTestProvider = pkgs.writeText "grafana-dashboards.yaml" (
+        builtins.readFile
+          grafanaTestSystem.config.environment.etc."grafana/provisioning/dashboards/homelab.yaml".source
       );
       lokiTestUnit = pkgs.writeText "loki.container" (
         lokiTestSystem.config.environment.etc."containers/systemd/loki.container".text
@@ -126,11 +133,17 @@
         '';
 
         grafana-quadlet = pkgs.runCommand "grafana-quadlet-check" { } ''
-            grep --fixed-strings -- "Image=docker.io/grafana/grafana@sha256:2abd2114bb65e4d6f0614206b7c882c1e7c6a992827ba08396aa5afc23ca07f5" ${grafanaTestUnit}
+          grep --fixed-strings -- "Image=docker.io/grafana/grafana@sha256:2abd2114bb65e4d6f0614206b7c882c1e7c6a992827ba08396aa5afc23ca07f5" ${grafanaTestUnit}
           grep --fixed-strings -- "EnvironmentFile=/var/lib/grafana-admin.env" ${grafanaTestUnit}
-            grep --fixed-strings -- "PublishPort=127.0.0.1:3000:3000" ${grafanaTestUnit}
-            grep --fixed-strings -- "uid: bec75ss62w2rkc" ${./modules/nixos/services/grafana/datasources.yaml}
-            touch "$out"
+          grep --fixed-strings -- "Volume=/etc/grafana/dashboards:/etc/grafana/dashboards:ro" ${grafanaTestUnit}
+          grep --fixed-strings -- "PublishPort=127.0.0.1:3000:3000" ${grafanaTestUnit}
+          grep --fixed-strings -- "uid: bec75ss62w2rkc" ${./modules/nixos/services/grafana/datasources.yaml}
+          grep --fixed-strings -- "path: /etc/grafana/dashboards" ${grafanaTestProvider}
+          grep --fixed-strings -- "foldersFromFilesStructure: true" ${grafanaTestProvider}
+          test -e ${
+            grafanaTestSystem.config.environment.etc."grafana/dashboards/Infrastructure/iris-host-health.json".source
+          }
+          touch "$out"
         '';
 
         loki-quadlet = pkgs.runCommand "loki-quadlet-check" { } ''

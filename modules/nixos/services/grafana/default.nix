@@ -2,10 +2,11 @@
 let
   cfg = config.homelab.services.grafana;
   dashboardVolume =
-    if cfg.dashboardFile == null then
-      ""
-    else
-      "Volume=/etc/grafana/dashboard.json:/var/lib/grafana/dashboards/homelab.json:ro\n";
+    if cfg.dashboards == { } then "" else "Volume=/etc/grafana/dashboards:/etc/grafana/dashboards:ro\n";
+  dashboardEtc = lib.mapAttrs' (relativePath: source: {
+    name = "grafana/dashboards/${relativePath}";
+    value = { inherit source; };
+  }) cfg.dashboards;
 in
 {
   options.homelab.services.grafana = {
@@ -47,10 +48,13 @@ in
       description = "URL for Loki.";
     };
 
-    dashboardFile = lib.mkOption {
-      type = lib.types.nullOr lib.types.path;
-      default = null;
-      description = "Optional dashboard JSON to provision read-only.";
+    dashboards = lib.mkOption {
+      type = lib.types.attrsOf lib.types.path;
+      default = { };
+      description = ''
+        Dashboard JSON files keyed by paths relative to the provisioned dashboard
+        root. Directory names become Grafana folders.
+      '';
     };
   };
 
@@ -70,8 +74,6 @@ in
 
       "grafana/provisioning/dashboards/homelab.yaml".source = ./dashboards.yaml;
     }
-    // lib.optionalAttrs (cfg.dashboardFile != null) {
-      "grafana/dashboard.json".source = cfg.dashboardFile;
-    };
+    // dashboardEtc;
   };
 }
