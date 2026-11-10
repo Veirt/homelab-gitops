@@ -1,0 +1,22 @@
+[Unit]
+Description=Vaultwarden password manager
+Wants=network-online.target
+After=network-online.target
+RequiresMountsFor=/var/lib/vaultwarden
+
+[Container]
+Image=docker.io/vaultwarden/server@sha256:19ea2b669945d842dadc3d500f2d6a795866a003330f59a47b9634658bae98bb
+ContainerName=vaultwarden
+Environment=DOMAIN=@DOMAIN@
+Environment=ROCKET_PORT=80
+Volume=/var/lib/vaultwarden:/data
+PublishPort=@LISTEN_ADDRESS@:8222:80
+LogDriver=journald
+
+[Service]
+Restart=on-failure
+RestartSec=5
+TimeoutStartSec=120
+
+[Install]
+WantedBy=multi-user.target

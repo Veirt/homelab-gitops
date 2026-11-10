@@ -1,0 +1,22 @@
+[Unit]
+Description=Loki log aggregation
+Wants=network-online.target
+After=network-online.target
+RequiresMountsFor=/var/lib/loki
+
+[Container]
+Image=docker.io/grafana/loki@sha256:1107dd5274e0ada47e42472b7a7e71f3b2a2fe878878108f3e2f9e51528f0193
+ContainerName=loki
+Exec=-config.file=/etc/loki/config.yaml
+Volume=/var/lib/loki:/loki
+Volume=/etc/loki/config.yaml:/etc/loki/config.yaml:ro
+PublishPort=@LISTEN_ADDRESS@:3100:3100
+LogDriver=journald
+
+[Service]
+Restart=on-failure
+RestartSec=5
+TimeoutStartSec=120
+
+[Install]
+WantedBy=multi-user.target

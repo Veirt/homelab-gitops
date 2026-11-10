@@ -16,6 +16,5 @@ resources:
   - victoria-metrics
   - loki
   - alloy
-  - linkding
   # - gitlab
   # - gitlab-runner

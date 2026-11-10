@@ -1,0 +1,22 @@
+[Unit]
+Description=VictoriaMetrics single-node time-series database
+Wants=network-online.target
+After=network-online.target
+RequiresMountsFor=/var/lib/victoria-metrics
+
+[Container]
+Image=docker.io/victoriametrics/victoria-metrics@sha256:03d6215d8d860656880719f757beb8a43a3b9eeafccc080de7f304f4ab389ba3
+ContainerName=victoria-metrics
+Exec=-storageDataPath=/victoria-metrics-data
+Exec=-retentionPeriod=1y
+Volume=/var/lib/victoria-metrics:/victoria-metrics-data
+PublishPort=@LISTEN_ADDRESS@:8428:8428
+LogDriver=journald
+
+[Service]
+Restart=on-failure
+RestartSec=5
+TimeoutStartSec=120
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,26 @@
+apiVersion: 1
+prune: true
+datasources:
+  - name: prometheus
+    type: prometheus
+    uid: cec75o5s6dkowe
+    access: proxy
+    url: "@PROMETHEUS_URL@"
+    isDefault: false
+    editable: false
+    version: 1
+  - name: victoriametrics-metrics-datasource
+    type: prometheus
+    uid: bec75ss62w2rkc
+    access: proxy
+    url: "@VICTORIA_METRICS_URL@"
+    isDefault: true
+    editable: false
+    version: 1
+  - name: loki
+    type: loki
+    uid: aey67hf9as6wwa
+    access: proxy
+    url: "@LOKI_URL@"
+    editable: false
+    version: 1
