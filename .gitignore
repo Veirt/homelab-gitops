@@ -8,3 +8,7 @@
 **/*.tfplan
 **/crash.log
 **/crash.*.log
+
+# Nix build results
+/result
+/result-*
