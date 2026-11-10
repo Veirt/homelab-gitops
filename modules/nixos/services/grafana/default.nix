@@ -1,12 +1,27 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.homelab.services.grafana;
-  dashboardVolume =
-    if cfg.dashboards == { } then "" else "Volume=/etc/grafana/dashboards:/etc/grafana/dashboards:ro\n";
-  dashboardEtc = lib.mapAttrs' (relativePath: source: {
-    name = "grafana/dashboards/${relativePath}";
-    value = { inherit source; };
-  }) cfg.dashboards;
+  dashboardDirectory =
+    if cfg.dashboards == { } then
+      null
+    else
+      pkgs.runCommand "grafana-dashboards" { } ''
+        mkdir -p "$out"
+        ${lib.concatStringsSep "\n" (
+          lib.mapAttrsToList (relativePath: source: ''
+            target="$out"/${lib.escapeShellArg relativePath}
+            install -D -m 0444 ${lib.escapeShellArg (toString source)} "$target"
+          '') cfg.dashboards
+        )}
+      '';
+  dashboardVolume = lib.optionalString (
+    dashboardDirectory != null
+  ) "Volume=${dashboardDirectory}:/etc/grafana/dashboards:ro\n";
 in
 {
   options.homelab.services.grafana = {
@@ -74,6 +89,8 @@ in
 
       "grafana/provisioning/dashboards/homelab.yaml".source = ./dashboards.yaml;
     }
-    // dashboardEtc;
+    // lib.optionalAttrs (dashboardDirectory != null) {
+      "grafana/dashboards".source = dashboardDirectory;
+    };
   };
 }

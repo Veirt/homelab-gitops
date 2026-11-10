@@ -95,6 +95,7 @@
         builtins.readFile
           grafanaTestSystem.config.environment.etc."grafana/provisioning/dashboards/homelab.yaml".source
       );
+      grafanaTestDashboardRoot = grafanaTestSystem.config.environment.etc."grafana/dashboards".source;
       lokiTestUnit = pkgs.writeText "loki.container" (
         lokiTestSystem.config.environment.etc."containers/systemd/loki.container".text
       );
@@ -135,14 +136,14 @@
         grafana-quadlet = pkgs.runCommand "grafana-quadlet-check" { } ''
           grep --fixed-strings -- "Image=docker.io/grafana/grafana@sha256:2abd2114bb65e4d6f0614206b7c882c1e7c6a992827ba08396aa5afc23ca07f5" ${grafanaTestUnit}
           grep --fixed-strings -- "EnvironmentFile=/var/lib/grafana-admin.env" ${grafanaTestUnit}
-          grep --fixed-strings -- "Volume=/etc/grafana/dashboards:/etc/grafana/dashboards:ro" ${grafanaTestUnit}
+          grep --extended-regexp -- "^Volume=/nix/store/.+-grafana-dashboards:/etc/grafana/dashboards:ro$" ${grafanaTestUnit}
           grep --fixed-strings -- "PublishPort=127.0.0.1:3000:3000" ${grafanaTestUnit}
           grep --fixed-strings -- "uid: bec75ss62w2rkc" ${./modules/nixos/services/grafana/datasources.yaml}
           grep --fixed-strings -- "path: /etc/grafana/dashboards" ${grafanaTestProvider}
           grep --fixed-strings -- "foldersFromFilesStructure: true" ${grafanaTestProvider}
-          test -e ${
-            grafanaTestSystem.config.environment.etc."grafana/dashboards/Infrastructure/iris-host-health.json".source
-          }
+          test -d ${grafanaTestDashboardRoot}
+          test ! -L ${grafanaTestDashboardRoot}/Infrastructure/iris-host-health.json
+          grep --fixed-strings -- "{}" ${grafanaTestDashboardRoot}/Infrastructure/iris-host-health.json
           touch "$out"
         '';
 
