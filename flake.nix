@@ -95,11 +95,11 @@
         '';
 
         grafana-quadlet = pkgs.runCommand "grafana-quadlet-check" { } ''
-          grep --fixed-strings -- "Image=docker.io/grafana/grafana@sha256:2abd2114bb65e4d6f0614206b7c882c1e7c6a992827ba08396aa5afc23ca07f5" ${grafanaTestUnit}
-          grep --fixed-strings -- "EnvironmentFile=/var/lib/grafana/grafana.env" ${grafanaTestUnit}
-          grep --fixed-strings -- "PublishPort=127.0.0.1:3000:3000" ${grafanaTestUnit}
-          grep --fixed-strings -- "uid: bec75ss62w2rkc" ${./modules/nixos/services/grafana/datasources.yaml}
-          touch "$out"
+            grep --fixed-strings -- "Image=docker.io/grafana/grafana@sha256:2abd2114bb65e4d6f0614206b7c882c1e7c6a992827ba08396aa5afc23ca07f5" ${grafanaTestUnit}
+          grep --fixed-strings -- "EnvironmentFile=/var/lib/grafana-admin.env" ${grafanaTestUnit}
+            grep --fixed-strings -- "PublishPort=127.0.0.1:3000:3000" ${grafanaTestUnit}
+            grep --fixed-strings -- "uid: bec75ss62w2rkc" ${./modules/nixos/services/grafana/datasources.yaml}
+            touch "$out"
         '';
 
         loki-quadlet = pkgs.runCommand "loki-quadlet-check" { } ''
