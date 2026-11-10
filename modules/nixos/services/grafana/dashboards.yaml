@@ -3,7 +3,7 @@ providers:
   - name: homelab
     orgId: 1
     type: file
-    disableDeletion: true
+    disableDeletion: false
     editable: false
     allowUiUpdates: false
     updateIntervalSeconds: 30

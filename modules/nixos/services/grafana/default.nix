@@ -19,9 +19,13 @@ let
           '') cfg.dashboards
         )}
       '';
-  dashboardVolume = lib.optionalString (
-    dashboardDirectory != null
-  ) "Volume=${dashboardDirectory}:/etc/grafana/dashboards:ro\n";
+  dashboardVolume = lib.optionalString (dashboardDirectory != null) (
+    "Volume=/run/grafana-dashboards:/etc/grafana/dashboards:ro\n"
+  );
+  dashboardDependency = lib.optionalString (dashboardDirectory != null) ''
+    Requires=grafana-dashboards.service
+    After=grafana-dashboards.service
+  '';
 in
 {
   options.homelab.services.grafana = {
@@ -74,18 +78,28 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    systemd.services.grafana = lib.mkIf (dashboardDirectory != null) {
-      # Quadlet units need a drop-in so NixOS restarts the container when its
-      # immutable dashboard bundle changes.
-      overrideStrategy = "asDropin";
+    # Keep the mounted directory stable; Grafana polls it while this service
+    # refreshes the files from the immutable Nix bundle.
+    systemd.services.grafana-dashboards = lib.mkIf (dashboardDirectory != null) {
+      description = "Sync Grafana dashboards from the Nix store";
+      wantedBy = [ "multi-user.target" ];
+      before = [ "grafana.service" ];
       restartTriggers = [ dashboardDirectory ];
+      serviceConfig = {
+        Type = "oneshot";
+        RemainAfterExit = true;
+        RuntimeDirectory = "grafana-dashboards";
+        RuntimeDirectoryMode = "0755";
+        RuntimeDirectoryPreserve = "yes";
+        ExecStart = "${pkgs.rsync}/bin/rsync --archive --delete --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r ${dashboardDirectory}/ /run/grafana-dashboards/";
+      };
     };
 
     environment.etc = {
       "containers/systemd/grafana.container".text =
         builtins.replaceStrings
-          [ "@LISTEN_ADDRESS@" "@SERVER_DOMAIN@" "@ROOT_URL@" "@DASHBOARD_VOLUME@" ]
-          [ cfg.listenAddress cfg.domain cfg.rootUrl dashboardVolume ]
+          [ "@LISTEN_ADDRESS@" "@SERVER_DOMAIN@" "@ROOT_URL@" "@DASHBOARD_VOLUME@" "@DASHBOARD_DEPENDENCY@" ]
+          [ cfg.listenAddress cfg.domain cfg.rootUrl dashboardVolume dashboardDependency ]
           (builtins.readFile ./grafana.container);
 
       "grafana/provisioning/datasources/homelab.yaml".text =

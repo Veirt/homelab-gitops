@@ -3,6 +3,7 @@ Description=Grafana dashboards and data visualization
 Wants=network-online.target
 After=network-online.target
 RequiresMountsFor=/var/lib/grafana
+@DASHBOARD_DEPENDENCY@
 
 [Container]
 Image=docker.io/grafana/grafana@sha256:2abd2114bb65e4d6f0614206b7c882c1e7c6a992827ba08396aa5afc23ca07f5

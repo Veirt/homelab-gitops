@@ -96,7 +96,7 @@
           grafanaTestSystem.config.environment.etc."grafana/provisioning/dashboards/homelab.yaml".source
       );
       grafanaTestDashboardRoot = grafanaTestSystem.config.environment.etc."grafana/dashboards".source;
-      grafanaTestRestartUnit = grafanaTestSystem.config.systemd.units."grafana.service".unit;
+      grafanaTestSyncUnit = grafanaTestSystem.config.systemd.units."grafana-dashboards.service".unit;
       lokiTestUnit = pkgs.writeText "loki.container" (
         lokiTestSystem.config.environment.etc."containers/systemd/loki.container".text
       );
@@ -137,12 +137,20 @@
         grafana-quadlet = pkgs.runCommand "grafana-quadlet-check" { } ''
           grep --fixed-strings -- "Image=docker.io/grafana/grafana@sha256:2abd2114bb65e4d6f0614206b7c882c1e7c6a992827ba08396aa5afc23ca07f5" ${grafanaTestUnit}
           grep --fixed-strings -- "EnvironmentFile=/var/lib/grafana-admin.env" ${grafanaTestUnit}
-          grep --extended-regexp -- "^Volume=/nix/store/.+-grafana-dashboards:/etc/grafana/dashboards:ro$" ${grafanaTestUnit}
+          grep --fixed-strings -- "Volume=/run/grafana-dashboards:/etc/grafana/dashboards:ro" ${grafanaTestUnit}
+          grep --fixed-strings -- "Requires=grafana-dashboards.service" ${grafanaTestUnit}
+          grep --fixed-strings -- "After=grafana-dashboards.service" ${grafanaTestUnit}
           grep --fixed-strings -- "PublishPort=127.0.0.1:3000:3000" ${grafanaTestUnit}
           grep --fixed-strings -- "uid: bec75ss62w2rkc" ${./modules/nixos/services/grafana/datasources.yaml}
           grep --fixed-strings -- "path: /etc/grafana/dashboards" ${grafanaTestProvider}
           grep --fixed-strings -- "foldersFromFilesStructure: true" ${grafanaTestProvider}
-          trigger_file=$(sed --quiet --expression='s/^X-Restart-Triggers=//p' ${grafanaTestRestartUnit}/grafana.service)
+          grep --fixed-strings -- "disableDeletion: false" ${grafanaTestProvider}
+          grep --fixed-strings -- "RuntimeDirectory=grafana-dashboards" ${grafanaTestSyncUnit}/grafana-dashboards.service
+          grep --fixed-strings -- "RemainAfterExit=true" ${grafanaTestSyncUnit}/grafana-dashboards.service
+          grep --fixed-strings -- "RuntimeDirectoryPreserve=yes" ${grafanaTestSyncUnit}/grafana-dashboards.service
+          grep --fixed-strings -- "--delete --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r" ${grafanaTestSyncUnit}/grafana-dashboards.service
+          grep --fixed-strings -- "/run/grafana-dashboards/" ${grafanaTestSyncUnit}/grafana-dashboards.service
+          trigger_file=$(sed --quiet --expression='s/^X-Restart-Triggers=//p' ${grafanaTestSyncUnit}/grafana-dashboards.service)
           test -n "$trigger_file"
           grep --fixed-strings -- "${grafanaTestDashboardRoot}" "$trigger_file"
           test -d ${grafanaTestDashboardRoot}
