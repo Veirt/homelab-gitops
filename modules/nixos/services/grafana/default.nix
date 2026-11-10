@@ -15,7 +15,7 @@ let
         ${lib.concatStringsSep "\n" (
           lib.mapAttrsToList (relativePath: source: ''
             target="$out"/${lib.escapeShellArg relativePath}
-            install -D -m 0444 ${lib.escapeShellArg (toString source)} "$target"
+            install -D -m 0444 "${source}" "$target"
           '') cfg.dashboards
         )}
       '';
