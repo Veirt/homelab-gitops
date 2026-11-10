@@ -59,7 +59,29 @@
       victoriaMetricsTestSystem =
         mkServiceTestSystem self.nixosModules.victoriaMetrics "victoriaMetrics"
           { };
+      victoriaMetricsScrapeTestSystem =
+        mkServiceTestSystem self.nixosModules.victoriaMetrics "victoriaMetrics"
+          {
+            network = "monitoring.network";
+            scrapeConfigFile = pkgs.writeText "scrape.yml" "scrape_configs: []";
+          };
       vaultwardenTestSystem = mkServiceTestSystem self.nixosModules.vaultwarden "vaultwarden" { };
+      blackboxExporterTestSystem = nixpkgs.lib.nixosSystem {
+        inherit system;
+        modules = [
+          self.nixosModules.blackboxExporter
+          (
+            { ... }:
+            {
+              homelab.services.blackboxExporter = {
+                enable = true;
+                network = "monitoring.network";
+              };
+              system.stateVersion = "26.05";
+            }
+          )
+        ];
+      };
 
       grafanaTestUnit = pkgs.writeText "grafana.container" (
         grafanaTestSystem.config.environment.etc."containers/systemd/grafana.container".text
@@ -69,6 +91,12 @@
       );
       victoriaMetricsTestUnit = pkgs.writeText "victoria-metrics.container" (
         victoriaMetricsTestSystem.config.environment.etc."containers/systemd/victoria-metrics.container".text
+      );
+      victoriaMetricsScrapeTestUnit = pkgs.writeText "victoria-metrics-scrape.container" (
+        victoriaMetricsScrapeTestSystem.config.environment.etc."containers/systemd/victoria-metrics.container".text
+      );
+      blackboxExporterTestUnit = pkgs.writeText "blackbox-exporter.container" (
+        blackboxExporterTestSystem.config.environment.etc."containers/systemd/blackbox-exporter.container".text
       );
       vaultwardenTestUnit = pkgs.writeText "vaultwarden.container" (
         vaultwardenTestSystem.config.environment.etc."containers/systemd/vaultwarden.container".text
@@ -81,6 +109,7 @@
       nixosModules.grafana = ./modules/nixos/services/grafana;
       nixosModules.loki = ./modules/nixos/services/loki;
       nixosModules.victoriaMetrics = ./modules/nixos/services/victoria-metrics;
+      nixosModules.blackboxExporter = ./modules/nixos/services/blackbox-exporter;
       nixosModules.vaultwarden = ./modules/nixos/services/vaultwarden;
 
       checks.${system} = {
@@ -114,6 +143,23 @@
           grep --fixed-strings -- "Image=docker.io/victoriametrics/victoria-metrics@sha256:03d6215d8d860656880719f757beb8a43a3b9eeafccc080de7f304f4ab389ba3" ${victoriaMetricsTestUnit}
           grep --fixed-strings -- "Exec=-retentionPeriod=1y" ${victoriaMetricsTestUnit}
           grep --fixed-strings -- "PublishPort=127.0.0.1:8428:8428" ${victoriaMetricsTestUnit}
+          if grep --quiet --extended-regexp -- "^(Network=|Exec=-promscrape\.config=|Volume=/nix/store/.*promscrape\.yml:)" ${victoriaMetricsTestUnit}; then exit 1; fi
+          touch "$out"
+        '';
+
+        victoria-metrics-scrape-quadlet = pkgs.runCommand "victoria-metrics-scrape-quadlet-check" { } ''
+          grep --fixed-strings -- "Network=monitoring.network" ${victoriaMetricsScrapeTestUnit}
+          grep --fixed-strings -- "Exec=-promscrape.config=/etc/victoria-metrics/promscrape.yml" ${victoriaMetricsScrapeTestUnit}
+          grep --fixed-strings -- "/etc/victoria-metrics/promscrape.yml:ro" ${victoriaMetricsScrapeTestUnit}
+          touch "$out"
+        '';
+
+        blackbox-exporter-quadlet = pkgs.runCommand "blackbox-exporter-quadlet-check" { } ''
+          grep --fixed-strings -- "Image=ghcr.io/prometheus/blackbox-exporter@sha256:66eae352a79e6f677aeddd8c25a9bdb017586dc5fbd230f22329213d891f94bd" ${blackboxExporterTestUnit}
+          grep --fixed-strings -- "Network=monitoring.network" ${blackboxExporterTestUnit}
+          grep --fixed-strings -- "Exec=--web.listen-address=:9115" ${blackboxExporterTestUnit}
+          grep --extended-regexp -- "^Volume=/nix/store/.*/modules/nixos/services/blackbox-exporter/blackbox.yml:/etc/blackbox_exporter/blackbox.yml:ro$" ${blackboxExporterTestUnit}
+          if grep --quiet -- "PublishPort=" ${blackboxExporterTestUnit}; then exit 1; fi
           touch "$out"
         '';
 

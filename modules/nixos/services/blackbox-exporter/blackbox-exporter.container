@@ -1,0 +1,21 @@
+[Unit]
+Description=Prometheus Blackbox Exporter
+Wants=network-online.target
+After=network-online.target
+
+[Container]
+Image=ghcr.io/prometheus/blackbox-exporter@sha256:66eae352a79e6f677aeddd8c25a9bdb017586dc5fbd230f22329213d891f94bd
+ContainerName=blackbox-exporter
+@NETWORK@
+Exec=--config.file=/etc/blackbox_exporter/blackbox.yml
+Exec=--web.listen-address=@LISTEN_ADDRESS@
+Volume=@CONFIG_FILE@:/etc/blackbox_exporter/blackbox.yml:ro
+LogDriver=journald
+
+[Service]
+Restart=on-failure
+RestartSec=5
+TimeoutStartSec=120
+
+[Install]
+WantedBy=multi-user.target
