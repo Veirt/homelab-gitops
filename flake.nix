@@ -138,7 +138,7 @@
           grep --fixed-strings -- "Image=docker.io/grafana/grafana@sha256:2abd2114bb65e4d6f0614206b7c882c1e7c6a992827ba08396aa5afc23ca07f5" ${grafanaTestUnit}
           grep --fixed-strings -- "EnvironmentFile=/var/lib/grafana-admin.env" ${grafanaTestUnit}
           grep --fixed-strings -- "Volume=/run/grafana-dashboards:/etc/grafana/dashboards:ro" ${grafanaTestUnit}
-          grep --fixed-strings -- "Requires=grafana-dashboards.service" ${grafanaTestUnit}
+          grep --fixed-strings -- "Wants=grafana-dashboards.service" ${grafanaTestUnit}
           grep --fixed-strings -- "After=grafana-dashboards.service" ${grafanaTestUnit}
           grep --fixed-strings -- "PublishPort=127.0.0.1:3000:3000" ${grafanaTestUnit}
           grep --fixed-strings -- "uid: bec75ss62w2rkc" ${./modules/nixos/services/grafana/datasources.yaml}

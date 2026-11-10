@@ -23,7 +23,7 @@ let
     "Volume=/run/grafana-dashboards:/etc/grafana/dashboards:ro\n"
   );
   dashboardDependency = lib.optionalString (dashboardDirectory != null) ''
-    Requires=grafana-dashboards.service
+    Wants=grafana-dashboards.service
     After=grafana-dashboards.service
   '';
 in
