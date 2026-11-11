@@ -4,7 +4,7 @@ Wants=network-online.target
 After=network-online.target
 
 [Container]
-Image=ghcr.io/prometheus/blackbox-exporter@sha256:66eae352a79e6f677aeddd8c25a9bdb017586dc5fbd230f22329213d891f94bd
+Image=ghcr.io/prometheus/blackbox-exporter:v0.29.1
 ContainerName=blackbox-exporter
 @NETWORK@
 @IP_ADDRESS@

@@ -69,6 +69,16 @@
             scrapeConfigFile = pkgs.writeText "scrape.yml" "scrape_configs: []";
           };
       vaultwardenTestSystem = mkServiceTestSystem self.nixosModules.vaultwarden "vaultwarden" { };
+      deeptutorTestSystem = mkServiceTestSystem self.nixosModules.deeptutor "deeptutor" { };
+      publicServicesTestSystem = nixpkgs.lib.nixosSystem {
+        inherit system;
+        modules = [
+          self.nixosModules.services
+          {
+            system.stateVersion = "26.05";
+          }
+        ];
+      };
       blackboxExporterTestSystem = nixpkgs.lib.nixosSystem {
         inherit system;
         modules = [
@@ -112,6 +122,18 @@
       vaultwardenTestUnit = pkgs.writeText "vaultwarden.container" (
         vaultwardenTestSystem.config.environment.etc."containers/systemd/vaultwarden.container".text
       );
+      deeptutorTestUnit = pkgs.writeText "deeptutor.container" (
+        deeptutorTestSystem.config.environment.etc."containers/systemd/deeptutor.container".text
+      );
+      publicDeeptutorUnit = pkgs.writeText "public-deeptutor.container" (
+        publicServicesTestSystem.config.environment.etc."containers/systemd/deeptutor.container".text
+      );
+      publicPersistencePaths = pkgs.writeText "public-persistence-paths" (
+        builtins.concatStringsSep "\n" publicServicesTestSystem.config.homelab.persistence.paths
+      );
+      publicTmpfilesRules = pkgs.writeText "public-tmpfiles-rules" (
+        builtins.concatStringsSep "\n" publicServicesTestSystem.config.systemd.tmpfiles.rules
+      );
     in
     {
       formatter.${system} = pkgs.nixfmt-tree;
@@ -122,10 +144,12 @@
       nixosModules.victoriaMetrics = ./modules/nixos/services/victoria-metrics;
       nixosModules.blackboxExporter = ./modules/nixos/services/blackbox-exporter;
       nixosModules.vaultwarden = ./modules/nixos/services/vaultwarden;
+      nixosModules.deeptutor = ./modules/nixos/services/deeptutor;
+      nixosModules.services = ./modules/nixos/services;
 
       checks.${system} = {
         searxng-quadlet = pkgs.runCommand "searxng-quadlet-check" { } ''
-          grep --fixed-strings -- "Image=ghcr.io/searxng/searxng@sha256:77b6ec55d5176fc47cfe91df5e182393133305358741d0c80ebbeec75ac39f99" ${searxngTestUnit}
+          grep --fixed-strings -- "Image=ghcr.io/searxng/searxng:2026.11.11-248b8ffc0" ${searxngTestUnit}
           grep --fixed-strings -- "EnvironmentFile=/var/lib/searxng/searxng.env" ${searxngTestUnit}
           grep --fixed-strings -- "PublishPort=127.0.0.1:18888:8080" ${searxngTestUnit}
           grep --fixed-strings -- "Volume=/etc/searxng/settings.yml:/etc/searxng/settings.yml:ro" ${searxngTestUnit}
@@ -135,7 +159,7 @@
         '';
 
         grafana-quadlet = pkgs.runCommand "grafana-quadlet-check" { } ''
-          grep --fixed-strings -- "Image=docker.io/grafana/grafana@sha256:2abd2114bb65e4d6f0614206b7c882c1e7c6a992827ba08396aa5afc23ca07f5" ${grafanaTestUnit}
+          grep --fixed-strings -- "Image=docker.io/grafana/grafana:13.0.11" ${grafanaTestUnit}
           grep --fixed-strings -- "EnvironmentFile=/var/lib/grafana-admin.env" ${grafanaTestUnit}
           grep --fixed-strings -- "Volume=/run/grafana-dashboards:/etc/grafana/dashboards:ro" ${grafanaTestUnit}
           grep --fixed-strings -- "Wants=grafana-dashboards.service" ${grafanaTestUnit}
@@ -160,7 +184,7 @@
         '';
 
         loki-quadlet = pkgs.runCommand "loki-quadlet-check" { } ''
-          grep --fixed-strings -- "Image=docker.io/grafana/loki@sha256:1107dd5274e0ada47e42472b7a7e71f3b2a2fe878878108f3e2f9e51528f0193" ${lokiTestUnit}
+          grep --fixed-strings -- "Image=docker.io/grafana/loki:3.7.8" ${lokiTestUnit}
           grep --fixed-strings -- "PublishPort=127.0.0.1:3100:3100" ${lokiTestUnit}
           grep --fixed-strings -- "retention_period: 336h" ${./modules/nixos/services/loki/config.yaml}
           grep --fixed-strings -- "retention_enabled: true" ${./modules/nixos/services/loki/config.yaml}
@@ -168,7 +192,7 @@
         '';
 
         victoria-metrics-quadlet = pkgs.runCommand "victoria-metrics-quadlet-check" { } ''
-          grep --fixed-strings -- "Image=docker.io/victoriametrics/victoria-metrics@sha256:03d6215d8d860656880719f757beb8a43a3b9eeafccc080de7f304f4ab389ba3" ${victoriaMetricsTestUnit}
+          grep --fixed-strings -- "Image=docker.io/victoriametrics/victoria-metrics:v1.154.0" ${victoriaMetricsTestUnit}
           grep --fixed-strings -- "Exec=-storageDataPath=/victoria-metrics-data -retentionPeriod=1y" ${victoriaMetricsTestUnit}
           grep --fixed-strings -- "PublishPort=127.0.0.1:8428:8428" ${victoriaMetricsTestUnit}
           if grep --quiet --extended-regexp -- "^(Network=|Exec=.*-promscrape\.config=|Volume=/nix/store/.*promscrape\.yml:)" ${victoriaMetricsTestUnit}; then exit 1; fi
@@ -183,7 +207,7 @@
         '';
 
         blackbox-exporter-quadlet = pkgs.runCommand "blackbox-exporter-quadlet-check" { } ''
-          grep --fixed-strings -- "Image=ghcr.io/prometheus/blackbox-exporter@sha256:66eae352a79e6f677aeddd8c25a9bdb017586dc5fbd230f22329213d891f94bd" ${blackboxExporterTestUnit}
+          grep --fixed-strings -- "Image=ghcr.io/prometheus/blackbox-exporter:v0.29.1" ${blackboxExporterTestUnit}
           grep --fixed-strings -- "Network=monitoring.network" ${blackboxExporterTestUnit}
           grep --fixed-strings -- "IP=10.89.0.10" ${blackboxExporterTestUnit}
           grep --fixed-strings -- "DNS=192.168.1.100" ${blackboxExporterTestUnit}
@@ -194,9 +218,28 @@
         '';
 
         vaultwarden-quadlet = pkgs.runCommand "vaultwarden-quadlet-check" { } ''
-          grep --fixed-strings -- "Image=docker.io/vaultwarden/server@sha256:19ea2b669945d842dadc3d500f2d6a795866a003330f59a47b9634658bae98bb" ${vaultwardenTestUnit}
+          grep --fixed-strings -- "Image=docker.io/vaultwarden/server:1.37.4" ${vaultwardenTestUnit}
           grep --fixed-strings -- "Volume=/var/lib/vaultwarden:/data" ${vaultwardenTestUnit}
           grep --fixed-strings -- "PublishPort=127.0.0.1:8222:80" ${vaultwardenTestUnit}
+          touch "$out"
+        '';
+
+        deeptutor-quadlet = pkgs.runCommand "deeptutor-quadlet-check" { } ''
+          grep --fixed-strings -- "Image=ghcr.io/hkuds/deeptutor:1.7.2" ${deeptutorTestUnit}
+          grep --fixed-strings -- "PublishPort=127.0.0.1:3782:3782" ${deeptutorTestUnit}
+          grep --fixed-strings -- "Volume=/var/lib/deeptutor/data:/app/data" ${deeptutorTestUnit}
+          grep --fixed-strings -- "Volume=/var/lib/deeptutor/data/user/workspace:/workspace" ${deeptutorTestUnit}
+          grep --fixed-strings -- "HealthCmd=curl -fsS http://localhost:8001/health/ready" ${deeptutorTestUnit}
+          if grep --quiet -- "PublishPort=.*8001" ${deeptutorTestUnit}; then exit 1; fi
+          touch "$out"
+        '';
+
+        services-profile = pkgs.runCommand "services-profile-check" { } ''
+          grep --fixed-strings -- "Image=ghcr.io/hkuds/deeptutor:1.7.2" ${publicDeeptutorUnit}
+          grep --fixed-strings -- "PublishPort=127.0.0.1:3782:3782" ${publicDeeptutorUnit}
+          grep --fixed-strings -- "ConditionPathExists=/var/lib/deeptutor/data/user/settings/system.json" ${./modules/nixos/services/default.nix}
+          grep --fixed-strings -- "/var/lib/deeptutor" ${publicPersistencePaths}
+          grep --fixed-strings -- "d /var/lib/deeptutor 0700 root root -" ${publicTmpfilesRules}
           touch "$out"
         '';
       };

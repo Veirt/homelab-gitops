@@ -5,7 +5,7 @@ After=network-online.target
 RequiresMountsFor=/var/lib/victoria-metrics
 
 [Container]
-Image=docker.io/victoriametrics/victoria-metrics@sha256:03d6215d8d860656880719f757beb8a43a3b9eeafccc080de7f304f4ab389ba3
+Image=docker.io/victoriametrics/victoria-metrics:v1.154.0
 ContainerName=victoria-metrics
 @NETWORK@
 Exec=@EXEC_ARGS@

@@ -5,7 +5,7 @@ After=network-online.target
 RequiresMountsFor=/var/lib/searxng
 
 [Container]
-Image=ghcr.io/searxng/searxng@sha256:287af61f1a13e86d02974fcde91a3413a9945788de38b61ffbc491d81a19bcc2
+Image=ghcr.io/searxng/searxng:2026.11.11-248b8ffc0
 ContainerName=searxng
 EnvironmentFile=/var/lib/searxng/searxng.env
 Environment=PYTHONPATH=/etc/searxng
