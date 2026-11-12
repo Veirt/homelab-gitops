@@ -14,6 +14,7 @@ Volume=@CONFIG_FILE@:/etc/blackbox_exporter/blackbox.yml:ro
 LogDriver=journald
 
 [Service]
+Slice=apps.slice
 Restart=on-failure
 RestartSec=5
 TimeoutStartSec=120

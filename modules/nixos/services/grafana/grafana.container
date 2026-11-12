@@ -21,6 +21,7 @@ PublishPort=@LISTEN_ADDRESS@:3000:3000
 LogDriver=journald
 
 [Service]
+Slice=apps.slice
 Restart=on-failure
 RestartSec=5
 TimeoutStartSec=120
