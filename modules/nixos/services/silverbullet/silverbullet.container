@@ -1,0 +1,25 @@
+[Unit]
+Description=SilverBullet personal knowledge management
+Wants=network-online.target
+After=network-online.target
+RequiresMountsFor=/var/lib/silverbullet
+
+[Container]
+Image=ghcr.io/silverbulletmd/silverbullet:2.12.1-slim
+ContainerName=silverbullet
+Environment=PUID=1001
+Environment=PGID=1001
+Environment=SB_RUNTIME_API=0
+Volume=/var/lib/silverbullet:/data
+PublishPort=@LISTEN_ADDRESS@:3001:3000
+Pull=newer
+LogDriver=journald
+
+[Service]
+Slice=apps.slice
+Restart=on-failure
+RestartSec=5
+TimeoutStartSec=120
+
+[Install]
+WantedBy=multi-user.target

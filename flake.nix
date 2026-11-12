@@ -70,6 +70,7 @@
             scrapeConfigFile = pkgs.writeText "scrape.yml" "scrape_configs: []";
           };
       vaultwardenTestSystem = mkServiceTestSystem self.nixosModules.vaultwarden "vaultwarden" { };
+      silverbulletTestSystem = mkServiceTestSystem self.nixosModules.silverbullet "silverbullet" { };
       deeptutorTestSystem = mkServiceTestSystem self.nixosModules.deeptutor "deeptutor" { };
       publicServicesTestSystem = nixpkgs.lib.nixosSystem {
         inherit system;
@@ -126,6 +127,9 @@
       vaultwardenTestUnit = pkgs.writeText "vaultwarden.container" (
         vaultwardenTestSystem.config.environment.etc."containers/systemd/vaultwarden.container".text
       );
+      silverbulletTestUnit = pkgs.writeText "silverbullet.container" (
+        silverbulletTestSystem.config.environment.etc."containers/systemd/silverbullet.container".text
+      );
       deeptutorTestUnit = pkgs.writeText "deeptutor.container" (
         deeptutorTestSystem.config.environment.etc."containers/systemd/deeptutor.container".text
       );
@@ -152,6 +156,7 @@
       nixosModules.victoriaMetrics = ./modules/nixos/services/victoria-metrics;
       nixosModules.blackboxExporter = ./modules/nixos/services/blackbox-exporter;
       nixosModules.vaultwarden = ./modules/nixos/services/vaultwarden;
+      nixosModules.silverbullet = ./modules/nixos/services/silverbullet;
       nixosModules.deeptutor = ./modules/nixos/services/deeptutor;
       nixosModules.services = ./modules/nixos/services;
 
@@ -243,6 +248,17 @@
           grep --fixed-strings -- "Slice=apps.slice" ${vaultwardenTestUnit}
           grep --fixed-strings -- "Volume=/var/lib/vaultwarden:/data" ${vaultwardenTestUnit}
           grep --fixed-strings -- "PublishPort=127.0.0.1:8222:80" ${vaultwardenTestUnit}
+          touch "$out"
+        '';
+
+        silverbullet-quadlet = pkgs.runCommand "silverbullet-quadlet-check" { } ''
+          grep --fixed-strings -- "Image=ghcr.io/silverbulletmd/silverbullet:2.12.1-slim" ${silverbulletTestUnit}
+          grep --fixed-strings -- "Slice=apps.slice" ${silverbulletTestUnit}
+          grep --fixed-strings -- "Environment=PUID=1001" ${silverbulletTestUnit}
+          grep --fixed-strings -- "Environment=PGID=1001" ${silverbulletTestUnit}
+          grep --fixed-strings -- "Environment=SB_RUNTIME_API=0" ${silverbulletTestUnit}
+          grep --fixed-strings -- "Volume=/var/lib/silverbullet:/data" ${silverbulletTestUnit}
+          grep --fixed-strings -- "PublishPort=127.0.0.1:3001:3000" ${silverbulletTestUnit}
           touch "$out"
         '';
 

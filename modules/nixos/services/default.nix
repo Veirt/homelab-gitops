@@ -7,6 +7,7 @@
     ./loki
     ./memos
     ./searxng
+    ./silverbullet
     ./vaultwarden
     ./victoria-metrics
   ];
