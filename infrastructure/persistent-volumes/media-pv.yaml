@@ -10,8 +10,8 @@ spec:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
   nfs:
-    path: /mnt/storage
-    server: rhea
+    path: /storage
+    server: 192.168.1.6
   mountOptions:
     - vers=4.2
     - noatime
