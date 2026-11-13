@@ -18,3 +18,7 @@ spec:
     - nodiratime
     - hard
     - tcp
+    - rsize=524288
+    - wsize=524288
+    - actimeo=60
+    - lookupcache=positive
