@@ -5,7 +5,7 @@ After=network-online.target
 RequiresMountsFor=/var/lib/loki
 
 [Container]
-Image=docker.io/grafana/loki:3.7.8
+Image=docker.io/grafana/loki:3.7.10
 ContainerName=loki
 Exec=-config.file=/etc/loki/config.yaml
 Volume=/var/lib/loki:/loki
