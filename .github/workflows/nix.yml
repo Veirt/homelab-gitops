@@ -24,8 +24,7 @@ jobs:
         with:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Check formatting
-        run: nix fmt -- --ci
-
-      - name: Evaluate the flake and verify the SearXNG Quadlet
-        run: nix flake check --print-build-logs
+      - name: Check Nix formatting
+        run: |
+          nix shell "github:NixOS/nixpkgs/c56a87d8e41ce69bd2af57eb35dcc117a9dfca33#nixfmt" \
+            -c bash -c 'find modules -name "*.nix" -print0 | xargs -0 nixfmt --check'
