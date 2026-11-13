@@ -12,7 +12,7 @@ spec:
       labels:
         app: alloy
       annotations:
-        checksum/config: 9a355dae5dca20b8d7c931e41f80eee07f1916166d96d919fdf1363e6a4c74d3
+        checksum/config: 8f02d4535074535d2aa0d718bc4837d1e7292e1bd06fe0ccccc4d8347172f692
     spec:
       serviceAccountName: alloy
       hostPID: true
@@ -21,6 +21,11 @@ spec:
       containers:
         - name: alloy
           image: grafana/alloy:v1.22.0
+          env:
+            - name: NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
           args:
             - run
             - --server.http.listen-addr=0.0.0.0:12345
