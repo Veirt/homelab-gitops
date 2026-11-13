@@ -67,11 +67,6 @@ will be happy to do so.
         <td>Document management system for organizing and searching PDFs.</td>
     </tr>
     <tr>
-        <td><img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/svg/memos.svg" width="32" /></td>
-        <td>Memos</td>
-        <td>Lightweight note-taking app.</td>
-    </tr>
-    <tr>
         <td><img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/searxng.png" width="32" /></td>
         <td>Searxng</td>
         <td>Privacy-focused metasearch engine.</td>

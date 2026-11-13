@@ -59,7 +59,6 @@
         dashboards."Infrastructure/iris-host-health.json" = grafanaTestDashboard;
       };
       lokiTestSystem = mkServiceTestSystem self.nixosModules.loki "loki" { };
-      memosTestSystem = mkServiceTestSystem self.nixosModules.memos "memos" { };
       victoriaMetricsTestSystem =
         mkServiceTestSystem self.nixosModules.victoriaMetrics "victoriaMetrics"
           { };
@@ -112,9 +111,6 @@
       lokiTestUnit = pkgs.writeText "loki.container" (
         lokiTestSystem.config.environment.etc."containers/systemd/loki.container".text
       );
-      memosTestUnit = pkgs.writeText "memos.container" (
-        memosTestSystem.config.environment.etc."containers/systemd/memos.container".text
-      );
       victoriaMetricsTestUnit = pkgs.writeText "victoria-metrics.container" (
         victoriaMetricsTestSystem.config.environment.etc."containers/systemd/victoria-metrics.container".text
       );
@@ -136,9 +132,6 @@
       publicDeeptutorUnit = pkgs.writeText "public-deeptutor.container" (
         publicServicesTestSystem.config.environment.etc."containers/systemd/deeptutor.container".text
       );
-      publicMemosUnit = pkgs.writeText "public-memos.container" (
-        publicServicesTestSystem.config.environment.etc."containers/systemd/memos.container".text
-      );
       publicPersistencePaths = pkgs.writeText "public-persistence-paths" (
         builtins.concatStringsSep "\n" publicServicesTestSystem.config.homelab.persistence.paths
       );
@@ -152,7 +145,6 @@
       nixosModules.searxng = ./modules/nixos/services/searxng;
       nixosModules.grafana = ./modules/nixos/services/grafana;
       nixosModules.loki = ./modules/nixos/services/loki;
-      nixosModules.memos = ./modules/nixos/services/memos;
       nixosModules.victoriaMetrics = ./modules/nixos/services/victoria-metrics;
       nixosModules.blackboxExporter = ./modules/nixos/services/blackbox-exporter;
       nixosModules.vaultwarden = ./modules/nixos/services/vaultwarden;
@@ -204,14 +196,6 @@
           grep --fixed-strings -- "PublishPort=127.0.0.1:3100:3100" ${lokiTestUnit}
           grep --fixed-strings -- "retention_period: 336h" ${./modules/nixos/services/loki/config.yaml}
           grep --fixed-strings -- "retention_enabled: true" ${./modules/nixos/services/loki/config.yaml}
-          touch "$out"
-        '';
-
-        memos-quadlet = pkgs.runCommand "memos-quadlet-check" { } ''
-          grep --fixed-strings -- "Image=docker.io/neosmemo/memos:0.31.0" ${memosTestUnit}
-          grep --fixed-strings -- "Slice=apps.slice" ${memosTestUnit}
-          grep --fixed-strings -- "Volume=/var/lib/memos:/var/opt/memos" ${memosTestUnit}
-          grep --fixed-strings -- "PublishPort=127.0.0.1:15230:5230" ${memosTestUnit}
           touch "$out"
         '';
 
@@ -274,15 +258,11 @@
         '';
 
         services-profile = pkgs.runCommand "services-profile-check" { } ''
-          grep --fixed-strings -- "Image=docker.io/neosmemo/memos:0.31.0" ${publicMemosUnit}
-          grep --fixed-strings -- "PublishPort=127.0.0.1:15230:5230" ${publicMemosUnit}
           grep --fixed-strings -- "Image=ghcr.io/hkuds/deeptutor:1.7.2" ${publicDeeptutorUnit}
           grep --fixed-strings -- "PublishPort=127.0.0.1:3782:3782" ${publicDeeptutorUnit}
           grep --fixed-strings -- "ConditionPathExists=/var/lib/deeptutor/data/user/settings/system.json" ${./modules/nixos/services/default.nix}
           grep --fixed-strings -- "/var/lib/deeptutor" ${publicPersistencePaths}
-          grep --fixed-strings -- "/var/lib/memos" ${publicPersistencePaths}
           grep --fixed-strings -- "d /var/lib/deeptutor 0700 root root -" ${publicTmpfilesRules}
-          grep --fixed-strings -- "d /var/lib/memos 0750 10001 10001 -" ${publicTmpfilesRules}
           touch "$out"
         '';
       };
