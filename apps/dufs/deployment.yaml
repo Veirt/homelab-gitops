@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: dufs
-          image: docker.io/sigoden/dufs:v0.46.0
+          image: docker.io/sigoden/dufs:v0.47.0
           args: ["/public"]
           ports:
             - containerPort: 5000
