@@ -5,7 +5,7 @@ After=network-online.target
 RequiresMountsFor=/var/lib/vaultwarden
 
 [Container]
-Image=docker.io/vaultwarden/server:1.37.4
+Image=docker.io/vaultwarden/server:1.37.5
 ContainerName=vaultwarden
 Environment=DOMAIN=@DOMAIN@
 Environment=ROCKET_PORT=80
