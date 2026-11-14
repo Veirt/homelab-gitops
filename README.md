@@ -143,7 +143,7 @@ will be happy to do so.
      <tr>
          <td><img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/svg/prometheus.svg" width="32" /></td>
          <td>Prometheus</td>
-         <td>Metrics collection and alerting toolkit.</td>
+        <td>Host-native NixOS metrics collection with remote write to VictoriaMetrics.</td>
      </tr>
      <tr>
          <td><img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/svg/loki.svg" width="32" /></td>
@@ -153,7 +153,7 @@ will be happy to do so.
      <tr>
          <td><img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/svg/alloy.svg" width="32" /></td>
          <td>Alloy</td>
-         <td>OpenTelemetry Collector for collecting logs, metrics, and traces.</td>
+        <td>Host-native NixOS telemetry agent shipping journald logs to Loki.</td>
      </tr>
      <tr>
          <td><img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/svg/victoriametrics.svg" width="32" /></td>
