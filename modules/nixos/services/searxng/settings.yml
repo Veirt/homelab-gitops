@@ -266,7 +266,8 @@ plugins:
     active: true
 
 serpapi:
-  # API keys are injected through the SERPAPI_API_KEY / SERPAPI_API_KEYS Kubernetes Secrets.
+  # API keys are provided through SERPAPI_API_KEY / SERPAPI_API_KEYS in the
+  # host-managed /var/lib/searxng/searxng.env file.
   backend: auto
   timeout: 10.0
 

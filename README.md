@@ -96,11 +96,6 @@ will be happy to do so.
         <td>Linkding</td>
         <td>Self-hosted bookmark manager that is designed to be minimal, fast, and easy to set up.</td>
     </tr>
-    <tr>
-        <td><img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/svg/gitlab.svg" width="32" /></td>
-        <td>GitLab</td>
-        <td>Self-hosted Git forge for repositories, issues, merge requests, and CI/CD, with local storage.</td>
-    </tr>
 </table>
 
  <h2>⚙️ Infrastructure</h2>
@@ -115,17 +110,6 @@ will be happy to do so.
          <td>AdGuard Home</td>
          <td>DNS-level ad and tracker blocker for your entire network.</td>
      </tr>
-     <tr>
-         <td><img src="https://cloudnative-pg.io/img/logo.svg" width="32" /></td>
-        <td>CloudNativePG</td>
-        <td>Cloud-native [PostgreSQL operator](https://github.com/cloudnative-pg/cloudnative-pg) for Kubernetes.</td>
-    </tr>
-    <tr>
-         <td><img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/svg/gitlab.svg" width="32" /></td>
-        <td>GitLab Runner</td>
-        <td>Kubernetes executor for running GitLab CI jobs.</td>
-    </tr>
-
  </table>
  
  <h2>📊 Monitoring</h2>
@@ -148,7 +132,7 @@ will be happy to do so.
      <tr>
          <td><img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/svg/loki.svg" width="32" /></td>
          <td>Loki</td>
-         <td>Log aggregation system optimized for Kubernetes.</td>
+         <td>Log aggregation for journald logs shipped by Alloy.</td>
      </tr>
      <tr>
          <td><img src="https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/svg/alloy.svg" width="32" /></td>

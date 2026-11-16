@@ -9,5 +9,3 @@ this repository or the Nix store.
 
 Host-specific firewall rules, state directory permissions, backup paths, reverse
 proxy and DNS records remain in the private host and infrastructure repositories.
-The Kubernetes manifests in `apps/searxng` are retained until the Iris cutover's
-backup and runtime checks are complete.

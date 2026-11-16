@@ -37,6 +37,8 @@ I like learning tools by actually using them, and this homelab gives me a good p
 
 Flux is a big part of that. I like the idea of keeping the desired state in Git and letting the cluster reconcile itself toward that state. It is not magically simpler than Docker Compose, but it is a very good way to learn how these tools work in practice.
 
+Update: the k3s cluster has since been retired. The apps now run as NixOS services with Podman Quadlets — still defined in Git, but deployed by building NixOS configurations for each host instead of reconciling a cluster.
+
 ## Still changing
 
 This setup is still changing as I learn. Some parts are stable, some are still experimental, and some things are only there because I wanted to try them out. That is part of the fun.
