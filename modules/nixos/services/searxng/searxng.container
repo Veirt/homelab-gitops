@@ -6,6 +6,7 @@ RequiresMountsFor=/var/lib/searxng
 
 [Container]
 Image=ghcr.io/searxng/searxng:2026.11.11-248b8ffc0
+User=1000:1000
 ContainerName=searxng
 EnvironmentFile=/var/lib/searxng/searxng.env
 Environment=PYTHONPATH=/etc/searxng

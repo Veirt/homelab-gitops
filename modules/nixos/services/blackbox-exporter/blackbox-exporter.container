@@ -5,6 +5,7 @@ After=network-online.target
 
 [Container]
 Image=ghcr.io/prometheus/blackbox-exporter:v0.29.1
+User=1000:1000
 ContainerName=blackbox-exporter
 @NETWORK@
 @IP_ADDRESS@

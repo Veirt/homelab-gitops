@@ -7,13 +7,14 @@ RequiresMountsFor=/var/lib/grafana
 
 [Container]
 Image=docker.io/grafana/grafana:13.3.1
+User=1000:1000
 ContainerName=grafana
 Environment=GF_PATHS_PROVISIONING=/etc/grafana/provisioning
 Environment=GF_SERVER_DOMAIN=@SERVER_DOMAIN@
 Environment=GF_SERVER_ROOT_URL=@ROOT_URL@
 Environment=GF_AUTH_ANONYMOUS_ENABLED=false
 EnvironmentFile=/var/lib/grafana-admin.env
-Volume=/var/lib/grafana:/var/lib/grafana
+Volume=/var/lib/grafana:/var/lib/grafana:U
 Volume=/etc/grafana/provisioning/datasources/homelab.yaml:/etc/grafana/provisioning/datasources/homelab.yaml:ro
 Volume=/etc/grafana/provisioning/dashboards/homelab.yaml:/etc/grafana/provisioning/dashboards/homelab.yaml:ro
 @DASHBOARD_VOLUME@

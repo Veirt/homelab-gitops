@@ -6,10 +6,11 @@ RequiresMountsFor=/var/lib/vaultwarden
 
 [Container]
 Image=docker.io/vaultwarden/server:1.37.5
+User=1000:1000
 ContainerName=vaultwarden
 Environment=DOMAIN=@DOMAIN@
 Environment=ROCKET_PORT=80
-Volume=/var/lib/vaultwarden:/data
+Volume=/var/lib/vaultwarden:/data:U
 PublishPort=@LISTEN_ADDRESS@:8222:80
 LogDriver=journald
 

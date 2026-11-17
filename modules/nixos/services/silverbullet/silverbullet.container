@@ -6,11 +6,12 @@ RequiresMountsFor=/var/lib/silverbullet
 
 [Container]
 Image=ghcr.io/silverbulletmd/silverbullet:2.12.1-slim
+User=1000:1000
 ContainerName=silverbullet
 Environment=PUID=1001
 Environment=PGID=1001
 Environment=SB_RUNTIME_API=0
-Volume=/var/lib/silverbullet:/data
+Volume=/var/lib/silverbullet:/data:U
 PublishPort=@LISTEN_ADDRESS@:3001:3000
 Pull=newer
 LogDriver=journald
