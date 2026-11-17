@@ -38,6 +38,10 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    # Route the config through a stable /etc path; binding the flake input's
+    # store path breaks the next container recreate after nix gc removes it.
+    environment.etc."blackbox-exporter/blackbox.yml".source = cfg.configFile;
+
     environment.etc."containers/systemd/blackbox-exporter.container".text =
       builtins.replaceStrings
         [ "@LISTEN_ADDRESS@" "@NETWORK@" "@IP_ADDRESS@" "@DNS_SERVER@" "@CONFIG_FILE@" ]
@@ -46,7 +50,7 @@ in
           (lib.optionalString (cfg.network != null) "Network=${cfg.network}\n")
           (lib.optionalString (cfg.ipAddress != null) "IP=${cfg.ipAddress}\n")
           (lib.optionalString (cfg.dnsServer != null) "DNS=${cfg.dnsServer}\n")
-          (toString cfg.configFile)
+          "/etc/blackbox-exporter/blackbox.yml"
         ]
         (builtins.readFile ./blackbox-exporter.container);
   };
