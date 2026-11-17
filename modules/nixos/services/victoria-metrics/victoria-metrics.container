@@ -11,7 +11,7 @@ ContainerName=victoria-metrics
 @NETWORK@
 Exec=@EXEC_ARGS@
 @SCRAPE_CONFIG_VOLUME@
-Volume=/var/lib/victoria-metrics:/victoria-metrics-data:U
+Volume=/var/lib/victoria-metrics:/victoria-metrics-data
 PublishPort=@LISTEN_ADDRESS@:8428:8428
 LogDriver=journald
 

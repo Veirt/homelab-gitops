@@ -9,7 +9,7 @@ RequiresMountsFor=/var/lib/deeptutor/data
 Image=ghcr.io/hkuds/deeptutor:1.7.2
 User=1000:1000
 ContainerName=deeptutor
-Volume=/var/lib/deeptutor/data:/app/data:U
+Volume=/var/lib/deeptutor/data:/app/data
 Volume=/var/lib/deeptutor/data/user/workspace:/workspace
 Environment=TZ=UTC
 Environment=DEEPTUTOR_WORKSPACE_ROOT=/workspace

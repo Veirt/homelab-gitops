@@ -44,14 +44,16 @@
     ];
 
     systemd.tmpfiles.rules = [
-      "d /var/lib/deeptutor 0700 root root -"
-      "d /var/lib/grafana 0750 472 0 -"
+      "d /var/lib/deeptutor 0700 1000 1000 -"
+      "d /var/lib/deeptutor/data 0700 1000 1000 -"
+      "d /var/lib/grafana 0700 1000 1000 -"
       "f /var/lib/grafana-admin.env 0600 root root -"
-      "d /var/lib/loki 0700 10001 10001 -"
-      "d /var/lib/searxng 0700 root root -"
+      "d /var/lib/loki 0700 1000 1000 -"
+      "d /var/lib/searxng 0700 1000 1000 -"
       "z /var/lib/searxng/searxng.env 0600 root root -"
-      "d /var/lib/vaultwarden 0700 root root -"
-      "d /var/lib/victoria-metrics 0700 root root -"
+      "d /var/lib/silverbullet 0700 1000 1000 -"
+      "d /var/lib/vaultwarden 0700 1000 1000 -"
+      "d /var/lib/victoria-metrics 0700 1000 1000 -"
     ];
 
     environment.etc."containers/systemd/deeptutor.container.d/restore-data.conf".text = ''

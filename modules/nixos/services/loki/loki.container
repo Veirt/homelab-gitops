@@ -9,7 +9,7 @@ Image=docker.io/grafana/loki:3.7.10
 User=1000:1000
 ContainerName=loki
 Exec=-config.file=/etc/loki/config.yaml
-Volume=/var/lib/loki:/loki:U
+Volume=/var/lib/loki:/loki
 Volume=/etc/loki/config.yaml:/etc/loki/config.yaml:ro
 PublishPort=@LISTEN_ADDRESS@:3100:3100
 LogDriver=journald

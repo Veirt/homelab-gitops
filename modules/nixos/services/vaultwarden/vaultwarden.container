@@ -13,7 +13,7 @@ Environment=DOMAIN=@DOMAIN@
 # not lower ip_unprivileged_port_start for --user), so serve on an
 # unprivileged port and publish 8222 -> 8080.
 Environment=ROCKET_PORT=8080
-Volume=/var/lib/vaultwarden:/data:U
+Volume=/var/lib/vaultwarden:/data
 PublishPort=@LISTEN_ADDRESS@:8222:8080
 LogDriver=journald
 
