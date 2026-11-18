@@ -5,10 +5,17 @@
     ./deeptutor
     ./grafana
     ./loki
+    ./dufs
+    ./jellyfin
+    ./miniserve
+    ./ntfy
     ./searxng
     ./silverbullet
+    ./syncthing
     ./vaultwarden
     ./victoria-metrics
+    ./vesta
+    ./wakapi
   ];
 
   options.homelab.persistence.paths = lib.mkOption {

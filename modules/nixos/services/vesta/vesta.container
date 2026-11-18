@@ -1,0 +1,27 @@
+[Unit]
+Description=Vesta service dashboard
+Documentation=https://github.com/Veirt/vesta
+Wants=network-online.target
+After=network-online.target
+RequiresMountsFor=/var/lib/vesta
+
+[Container]
+Image=ghcr.io/veirt/vesta:2.1.1
+ContainerName=vesta
+User=1000:1000
+Volume=/var/lib/vesta:/data
+Environment=VESTA_COOKIE_SECURE=true
+Environment=VESTA_PLUGINS=/data/plugins
+Environment=TZ=@TIME_ZONE@
+PublishPort=@LISTEN_ADDRESS@:@PORT@:3000
+Pull=newer
+LogDriver=journald
+
+[Service]
+Slice=apps.slice
+Restart=on-failure
+RestartSec=10
+TimeoutStartSec=120
+
+[Install]
+WantedBy=multi-user.target

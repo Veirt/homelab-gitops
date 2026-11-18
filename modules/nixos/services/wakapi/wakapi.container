@@ -1,0 +1,23 @@
+[Unit]
+Description=Wakapi coding activity tracker
+Wants=network-online.target
+After=network-online.target
+RequiresMountsFor=/var/lib/wakapi
+
+[Container]
+Image=ghcr.io/muety/wakapi:2.18.2
+User=1000:1000
+ContainerName=wakapi
+Volume=/var/lib/wakapi:/data
+PublishPort=@LISTEN_ADDRESS@:@PORT@:3000
+Pull=newer
+LogDriver=journald
+
+[Service]
+Slice=apps.slice
+Restart=on-failure
+RestartSec=5
+TimeoutStartSec=120
+
+[Install]
+WantedBy=multi-user.target
