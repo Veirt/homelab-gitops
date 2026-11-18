@@ -58,7 +58,6 @@
       "d /var/lib/loki 0700 1000 1000 -"
       "d /var/lib/searxng 0700 1000 1000 -"
       "z /var/lib/searxng/searxng.env 0600 root root -"
-      "d /var/lib/silverbullet 0700 1000 1000 -"
       "d /var/lib/vaultwarden 0700 1000 1000 -"
       "d /var/lib/victoria-metrics 0700 1000 1000 -"
     ];

@@ -8,8 +8,8 @@ RequiresMountsFor=/var/lib/silverbullet
 Image=ghcr.io/silverbulletmd/silverbullet:2.12.1-slim
 User=1000:1000
 ContainerName=silverbullet
-Environment=PUID=1001
-Environment=PGID=1001
+Environment=PUID=1000
+Environment=PGID=1000
 Environment=SB_RUNTIME_API=0
 Volume=/var/lib/silverbullet:/data
 PublishPort=@LISTEN_ADDRESS@:3001:3000
