@@ -45,13 +45,13 @@ in
     user = lib.mkOption {
       type = lib.types.nullOr lib.types.str;
       default = null;
-      description = "Optional host service user override.";
+      description = "Optional NixOS Jellyfin service user.";
     };
 
     group = lib.mkOption {
       type = lib.types.nullOr lib.types.str;
       default = null;
-      description = "Optional host service group override.";
+      description = "Optional NixOS Jellyfin service group.";
     };
   };
 
@@ -63,16 +63,16 @@ in
       cacheDir = cfg.cacheDir;
       logDir = cfg.logDir;
       openFirewall = false;
-    };
+    }
+    // lib.optionalAttrs (cfg.user != null) { user = cfg.user; }
+    // lib.optionalAttrs (cfg.group != null) { group = cfg.group; };
 
     systemd.services.jellyfin = {
       unitConfig.RequiresMountsFor = cfg.requiresMountsFor;
       serviceConfig = {
         Slice = "apps.slice";
         BindReadOnlyPaths = cfg.mediaMounts;
-      }
-      // lib.optionalAttrs (cfg.user != null) { User = lib.mkForce cfg.user; }
-      // lib.optionalAttrs (cfg.group != null) { Group = lib.mkForce cfg.group; };
+      };
     };
   };
 }
