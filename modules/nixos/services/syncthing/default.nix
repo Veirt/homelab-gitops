@@ -77,5 +77,9 @@ in
     ];
 
     systemd.services.syncthing.serviceConfig.Slice = "apps.slice";
+
+    # This includes Syncthing's identity/config and its local index. Folder
+    # contents outside dataDir remain the responsibility of their storage.
+    homelab.persistence.paths = [ cfg.dataDir ];
   };
 }

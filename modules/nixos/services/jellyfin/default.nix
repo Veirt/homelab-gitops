@@ -74,5 +74,12 @@ in
         BindReadOnlyPaths = cfg.mediaMounts;
       };
     };
+
+    # Preserve the library database, users, and service configuration. The
+    # separately configured cache directory is regenerable and is not included.
+    homelab.persistence.paths = lib.unique [
+      cfg.dataDir
+      cfg.configDir
+    ];
   };
 }

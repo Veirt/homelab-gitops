@@ -80,5 +80,7 @@ in
         AmbientCapabilities = "";
       };
     };
+
+    homelab.persistence.paths = [ "/var/lib/miniserve" ];
   };
 }
