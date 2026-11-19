@@ -6,7 +6,7 @@ After=network-online.target
 RequiresMountsFor=/var/lib/vesta
 
 [Container]
-Image=ghcr.io/veirt/vesta:2.1.1
+Image=ghcr.io/veirt/vesta:latest
 ContainerName=vesta
 User=1000:1000
 Volume=/var/lib/vesta:/data
