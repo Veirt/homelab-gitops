@@ -38,11 +38,6 @@ in
       home = "/var/lib/miniserve";
     };
 
-    systemd.tmpfiles.rules = [
-      "d /var/lib/miniserve 0700 miniserve miniserve -"
-      "d ${cfg.shareDirectory} 0700 miniserve miniserve -"
-    ];
-
     systemd.services.miniserve = {
       description = "Loopback-only read-only Miniserve";
       wantedBy = [ "multi-user.target" ];

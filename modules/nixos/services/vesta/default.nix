@@ -26,8 +26,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    systemd.tmpfiles.rules = [ "d /var/lib/vesta 0700 1000 1000 -" ];
-
     environment.etc."containers/systemd/vesta.container".text =
       builtins.replaceStrings
         [ "@LISTEN_ADDRESS@" "@PORT@" "@TIME_ZONE@" ]

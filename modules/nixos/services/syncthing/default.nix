@@ -70,12 +70,6 @@ in
         ;
     };
 
-    systemd.tmpfiles.rules = [
-      "d ${cfg.dataDir} 0700 ${cfg.user} ${cfg.group} -"
-      "d ${builtins.dirOf cfg.configDir} 0700 ${cfg.user} ${cfg.group} -"
-      "d ${cfg.configDir} 0700 ${cfg.user} ${cfg.group} -"
-    ];
-
     systemd.services.syncthing.serviceConfig.Slice = "apps.slice";
 
     # This includes Syncthing's identity/config and its local index. Folder

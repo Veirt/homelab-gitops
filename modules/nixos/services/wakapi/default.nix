@@ -20,8 +20,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    systemd.tmpfiles.rules = [ "d /var/lib/wakapi 0700 1000 1000 -" ];
-
     environment.etc."containers/systemd/wakapi.container".text =
       builtins.replaceStrings [ "@LISTEN_ADDRESS@" "@PORT@" ] [ cfg.listenAddress (toString cfg.port) ]
         (builtins.readFile ./wakapi.container);

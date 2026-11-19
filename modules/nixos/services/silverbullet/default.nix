@@ -18,8 +18,6 @@ in
       builtins.replaceStrings [ "@LISTEN_ADDRESS@" ] [ cfg.listenAddress ]
         (builtins.readFile ./silverbullet.container);
 
-    systemd.tmpfiles.rules = [ "d /var/lib/silverbullet 0700 1000 1000 -" ];
-
     homelab.persistence.paths = [ "/var/lib/silverbullet" ];
   };
 }

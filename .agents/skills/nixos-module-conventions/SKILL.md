@@ -18,7 +18,7 @@ This repo ships service definitions that the private flake consumes as a plain s
 
 - The service definition, its Quadlet, and its static config files.
 - Public app selection in the aggregator: `homelab.services.<name>.enable = true`.
-- The ports the app listens on, the `systemd.tmpfiles.rules` it needs, and its `homelab.persistence.paths` entries.
+- The ports the app listens on and its `homelab.persistence.paths` entries. Let the app/systemd manage state directories; don't guess ownership with tmpfiles rules.
 
 ## What does not
 
