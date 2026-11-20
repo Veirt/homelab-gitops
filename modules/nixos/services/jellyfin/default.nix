@@ -36,6 +36,16 @@ in
       description = "Read-only bind mounts made available to Jellyfin.";
     };
 
+    mediaReadOnly = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = ''
+        Whether the mediaMounts are bind-mounted read-only
+        (BindReadOnlyPaths) or read-write (BindPaths). Read-write lets
+        Jellyfin rename, delete, and write metadata inside the media tree.
+      '';
+    };
+
     requiresMountsFor = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       default = [ ];
@@ -71,7 +81,8 @@ in
       unitConfig.RequiresMountsFor = cfg.requiresMountsFor;
       serviceConfig = {
         Slice = "apps.slice";
-        BindReadOnlyPaths = cfg.mediaMounts;
+        BindReadOnlyPaths = lib.mkIf cfg.mediaReadOnly cfg.mediaMounts;
+        BindPaths = lib.mkIf (!cfg.mediaReadOnly) cfg.mediaMounts;
       };
     };
 
