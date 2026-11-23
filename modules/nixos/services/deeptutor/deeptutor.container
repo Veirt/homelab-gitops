@@ -6,7 +6,7 @@ After=network-online.target
 RequiresMountsFor=/var/lib/deeptutor/data
 
 [Container]
-Image=ghcr.io/hkuds/deeptutor:1.7.2
+Image=ghcr.io/hkuds/deeptutor:1.7.4
 User=1000:1000
 ContainerName=deeptutor
 Volume=/var/lib/deeptutor/data:/app/data
