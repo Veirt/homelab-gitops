@@ -6,7 +6,7 @@ RequiresMountsFor=/var/lib/grafana
 @DASHBOARD_DEPENDENCY@
 
 [Container]
-Image=docker.io/grafana/grafana:13.3.1
+Image=docker.io/grafana/grafana:13.3.2
 User=1000:1000
 ContainerName=grafana
 Environment=GF_PATHS_PROVISIONING=/etc/grafana/provisioning
