@@ -5,7 +5,7 @@ After=network-online.target
 RequiresMountsFor=/var/lib/silverbullet
 
 [Container]
-Image=ghcr.io/silverbulletmd/silverbullet:2.12.1-slim
+Image=ghcr.io/silverbulletmd/silverbullet:3.0.1-slim
 User=1000:1000
 ContainerName=silverbullet
 Environment=PUID=1000
